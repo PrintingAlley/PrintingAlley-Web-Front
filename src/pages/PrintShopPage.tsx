@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Container } from '@mui/material';
 import axios from 'src/utils/axios';
-import { NewPrintShopForm } from 'src/sections/PrintShop/NewPrintShopForm';
 import { PrintShopDetails } from 'src/sections/PrintShop/PrintShopDetails';
 import { PrintShopList } from 'src/sections/PrintShop/PrintShopList';
 import { PrintShop, Tag } from 'src/types/print-shop';
 import { selectedTagsState } from 'src/store/atoms';
+import { NewPrintShopDialog } from 'src/sections/PrintShop/NewPrintShopDialog';
 
 const useTopLevelTags = () => {
   const [topLevelTags, setTopLevelTags] = useState<Tag[]>([]);
@@ -80,7 +80,7 @@ export default function PrintShopPage() {
           onClose={handleCloseModal}
         />
       )}
-      <NewPrintShopForm
+      <NewPrintShopDialog
         topLevelTags={topLevelTags}
         tagHierarchies={tagHierarchies}
         onAdd={fetchPrintShops}

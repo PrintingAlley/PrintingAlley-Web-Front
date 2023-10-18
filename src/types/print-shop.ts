@@ -1,3 +1,11 @@
+export interface Tag {
+  id: number;
+  name: string;
+  image: string | null;
+  parent_id: number | null;
+  children: Tag[];
+}
+
 export interface PrintShop {
   id: number;
   name: string;
@@ -16,10 +24,17 @@ export interface PrintShop {
   updateAt: Date;
 }
 
-export interface Tag {
-  id: number;
+export interface CreatePrintShop {
   name: string;
-  image: string | null;
-  parent_id: number | null;
-  children: Tag[];
+  address: string;
+  phone: string;
+  email: string;
+  homepage: string;
+  representative: string;
+  introduction: string;
+  logoImage: string;
+  backgroundImage: string;
+  latitude: string;
+  longitude: string;
+  tagIds: number[];
 }
