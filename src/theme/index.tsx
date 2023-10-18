@@ -3,6 +3,8 @@ import { useMemo } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider as MuiThemeProvider, ThemeOptions } from '@mui/material/styles';
 // system
+import { useRecoilValue } from 'recoil';
+import { themeModeState } from 'src/store/atoms';
 import { palette } from './palette';
 import { shadows } from './shadows';
 import { typography } from './typography';
@@ -16,15 +18,17 @@ type Props = {
 };
 
 export default function ThemeProvider({ children }: Props) {
+  const themeMode = useRecoilValue(themeModeState);
+
   const baseOption = useMemo(
     () => ({
-      palette: palette('light'),
+      palette: palette(themeMode),
       shadows: shadows('light'),
       customShadows: customShadows('light'),
       typography,
       shape: { borderRadius: 8 },
     }),
-    []
+    [themeMode]
   );
 
   const theme = createTheme(baseOption as ThemeOptions);

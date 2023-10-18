@@ -2,6 +2,7 @@ import { AppBar, Avatar, Box, Button, IconButton, Menu, MenuItem, Toolbar } from
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Iconify from 'src/components/iconify/iconify';
+import ThemeModeToggle from './common/ThemeModeToggle';
 
 const navbarItems = [
   {
@@ -104,6 +105,7 @@ const Navbar = () => {
             ))}
           </Menu>
         </Box>
+        <ThemeModeToggle />
       </Toolbar>
     </AppBar>
   );
