@@ -12,10 +12,12 @@ import ThemeProvider from 'src/theme';
 import ProgressBar from 'src/components/progress-bar';
 import SnackbarProvider from 'src/components/snackbar/snackbar-provider';
 import { Routes, Route } from 'react-router-dom';
-import { Toolbar } from '@mui/material';
 import Navbar from './sections/Navbar';
 import Home from './pages/HomePage';
 import PrintShop from './pages/PrintShopPage';
+import PrintShopDetailPage from './pages/PrintShopDetailPage';
+import NewPrintShopPage from './pages/NewPrintShopPage';
+import PageContainer from './sections/common/PageContainer';
 
 // ----------------------------------------------------------------------
 
@@ -25,11 +27,15 @@ export default function App() {
       <SnackbarProvider>
         <ProgressBar />
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/print-shop" element={<PrintShop />} />
-        </Routes>
-        <Toolbar />
+        <PageContainer>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/print-shop" element={<PrintShop />} />
+            <Route path="/print-shop/:id" element={<PrintShopDetailPage />} />
+            <Route path="/print-shop/new" element={<NewPrintShopPage />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
+        </PageContainer>
       </SnackbarProvider>
     </ThemeProvider>
   );

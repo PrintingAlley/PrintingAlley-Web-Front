@@ -1,20 +1,22 @@
 import { useState } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
-import { Tag } from 'src/types/print-shop';
+import { PrintShop, Tag } from 'src/types/print-shop';
 import Iconify from 'src/components/iconify/iconify';
-import { CreatePrintShopForm } from './CreatePrintShopForm';
+import { UpdatePrintShopForm } from './UpdatePrintShopForm';
 
-interface NewPrintShopDialogProps {
+interface UpdatePrintShopDialogProps {
+  printShop: PrintShop;
   topLevelTags: Tag[];
   tagHierarchies: Record<number, Tag[]>;
   onAdd: () => void;
 }
 
-export const NewPrintShopDialog = ({
+export const UpdatePrintShopDialog = ({
+  printShop,
   topLevelTags,
   tagHierarchies,
   onAdd,
-}: NewPrintShopDialogProps) => {
+}: UpdatePrintShopDialogProps) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -32,13 +34,14 @@ export const NewPrintShopDialog = ({
 
   return (
     <>
-      <Button onClick={handleOpen} startIcon={<Iconify icon="ic:baseline-add" />} variant="soft">
-        인쇄소 추가하기
+      <Button onClick={handleOpen} startIcon={<Iconify icon="ic:baseline-edit" />} variant="soft">
+        인쇄소 수정
       </Button>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-        <DialogTitle variant="h4">새로운 인쇄소 추가</DialogTitle>
+        <DialogTitle variant="h4">인쇄소 수정</DialogTitle>
         <DialogContent>
-          <CreatePrintShopForm
+          <UpdatePrintShopForm
+            printShop={printShop}
             topLevelTags={topLevelTags}
             tagHierarchies={tagHierarchies}
             onAddSuccess={handleAddSuccess}

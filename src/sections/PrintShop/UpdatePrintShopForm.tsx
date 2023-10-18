@@ -10,40 +10,72 @@ import {
   MenuItem,
   Select,
 } from '@mui/material';
-import { CreatePrintShop, Tag } from 'src/types/print-shop';
+import { CreatePrintShop, PrintShop, Tag } from 'src/types/print-shop';
 import Iconify from 'src/components/iconify/iconify';
 import { useSnackbar } from 'notistack';
 import axios from 'src/utils/axios';
 import { flattenTags } from 'src/utils/tags';
 
-interface CreatePrintShopFormProps {
+interface UpdatePrintShopFormProps {
+  printShop: PrintShop;
   topLevelTags: Tag[];
   tagHierarchies: Record<number, Tag[]>;
   onAddSuccess: () => void;
 }
 
-export const CreatePrintShopForm = ({
+export const UpdatePrintShopForm = ({
+  printShop,
   topLevelTags,
   tagHierarchies,
   onAddSuccess,
-}: CreatePrintShopFormProps) => {
+}: UpdatePrintShopFormProps) => {
+  const {
+    name,
+    address,
+    phone,
+    email,
+    homepage,
+    representative,
+    logoImage,
+    backgroundImage,
+    latitude,
+    longitude,
+    introduction,
+    tags,
+  } = printShop;
   const { enqueueSnackbar } = useSnackbar();
+
   const {
     control,
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<CreatePrintShop>();
+  } = useForm<CreatePrintShop>({
+    defaultValues: {
+      name,
+      address,
+      phone,
+      email,
+      homepage,
+      representative,
+      logoImage,
+      backgroundImage,
+      latitude,
+      longitude,
+      introduction,
+      tagIds: flattenTags(tags).map((tag) => tag.id),
+    },
+  });
 
   const handleFormSubmit = (data: CreatePrintShop) => {
     axios
-      .post<CreatePrintShop>('print-shop', data)
+      .put<CreatePrintShop>(`print-shop/${printShop.id}`, data)
       .then(() => {
-        enqueueSnackbar('인쇄소가 성공적으로 추가되었습니다.', { variant: 'success' });
+        enqueueSnackbar('인쇄소가 성공적으로 업데이트 되었습니다.', { variant: 'success' });
         onAddSuccess();
       })
       .catch((error) => {
-        enqueueSnackbar(`인쇄소 추가 중 오류가 발생했습니다. ${error.message}`, {
+        enqueueSnackbar(`인쇄소 업데이트 중 오류가 발생했습니다. ${error.message}`, {
           variant: 'error',
         });
       });
@@ -57,6 +89,7 @@ export const CreatePrintShopForm = ({
         display: 'grid',
         gridTemplateColumns: 'repeat(2, 1fr)',
         gap: 2,
+        pt: 2,
       }}
     >
       <TextField
@@ -246,11 +279,11 @@ export const CreatePrintShopForm = ({
         sx={{ gridColumn: '1 / span 2' }}
         type="submit"
         size="large"
-        startIcon={<Iconify icon="ic:baseline-add" />}
+        startIcon={<Iconify icon="ic:baseline-edit" />}
         color="primary"
         variant="contained"
       >
-        추가하기
+        수정하기
       </Button>
     </Box>
   );
