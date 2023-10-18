@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
 import { Container } from '@mui/material';
 import axios from 'src/utils/axios';
 import { NewPrintShopForm } from 'src/sections/PrintShop/NewPrintShopForm';
 import { PrintShopDetails } from 'src/sections/PrintShop/PrintShopDetails';
 import { PrintShopList } from 'src/sections/PrintShop/PrintShopList';
 import { PrintShop, Tag } from 'src/types/print-shop';
+import { selectedTagsState } from 'src/store/atoms';
 
 const useTopLevelTags = () => {
   const [topLevelTags, setTopLevelTags] = useState<Tag[]>([]);
@@ -26,17 +28,26 @@ const useTopLevelTags = () => {
 
 export default function PrintShopPage() {
   const [printShops, setPrintShops] = useState<PrintShop[]>([]);
+  const selectedTags = useRecoilValue(selectedTagsState);
   const { topLevelTags, tagHierarchies } = useTopLevelTags();
   const [selectedShop, setSelectedShop] = useState<PrintShop | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const fetchPrintShops = () => {
-    axios.get<PrintShop[]>('print-shop').then((response) => setPrintShops(response.data));
+  const fetchPrintShops = (tags = [] as number[]) => {
+    axios
+      .get<PrintShop[]>('print-shop', {
+        params: { tagIds: tags },
+      })
+      .then((response) => {
+        // 요청 URL 확인
+        // console.log(response.request.responseURL);
+        setPrintShops(response.data);
+      });
   };
 
   useEffect(() => {
-    fetchPrintShops();
-  }, []);
+    fetchPrintShops(selectedTags);
+  }, [selectedTags]);
 
   const handleShopSelect = (shop: PrintShop) => {
     setSelectedShop(shop);
@@ -56,7 +67,12 @@ export default function PrintShopPage() {
         gap: 4,
       }}
     >
-      <PrintShopList printShops={printShops} setSelectedShop={handleShopSelect} />
+      <PrintShopList
+        printShops={printShops}
+        setSelectedShop={handleShopSelect}
+        topLevelTags={topLevelTags}
+        tagHierarchies={tagHierarchies}
+      />
       {selectedShop && (
         <PrintShopDetails
           selectedShop={selectedShop}

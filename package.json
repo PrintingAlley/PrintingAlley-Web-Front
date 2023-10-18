@@ -1,8 +1,8 @@
 {
-  "name": "impactive-ai",
+  "name": "printing-alley-web-front",
   "author": "shine-jung",
   "version": "0.0.1",
-  "description": "survey ai",
+  "description": "인쇄골목 웹 프론트엔드",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
@@ -59,6 +59,7 @@
     "react-router": "^6.15.0",
     "react-router-dom": "^6.15.0",
     "react-scripts": "^5.0.1",
+    "recoil": "^0.7.7",
     "simplebar-react": "^3.2.4",
     "stylis": "^4.3.0",
     "stylis-plugin-rtl": "^2.0.2",
