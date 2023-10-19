@@ -9,6 +9,7 @@ import { UpdatePrintShopDialog } from 'src/sections/PrintShop/UpdatePrintShopDia
 import { useTopLevelTags } from 'src/hooks/useTopLevelTags';
 import { DeletePrintShopButton } from 'src/sections/PrintShop/DeletePrintShopButton';
 import CenteredTitle from 'src/sections/common/CenteredTitle';
+import { Map, MapMarker, ZoomControl } from 'react-kakao-maps-sdk';
 
 export default function PrintShopDetailPage() {
   const { id } = useParams();
@@ -64,15 +65,18 @@ export default function PrintShopDetailPage() {
               <Avatar
                 alt="Background"
                 src={printShop.backgroundImage}
-                sx={{ width: 240, height: 240, bgcolor: green[500] }}
+                sx={{ width: '100%', height: 240, bgcolor: green[500] }}
                 variant="rounded"
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
-                <Typography>Latitude: {printShop.latitude}</Typography>
-                <Typography>Longitude: {printShop.longitude}</Typography>
-              </Box>
+              <Map
+                center={{ lat: +printShop.latitude, lng: +printShop.longitude }}
+                style={{ width: '100%', height: 240, borderRadius: 12 }}
+              >
+                <MapMarker position={{ lat: +printShop.latitude, lng: +printShop.longitude }} />
+                <ZoomControl position="RIGHT" />
+              </Map>
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h6" gutterBottom>
