@@ -2,7 +2,12 @@ import { Box, Button, TextField, InputAdornment } from '@mui/material';
 import { useState } from 'react';
 import Iconify from 'src/components/iconify';
 
-export const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
+interface SearchBarProps {
+  onSearch: (query: string) => void;
+  resetSearch: () => void;
+}
+
+export const SearchBar = ({ onSearch, resetSearch }: SearchBarProps) => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -12,7 +17,7 @@ export const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) =
 
   const handleReset = () => {
     setSearchQuery('');
-    onSearch('');
+    resetSearch();
   };
 
   return (

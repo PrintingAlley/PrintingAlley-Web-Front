@@ -1,8 +1,10 @@
 import { Typography, Chip, Box, Divider } from '@mui/material';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { Tag } from 'src/types/print-shop';
 
 interface TagFilterProps {
+  selectedTopLevelTag: Tag | null;
+  setSelectedTopLevelTag: Dispatch<SetStateAction<Tag | null>>;
   selectedTags: number[];
   setSelectedTags: Dispatch<SetStateAction<number[]>>;
   topLevelTags: Tag[];
@@ -10,13 +12,13 @@ interface TagFilterProps {
 }
 
 export const TagFilter = ({
+  selectedTopLevelTag,
+  setSelectedTopLevelTag,
   selectedTags,
   setSelectedTags,
   topLevelTags,
   tags,
 }: TagFilterProps) => {
-  const [selectedTopLevelTag, setSelectedTopLevelTag] = useState<Tag | null>(null);
-
   const handleTagClick = (tagId: number) => {
     if (selectedTags.includes(tagId)) {
       setSelectedTags((prev) => prev.filter((id) => id !== tagId));

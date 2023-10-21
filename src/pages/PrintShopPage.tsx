@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Box, Pagination } from '@mui/material';
 import axios from 'src/utils/axios';
 import { PrintShopList } from 'src/sections/PrintShop/PrintShopList';
-import { PrintShop } from 'src/types/print-shop';
+import { PrintShop, Tag } from 'src/types/print-shop';
 import { useTopLevelTags } from 'src/hooks/useTopLevelTags';
 import { TagFilter } from 'src/sections/PrintShop/TagFilter';
 import { SearchBar } from 'src/sections/PrintShop/SearchBar';
@@ -16,6 +16,7 @@ interface PrintShopResponse {
 export default function PrintShopPage() {
   const { topLevelTags, tagHierarchies } = useTopLevelTags();
   const [searchText, setSearchText] = useState<string>('');
+  const [selectedTopLevelTag, setSelectedTopLevelTag] = useState<Tag | null>(null);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const [printShops, setPrintShops] = useState<PrintShop[]>([]);
   const [totalPrintShops, setTotalPrintShops] = useState<number>(0);
@@ -34,6 +35,12 @@ export default function PrintShopPage() {
       });
   };
 
+  const resetSearch = () => {
+    setSearchText('');
+    setSelectedTopLevelTag(null);
+    setSelectedTags([]);
+  };
+
   useEffect(() => {
     fetchPrintShops(currentPage, searchText, selectedTags);
   }, [currentPage, searchText, selectedTags]);
@@ -49,9 +56,11 @@ export default function PrintShopPage() {
     >
       <CenteredTitle title="인쇄소 목록" />
 
-      <SearchBar onSearch={setSearchText} />
+      <SearchBar onSearch={setSearchText} resetSearch={resetSearch} />
 
       <TagFilter
+        selectedTopLevelTag={selectedTopLevelTag}
+        setSelectedTopLevelTag={setSelectedTopLevelTag}
         selectedTags={selectedTags}
         setSelectedTags={setSelectedTags}
         topLevelTags={topLevelTags}

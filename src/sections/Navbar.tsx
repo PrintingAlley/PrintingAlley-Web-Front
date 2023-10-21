@@ -23,7 +23,7 @@ const navbarItems = [
   },
   {
     label: '로그인',
-    path: '/auth',
+    path: '/login',
   },
 ];
 
