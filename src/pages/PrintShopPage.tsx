@@ -54,7 +54,7 @@ export default function PrintShopPage() {
         gap: 3,
       }}
     >
-      <CenteredTitle title="인쇄소 목록" />
+      <CenteredTitle title="인쇄사 목록" />
 
       <SearchBar onSearch={setSearchText} resetSearch={resetSearch} />
 

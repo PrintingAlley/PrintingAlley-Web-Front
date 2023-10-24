@@ -12,7 +12,7 @@ export default function NewPrintShopPage() {
 
   return (
     <div>
-      <CenteredTitle title="인쇄소 등록" />
+      <CenteredTitle title="인쇄사 등록" />
       <CreatePrintShopForm
         topLevelTags={topLevelTags}
         tagHierarchies={tagHierarchies}

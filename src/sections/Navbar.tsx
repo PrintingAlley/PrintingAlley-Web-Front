@@ -14,7 +14,7 @@ const navbarItems = [
     path: '/print-shop',
   },
   {
-    label: '인쇄소 등록',
+    label: '인쇄사 등록',
     path: '/print-shop/new',
   },
   {
