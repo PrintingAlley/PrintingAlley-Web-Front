@@ -12,17 +12,20 @@ const LoginButton = styled(Button)(({ theme }) => ({
 
 const loginProviders = [
   {
-    name: '네이버',
+    name: 'naver',
+    label: '네이버',
     icon: '/icons/naver-logo-white.png',
     styles: { backgroundColor: '#03C75A !important', color: '#FFFFFF' },
   },
   {
-    name: '카카오',
+    name: 'kakao',
+    label: '카카오',
     icon: '/icons/kakao-logo.png',
     styles: { backgroundColor: '#FEE500 !important', color: '#191919' },
   },
   {
-    name: '구글',
+    name: 'google',
+    label: '구글',
     icon: '/icons/google-logo.png',
     styles: {
       backgroundColor: '#FFFFFF !important',
@@ -32,7 +35,8 @@ const loginProviders = [
     },
   },
   {
-    name: '애플',
+    name: 'apple',
+    label: '애플',
     icon: '/icons/apple-logo.png',
     styles: {
       backgroundColor: '#FFFFFF !important',
@@ -44,6 +48,10 @@ const loginProviders = [
 ];
 
 export default function LoginPage() {
+  const handleLogin = (provider: string) => {
+    window.location.href = `http://localhost:8080/auth/${provider}`;
+  };
+
   return (
     <Box
       display="flex"
@@ -58,8 +66,9 @@ export default function LoginPage() {
           key={provider.name}
           startIcon={<img src={provider.icon} alt={provider.name} />}
           sx={provider.styles}
+          onClick={() => handleLogin(provider.name)}
         >
-          <Typography sx={{ width: 160 }}>{provider.name} 로그인</Typography>
+          <Typography sx={{ width: 160 }}>{provider.label} 로그인</Typography>
         </LoginButton>
       ))}
     </Box>

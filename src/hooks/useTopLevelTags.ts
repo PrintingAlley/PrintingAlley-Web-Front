@@ -7,12 +7,10 @@ export const useTopLevelTags = () => {
   const [tagHierarchies, setTagHierarchies] = useState<Record<number, Tag[]>>({});
 
   useEffect(() => {
-    axios.get<Tag[]>('tag/top-level').then((response) => {
+    axios.get<Tag[]>('tag').then((response) => {
       setTopLevelTags(response.data);
       response.data.forEach((tag) => {
-        axios.get<Tag>(`tag/${tag.id}/hierarchy`).then((res) => {
-          setTagHierarchies((prev) => ({ ...prev, [tag.id]: res.data.children }));
-        });
+        setTagHierarchies((prev) => ({ ...prev, [tag.id]: tag.children }));
       });
     });
   }, []);
