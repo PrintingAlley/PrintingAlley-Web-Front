@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "eject": "react-scripts eject",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
@@ -57,6 +57,7 @@
     "react-hook-form": "^7.45.4",
     "react-kakao-maps-sdk": "^1.1.21",
     "react-lazy-load-image-component": "^1.6.0",
+    "react-query": "^3.39.3",
     "react-router": "^6.15.0",
     "react-router-dom": "^6.15.0",
     "react-scripts": "^5.0.1",

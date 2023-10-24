@@ -30,6 +30,7 @@ export default function PrintShopPage() {
       })
       .then((response) => {
         // console.log(response.request.responseURL);
+        // console.log('Tag IDs: ', tags);
         setPrintShops(response.data.printShops);
         setTotalPrintShops(response.data.totalCount);
       });

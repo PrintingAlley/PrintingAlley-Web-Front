@@ -1,4 +1,5 @@
 import { Button, Box, styled, Typography } from '@mui/material';
+import useAuth from 'src/hooks/useAuth';
 
 const LoginButton = styled(Button)(({ theme }) => ({
   padding: theme.spacing(1.5, 3),
@@ -48,9 +49,23 @@ const loginProviders = [
 ];
 
 export default function LoginPage() {
-  const handleLogin = (provider: string) => {
-    window.location.href = `http://localhost:8080/auth/${provider}`;
-  };
+  const { user, handleLoginRedirect, logout, isLoading } = useAuth();
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (user) {
+    return (
+      <>
+        <Typography>Welcome, {user.name}</Typography>
+        <Typography>{user.email}</Typography>
+        <Typography>{user.provider}</Typography>
+        <Typography>{user.profileImage}</Typography>
+        <Button onClick={logout}>Logout</Button>
+      </>
+    );
+  }
 
   return (
     <Box
@@ -66,7 +81,7 @@ export default function LoginPage() {
           key={provider.name}
           startIcon={<img src={provider.icon} alt={provider.name} />}
           sx={provider.styles}
-          onClick={() => handleLogin(provider.name)}
+          onClick={() => handleLoginRedirect(provider.name)}
         >
           <Typography sx={{ width: 160 }}>{provider.label} 로그인</Typography>
         </LoginButton>
