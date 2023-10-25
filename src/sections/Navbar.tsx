@@ -1,4 +1,14 @@
-import { AppBar, Avatar, Box, Button, IconButton, Menu, MenuItem, Toolbar } from '@mui/material';
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  useTheme,
+} from '@mui/material';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Iconify from 'src/components/iconify/iconify';
@@ -29,7 +39,8 @@ const navbarItems = [
 
 const Navbar = () => {
   const navigate = useNavigate();
-
+  const theme = useTheme();
+  const [position, setPosition] = useState(window.pageYOffset);
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -43,35 +54,35 @@ const Navbar = () => {
     handleCloseNavMenu();
   };
 
-  const [lastScrollTop, setLastScrollTop] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
+  const transparent = position < (theme.mixins.toolbar.minHeight as number);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      if (currentScrollTop < 56) {
-        return;
-      }
-
-      if (currentScrollTop > lastScrollTop) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-      setLastScrollTop(currentScrollTop);
+      const moving = window.pageYOffset;
+      setPosition(moving);
     };
-
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollTop]);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <AppBar
       position="fixed"
       sx={{
-        top: isVisible ? 0 : (theme) => `-${theme.mixins.toolbar.minHeight}px`,
-        transition: 'top 0.3s',
+        '&.transparent': {
+          backgroundColor: 'transparent',
+          boxShadow: 0,
+          transition: 'background-color 0.1s ease-out, box-shadow 0.1s ease-out',
+        },
+        '&.paper': {
+          backgroundColor: theme.palette.background.paper,
+          boxShadow: 'rgb(0 0 0 / 8%) 0px 0px 8px',
+          transition: 'background-color 0.1s ease-out, box-shadow 0.1s ease-out',
+        },
       }}
+      className={`${transparent ? 'transparent' : 'paper'}`}
     >
       <Toolbar>
         <Avatar alt="인쇄 골목" src="/logo192.png" sx={{ width: 40, height: 40 }} />

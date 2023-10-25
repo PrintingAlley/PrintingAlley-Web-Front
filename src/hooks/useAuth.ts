@@ -46,6 +46,15 @@ const useAuth = () => {
     }
   };
 
+  const withdraw = async () => {
+    try {
+      await axios.delete('auth/withdrawal');
+      logout();
+    } catch (error) {
+      throw new Error('Unauthorized');
+    }
+  };
+
   const {
     data: user,
     isError,
@@ -59,6 +68,7 @@ const useAuth = () => {
     user,
     handleLoginRedirect,
     logout,
+    withdraw,
     isAuthenticated: !!localStorage.getItem('token'),
     isError,
     isLoading,

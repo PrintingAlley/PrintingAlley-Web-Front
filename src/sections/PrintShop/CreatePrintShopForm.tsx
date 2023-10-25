@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import {
   Typography,
@@ -9,38 +10,98 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  FormLabel,
+  Paper,
+  Avatar,
+  styled,
+  Divider,
+  Alert,
 } from '@mui/material';
 import { CreatePrintShop, Tag } from 'src/types/print-shop';
 import Iconify from 'src/components/iconify/iconify';
 import { useSnackbar } from 'notistack';
 import axios from 'src/utils/axios';
 import { flattenTags } from 'src/utils/tags';
+import DaumPostcode from 'react-daum-postcode';
+import useFileUpload from 'src/hooks/useFileUpload';
+import useLatLng from 'src/hooks/useLatLng';
+import { useNavigate } from 'react-router';
+
+const postCodeStyle = {
+  height: '450px',
+};
+
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
+
+const FileUploadButton = ({ onChange, children }: { onChange: any; children: React.ReactNode }) => (
+  <Button
+    component="label"
+    variant="outlined"
+    color="primary"
+    startIcon={<Iconify icon="ic:baseline-cloud-upload" />}
+  >
+    {children}
+    <VisuallyHiddenInput type="file" accept="image/*" onChange={onChange} />
+  </Button>
+);
 
 interface CreatePrintShopFormProps {
   topLevelTags: Tag[];
   tagHierarchies: Record<number, Tag[]>;
-  onAddSuccess: () => void;
 }
 
-export const CreatePrintShopForm = ({
-  topLevelTags,
-  tagHierarchies,
-  onAddSuccess,
-}: CreatePrintShopFormProps) => {
+export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrintShopFormProps) => {
+  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const {
     control,
     handleSubmit,
     register,
+    setValue,
+    setFocus,
     formState: { errors },
-  } = useForm<CreatePrintShop>();
+  } = useForm<CreatePrintShop>({
+    mode: 'onChange',
+    defaultValues: { latitude: '0', longitude: '0' },
+  });
 
-  const handleFormSubmit = (data: CreatePrintShop) => {
+  const {
+    handleFileChange: handleLogoFileChange,
+    uploadFile: uploadLogoFile,
+    previewUrl: logoPreviewUrl,
+  } = useFileUpload();
+  const {
+    handleFileChange: handleBackgroundFileChange,
+    uploadFile: uploadBackgroundFile,
+    previewUrl: backgroundPreviewUrl,
+  } = useFileUpload();
+  const { setLatLngFromAddress } = useLatLng();
+
+  const handleFormSubmit = async (data: CreatePrintShop) => {
+    const logoUrl = await uploadLogoFile();
+    const backgroundUrl = await uploadBackgroundFile();
+
+    const formDataWithImages = {
+      ...data,
+      logoImage: logoUrl,
+      backgroundImage: backgroundUrl,
+    };
+
     axios
-      .post<CreatePrintShop>('print-shop', data)
-      .then(() => {
+      .post<CreatePrintShop>('print-shop', formDataWithImages)
+      .then((response: any) => {
         enqueueSnackbar('인쇄소가 성공적으로 추가되었습니다.', { variant: 'success' });
-        onAddSuccess();
+        navigate(`/print-shop/${response.data.dataId}`, { replace: true });
       })
       .catch((error) => {
         enqueueSnackbar(`인쇄소 추가 중 오류가 발생했습니다. ${error.message}`, {
@@ -48,6 +109,15 @@ export const CreatePrintShopForm = ({
         });
       });
   };
+
+  const onCompletePost = (data: any) => {
+    setValue('address', data.address);
+    setLatLngFromAddress(data.address, setValue);
+  };
+
+  useEffect(() => {
+    setFocus('name');
+  }, [setFocus]);
 
   return (
     <Box
@@ -77,46 +147,6 @@ export const CreatePrintShopForm = ({
         helperText={errors.name?.message}
       />
       <TextField
-        {...register('address', {
-          required: '주소는 필수입니다.',
-          minLength: {
-            value: 2,
-            message: '주소는 2글자 이상이어야 합니다.',
-          },
-          maxLength: {
-            value: 200,
-            message: '주소는 200글자 이하여야 합니다.',
-          },
-        })}
-        label="주소"
-        placeholder="인쇄소의 주소를 입력하세요"
-        error={Boolean(errors.address)}
-        helperText={errors.address?.message}
-      />
-      <TextField
-        {...register('phone', { required: '전화번호는 필수입니다.' })}
-        label="전화번호"
-        placeholder="인쇄소의 전화번호를 입력하세요"
-        error={Boolean(errors.phone)}
-        helperText={errors.phone?.message}
-      />
-      <TextField
-        {...register('email', { required: '이메일은 필수입니다.' })}
-        type="email"
-        label="이메일"
-        placeholder="인쇄소의 이메일을 입력하세요"
-        error={Boolean(errors.email)}
-        helperText={errors.email?.message}
-      />
-      <TextField
-        {...register('homepage', { required: '홈페이지는 필수입니다.' })}
-        type="url"
-        label="홈페이지"
-        placeholder="인쇄소의 홈페이지 주소를 입력하세요"
-        error={Boolean(errors.homepage)}
-        helperText={errors.homepage?.message}
-      />
-      <TextField
         {...register('representative', {
           required: '대표자는 필수입니다.',
           minLength: {
@@ -134,21 +164,103 @@ export const CreatePrintShopForm = ({
         helperText={errors.representative?.message}
       />
       <TextField
-        {...register('logoImage', { required: '로고 이미지 URL은 필수입니다.' })}
-        type="url"
-        label="로고 이미지 URL"
-        placeholder="인쇄소의 로고 이미지 URL을 입력하세요"
-        error={Boolean(errors.logoImage)}
-        helperText={errors.logoImage?.message}
+        {...register('phone', { required: '전화번호는 필수입니다.' })}
+        label="전화번호"
+        placeholder="인쇄소의 전화번호를 입력하세요"
+        error={Boolean(errors.phone)}
+        helperText={errors.phone?.message}
       />
       <TextField
-        {...register('backgroundImage', { required: '배경 이미지 URL은 필수입니다.' })}
-        type="url"
-        label="배경 이미지 URL"
-        placeholder="인쇄소의 배경 이미지 URL을 입력하세요"
-        error={Boolean(errors.backgroundImage)}
-        helperText={errors.backgroundImage?.message}
+        {...register('email', { required: '이메일은 필수입니다.' })}
+        type="email"
+        label="이메일"
+        placeholder="인쇄소의 이메일을 입력하세요"
+        error={Boolean(errors.email)}
+        helperText={errors.email?.message}
       />
+      <TextField
+        sx={{ gridColumn: '1 / span 2' }}
+        {...register('homepage')}
+        type="url"
+        label="홈페이지"
+        placeholder="인쇄소의 홈페이지 주소를 입력하세요"
+        error={Boolean(errors.homepage)}
+        helperText={errors.homepage?.message}
+      />
+
+      <Paper
+        variant="outlined"
+        sx={{
+          padding: '16.5px 14px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+        }}
+      >
+        <FormLabel>로고 이미지</FormLabel>
+        {logoPreviewUrl && (
+          <Avatar
+            src={logoPreviewUrl}
+            alt="Logo Preview"
+            sx={{ width: '100%', height: 'auto' }}
+            variant="rounded"
+          />
+        )}
+        <FileUploadButton onChange={handleLogoFileChange}>로고 이미지 선택</FileUploadButton>
+      </Paper>
+      <Paper
+        variant="outlined"
+        sx={{
+          padding: '16.5px 14px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+        }}
+      >
+        <FormLabel>배경 이미지</FormLabel>
+        {backgroundPreviewUrl && (
+          <Avatar
+            src={backgroundPreviewUrl}
+            alt="Background Preview"
+            sx={{ width: '100%', height: 'auto' }}
+            variant="rounded"
+          />
+        )}
+        <FileUploadButton onChange={handleBackgroundFileChange}>배경 이미지 선택</FileUploadButton>
+      </Paper>
+
+      <Paper variant="outlined" sx={{ gridColumn: '1 / span 2', overflow: 'hidden' }}>
+        <Box sx={{ p: 2 }}>
+          <Alert severity="info">여기서 주소를 검색하면 아래에 주소가 자동으로 입력됩니다.</Alert>
+        </Box>
+        <Divider sx={{ mb: 1 }} />
+        <DaumPostcode
+          style={postCodeStyle}
+          onComplete={onCompletePost}
+          autoClose={false}
+          focusInput={false}
+        />
+      </Paper>
+
+      <TextField
+        sx={{ gridColumn: '1 / span 2' }}
+        {...register('address', {
+          required: '주소는 필수입니다.',
+          minLength: {
+            value: 2,
+            message: '주소는 2글자 이상이어야 합니다.',
+          },
+          maxLength: {
+            value: 200,
+            message: '주소는 200글자 이하여야 합니다.',
+          },
+        })}
+        label="주소"
+        placeholder="인쇄소의 주소를 입력하세요"
+        error={Boolean(errors.address)}
+        helperText={errors.address?.message}
+      />
+
       <TextField
         {...register('latitude', {
           required: '위도는 필수입니다.',
@@ -161,6 +273,7 @@ export const CreatePrintShopForm = ({
         placeholder="인쇄소의 위도를 입력하세요"
         error={Boolean(errors.latitude)}
         helperText={errors.latitude?.message}
+        InputProps={{ readOnly: true }}
       />
       <TextField
         {...register('longitude', {
@@ -174,7 +287,9 @@ export const CreatePrintShopForm = ({
         placeholder="인쇄소의 경도를 입력하세요"
         error={Boolean(errors.longitude)}
         helperText={errors.longitude?.message}
+        InputProps={{ readOnly: true }}
       />
+
       <TextField
         {...register('introduction', {
           required: '소개글은 필수입니다.',

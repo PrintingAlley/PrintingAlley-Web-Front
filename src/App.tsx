@@ -19,6 +19,7 @@ import PrintShopDetailPage from './pages/PrintShopDetailPage';
 import NewPrintShopPage from './pages/NewPrintShopPage';
 import LoginPage from './pages/LoginPage';
 import PageContainer from './sections/common/PageContainer';
+import ScrollToTop from './sections/common/ScrollToTop';
 
 // ----------------------------------------------------------------------
 
@@ -28,6 +29,7 @@ export default function App() {
       <SnackbarProvider>
         <ProgressBar />
         <Navbar />
+        <ScrollToTop />
         <PageContainer>
           <Routes>
             <Route path="/" element={<Home />} />
