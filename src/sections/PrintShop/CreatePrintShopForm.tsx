@@ -100,11 +100,11 @@ export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrin
     axios
       .post<CreatePrintShop>('print-shop', formDataWithImages)
       .then((response: any) => {
-        enqueueSnackbar('인쇄소가 성공적으로 추가되었습니다.', { variant: 'success' });
+        enqueueSnackbar('인쇄사가 성공적으로 추가되었습니다.', { variant: 'success' });
         navigate(`/print-shop/${response.data.dataId}`, { replace: true });
       })
       .catch((error) => {
-        enqueueSnackbar(`인쇄소 추가 중 오류가 발생했습니다. ${error.message}`, {
+        enqueueSnackbar(`인쇄사 추가 중 오류가 발생했습니다. ${error.message}`, {
           variant: 'error',
         });
       });
@@ -142,7 +142,7 @@ export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrin
           },
         })}
         label="상호명"
-        placeholder="인쇄소 상호명을 입력하세요"
+        placeholder="인쇄사 상호명을 입력하세요"
         error={Boolean(errors.name)}
         helperText={errors.name?.message}
       />
@@ -159,14 +159,14 @@ export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrin
           },
         })}
         label="대표자"
-        placeholder="인쇄소의 대표자 이름을 입력하세요"
+        placeholder="인쇄사의 대표자 이름을 입력하세요"
         error={Boolean(errors.representative)}
         helperText={errors.representative?.message}
       />
       <TextField
         {...register('phone', { required: '전화번호는 필수입니다.' })}
         label="전화번호"
-        placeholder="인쇄소의 전화번호를 입력하세요"
+        placeholder="인쇄사의 전화번호를 입력하세요"
         error={Boolean(errors.phone)}
         helperText={errors.phone?.message}
       />
@@ -174,7 +174,7 @@ export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrin
         {...register('email', { required: '이메일은 필수입니다.' })}
         type="email"
         label="이메일"
-        placeholder="인쇄소의 이메일을 입력하세요"
+        placeholder="인쇄사의 이메일을 입력하세요"
         error={Boolean(errors.email)}
         helperText={errors.email?.message}
       />
@@ -183,7 +183,7 @@ export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrin
         {...register('homepage')}
         type="url"
         label="홈페이지"
-        placeholder="인쇄소의 홈페이지 주소를 입력하세요"
+        placeholder="인쇄사의 홈페이지 주소를 입력하세요"
         error={Boolean(errors.homepage)}
         helperText={errors.homepage?.message}
       />
@@ -230,10 +230,10 @@ export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrin
       </Paper>
 
       <Paper variant="outlined" sx={{ gridColumn: '1 / span 2', overflow: 'hidden' }}>
-        <Box sx={{ p: 2 }}>
+        <Box sx={{ p: '14px' }}>
           <Alert severity="info">여기서 주소를 검색하면 아래에 주소가 자동으로 입력됩니다.</Alert>
         </Box>
-        <Divider sx={{ mb: 1 }} />
+        <Divider />
         <DaumPostcode
           style={postCodeStyle}
           onComplete={onCompletePost}
@@ -256,7 +256,7 @@ export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrin
           },
         })}
         label="주소"
-        placeholder="인쇄소의 주소를 입력하세요"
+        placeholder="인쇄사의 주소를 입력하세요"
         error={Boolean(errors.address)}
         helperText={errors.address?.message}
       />
@@ -270,7 +270,7 @@ export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrin
           },
         })}
         label="위도"
-        placeholder="인쇄소의 위도를 입력하세요"
+        placeholder="인쇄사의 위도를 입력하세요"
         error={Boolean(errors.latitude)}
         helperText={errors.latitude?.message}
         InputProps={{ readOnly: true }}
@@ -284,7 +284,7 @@ export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrin
           },
         })}
         label="경도"
-        placeholder="인쇄소의 경도를 입력하세요"
+        placeholder="인쇄사의 경도를 입력하세요"
         error={Boolean(errors.longitude)}
         helperText={errors.longitude?.message}
         InputProps={{ readOnly: true }}
@@ -303,7 +303,7 @@ export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrin
           },
         })}
         label="소개글"
-        placeholder="인쇄소에 대한 소개글을 입력하세요"
+        placeholder="인쇄사에 대한 소개글을 입력하세요"
         error={Boolean(errors.introduction)}
         helperText={errors.introduction?.message}
         multiline

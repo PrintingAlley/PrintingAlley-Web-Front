@@ -71,11 +71,11 @@ export const UpdatePrintShopForm = ({
     axios
       .put<CreatePrintShop>(`print-shop/${printShop.id}`, data)
       .then(() => {
-        enqueueSnackbar('인쇄소가 성공적으로 업데이트 되었습니다.', { variant: 'success' });
+        enqueueSnackbar('인쇄사가 성공적으로 업데이트 되었습니다.', { variant: 'success' });
         onAddSuccess();
       })
       .catch((error) => {
-        enqueueSnackbar(`인쇄소 업데이트 중 오류가 발생했습니다. ${error.message}`, {
+        enqueueSnackbar(`인쇄사 업데이트 중 오류가 발생했습니다. ${error.message}`, {
           variant: 'error',
         });
       });
@@ -105,7 +105,7 @@ export const UpdatePrintShopForm = ({
           },
         })}
         label="상호명"
-        placeholder="인쇄소 상호명을 입력하세요"
+        placeholder="인쇄사 상호명을 입력하세요"
         error={Boolean(errors.name)}
         helperText={errors.name?.message}
       />
@@ -122,14 +122,14 @@ export const UpdatePrintShopForm = ({
           },
         })}
         label="주소"
-        placeholder="인쇄소의 주소를 입력하세요"
+        placeholder="인쇄사의 주소를 입력하세요"
         error={Boolean(errors.address)}
         helperText={errors.address?.message}
       />
       <TextField
         {...register('phone', { required: '전화번호는 필수입니다.' })}
         label="전화번호"
-        placeholder="인쇄소의 전화번호를 입력하세요"
+        placeholder="인쇄사의 전화번호를 입력하세요"
         error={Boolean(errors.phone)}
         helperText={errors.phone?.message}
       />
@@ -137,7 +137,7 @@ export const UpdatePrintShopForm = ({
         {...register('email', { required: '이메일은 필수입니다.' })}
         type="email"
         label="이메일"
-        placeholder="인쇄소의 이메일을 입력하세요"
+        placeholder="인쇄사의 이메일을 입력하세요"
         error={Boolean(errors.email)}
         helperText={errors.email?.message}
       />
@@ -145,7 +145,7 @@ export const UpdatePrintShopForm = ({
         {...register('homepage', { required: '홈페이지는 필수입니다.' })}
         type="url"
         label="홈페이지"
-        placeholder="인쇄소의 홈페이지 주소를 입력하세요"
+        placeholder="인쇄사의 홈페이지 주소를 입력하세요"
         error={Boolean(errors.homepage)}
         helperText={errors.homepage?.message}
       />
@@ -162,7 +162,7 @@ export const UpdatePrintShopForm = ({
           },
         })}
         label="대표자"
-        placeholder="인쇄소의 대표자 이름을 입력하세요"
+        placeholder="인쇄사의 대표자 이름을 입력하세요"
         error={Boolean(errors.representative)}
         helperText={errors.representative?.message}
       />
@@ -170,7 +170,7 @@ export const UpdatePrintShopForm = ({
         {...register('logoImage', { required: '로고 이미지 URL은 필수입니다.' })}
         type="url"
         label="로고 이미지 URL"
-        placeholder="인쇄소의 로고 이미지 URL을 입력하세요"
+        placeholder="인쇄사의 로고 이미지 URL을 입력하세요"
         error={Boolean(errors.logoImage)}
         helperText={errors.logoImage?.message}
       />
@@ -178,7 +178,7 @@ export const UpdatePrintShopForm = ({
         {...register('backgroundImage', { required: '배경 이미지 URL은 필수입니다.' })}
         type="url"
         label="배경 이미지 URL"
-        placeholder="인쇄소의 배경 이미지 URL을 입력하세요"
+        placeholder="인쇄사의 배경 이미지 URL을 입력하세요"
         error={Boolean(errors.backgroundImage)}
         helperText={errors.backgroundImage?.message}
       />
@@ -191,7 +191,7 @@ export const UpdatePrintShopForm = ({
           },
         })}
         label="위도"
-        placeholder="인쇄소의 위도를 입력하세요"
+        placeholder="인쇄사의 위도를 입력하세요"
         error={Boolean(errors.latitude)}
         helperText={errors.latitude?.message}
       />
@@ -204,7 +204,7 @@ export const UpdatePrintShopForm = ({
           },
         })}
         label="경도"
-        placeholder="인쇄소의 경도를 입력하세요"
+        placeholder="인쇄사의 경도를 입력하세요"
         error={Boolean(errors.longitude)}
         helperText={errors.longitude?.message}
       />
@@ -221,7 +221,7 @@ export const UpdatePrintShopForm = ({
           },
         })}
         label="소개글"
-        placeholder="인쇄소에 대한 소개글을 입력하세요"
+        placeholder="인쇄사에 대한 소개글을 입력하세요"
         error={Boolean(errors.introduction)}
         helperText={errors.introduction?.message}
         multiline

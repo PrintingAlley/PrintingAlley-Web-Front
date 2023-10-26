@@ -35,10 +35,10 @@ export const UpdatePrintShopDialog = ({
   return (
     <>
       <Button onClick={handleOpen} startIcon={<Iconify icon="ic:baseline-edit" />} variant="soft">
-        인쇄소 수정
+        인쇄사 수정
       </Button>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-        <DialogTitle variant="h4">인쇄소 수정</DialogTitle>
+        <DialogTitle variant="h4">인쇄사 수정</DialogTitle>
         <DialogContent>
           <UpdatePrintShopForm
             printShop={printShop}
