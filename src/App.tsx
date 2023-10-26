@@ -20,10 +20,13 @@ import NewPrintShopPage from './pages/NewPrintShopPage';
 import LoginPage from './pages/LoginPage';
 import PageContainer from './sections/common/PageContainer';
 import ScrollToTop from './sections/common/ScrollToTop';
+import useAuth from './hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
 export default function App() {
+  const { isAuthenticated } = useAuth();
+
   return (
     <ThemeProvider>
       <SnackbarProvider>
@@ -35,9 +38,15 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/print-shop" element={<PrintShop />} />
             <Route path="/print-shop/:id" element={<PrintShopDetailPage />} />
-            <Route path="/print-shop/new" element={<NewPrintShopPage />} />
-            <Route path="/bookmark" element={<Home />} />
-            <Route path="/login" element={<LoginPage />} />
+            {isAuthenticated ? (
+              <>
+                <Route path="/print-shop/new" element={<NewPrintShopPage />} />
+                <Route path="/bookmark" element={<Home />} />
+                <Route path="/my" element={<LoginPage />} />
+              </>
+            ) : (
+              <Route path="/login" element={<LoginPage />} />
+            )}
             <Route path="*" element={<Home />} />
           </Routes>
         </PageContainer>

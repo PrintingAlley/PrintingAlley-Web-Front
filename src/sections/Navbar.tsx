@@ -12,9 +12,10 @@ import {
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Iconify from 'src/components/iconify/iconify';
+import useAuth from 'src/hooks/useAuth';
 import ThemeModeToggle from './common/ThemeModeToggle';
 
-const navbarItems = [
+const authenticatedNavbarItems = [
   {
     label: '소개',
     path: '/',
@@ -32,16 +33,34 @@ const navbarItems = [
     path: '/bookmark',
   },
   {
+    label: '내 정보',
+    path: '/my',
+  },
+];
+
+const defaultNavbarItems = [
+  {
+    label: '소개',
+    path: '/',
+  },
+  {
+    label: '인쇄 골목',
+    path: '/print-shop',
+  },
+  {
     label: '로그인',
     path: '/login',
   },
 ];
 
 const Navbar = () => {
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const theme = useTheme();
   const [position, setPosition] = useState(window.pageYOffset);
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+
+  const navbarItems = isAuthenticated ? authenticatedNavbarItems : defaultNavbarItems;
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
