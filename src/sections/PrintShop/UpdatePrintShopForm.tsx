@@ -2,19 +2,32 @@ import { useForm, Controller } from 'react-hook-form';
 import {
   Typography,
   TextField,
-  Button,
   Box,
   Chip,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
+  Alert,
+  Avatar,
+  Divider,
+  FormLabel,
+  Paper,
 } from '@mui/material';
 import { CreatePrintShop, PrintShop, Tag } from 'src/types/print-shop';
 import Iconify from 'src/components/iconify/iconify';
 import { useSnackbar } from 'notistack';
 import axios from 'src/utils/axios';
 import { flattenTags } from 'src/utils/tags';
+import DaumPostcode from 'react-daum-postcode';
+import useFileUpload from 'src/hooks/useFileUpload';
+import useLatLng from 'src/hooks/useLatLng';
+import LoadingButton from '@mui/lab/LoadingButton';
+import { FileUploadButton } from '../common/FileUploadButton';
+
+const postCodeStyle = {
+  height: '450px',
+};
 
 interface UpdatePrintShopFormProps {
   printShop: PrintShop;
@@ -49,8 +62,10 @@ export const UpdatePrintShopForm = ({
     control,
     handleSubmit,
     register,
-    formState: { errors },
+    setValue,
+    formState: { errors, isSubmitting },
   } = useForm<CreatePrintShop>({
+    mode: 'onChange',
     defaultValues: {
       name,
       address,
@@ -67,9 +82,30 @@ export const UpdatePrintShopForm = ({
     },
   });
 
-  const handleFormSubmit = (data: CreatePrintShop) => {
+  const {
+    handleFileChange: handleLogoFileChange,
+    uploadFile: uploadLogoFile,
+    previewUrl: logoPreviewUrl,
+  } = useFileUpload(logoImage);
+  const {
+    handleFileChange: handleBackgroundFileChange,
+    uploadFile: uploadBackgroundFile,
+    previewUrl: backgroundPreviewUrl,
+  } = useFileUpload(backgroundImage);
+  const { setLatLngFromAddress } = useLatLng();
+
+  const handleFormSubmit = async (data: CreatePrintShop) => {
+    const logoUrl = await uploadLogoFile();
+    const backgroundUrl = await uploadBackgroundFile();
+
+    const formDataWithImages = {
+      ...data,
+      logoImage: logoUrl ?? logoImage,
+      backgroundImage: backgroundUrl ?? backgroundImage,
+    };
+
     axios
-      .put<CreatePrintShop>(`print-shop/${printShop.id}`, data)
+      .put<CreatePrintShop>(`print-shop/${printShop.id}`, formDataWithImages)
       .then(() => {
         enqueueSnackbar('인쇄사가 성공적으로 업데이트 되었습니다.', { variant: 'success' });
         onAddSuccess();
@@ -79,6 +115,11 @@ export const UpdatePrintShopForm = ({
           variant: 'error',
         });
       });
+  };
+
+  const onCompletePost = (data: any) => {
+    setValue('address', data.address);
+    setLatLngFromAddress(data.address, setValue);
   };
 
   return (
@@ -110,46 +151,6 @@ export const UpdatePrintShopForm = ({
         helperText={errors.name?.message}
       />
       <TextField
-        {...register('address', {
-          required: '주소는 필수입니다.',
-          minLength: {
-            value: 2,
-            message: '주소는 2글자 이상이어야 합니다.',
-          },
-          maxLength: {
-            value: 200,
-            message: '주소는 200글자 이하여야 합니다.',
-          },
-        })}
-        label="주소"
-        placeholder="인쇄사의 주소를 입력하세요"
-        error={Boolean(errors.address)}
-        helperText={errors.address?.message}
-      />
-      <TextField
-        {...register('phone', { required: '전화번호는 필수입니다.' })}
-        label="전화번호"
-        placeholder="인쇄사의 전화번호를 입력하세요"
-        error={Boolean(errors.phone)}
-        helperText={errors.phone?.message}
-      />
-      <TextField
-        {...register('email', { required: '이메일은 필수입니다.' })}
-        type="email"
-        label="이메일"
-        placeholder="인쇄사의 이메일을 입력하세요"
-        error={Boolean(errors.email)}
-        helperText={errors.email?.message}
-      />
-      <TextField
-        {...register('homepage', { required: '홈페이지는 필수입니다.' })}
-        type="url"
-        label="홈페이지"
-        placeholder="인쇄사의 홈페이지 주소를 입력하세요"
-        error={Boolean(errors.homepage)}
-        helperText={errors.homepage?.message}
-      />
-      <TextField
         {...register('representative', {
           required: '대표자는 필수입니다.',
           minLength: {
@@ -167,21 +168,103 @@ export const UpdatePrintShopForm = ({
         helperText={errors.representative?.message}
       />
       <TextField
-        {...register('logoImage', { required: '로고 이미지 URL은 필수입니다.' })}
-        type="url"
-        label="로고 이미지 URL"
-        placeholder="인쇄사의 로고 이미지 URL을 입력하세요"
-        error={Boolean(errors.logoImage)}
-        helperText={errors.logoImage?.message}
+        {...register('phone', { required: '전화번호는 필수입니다.' })}
+        label="전화번호"
+        placeholder="인쇄사의 전화번호를 입력하세요"
+        error={Boolean(errors.phone)}
+        helperText={errors.phone?.message}
       />
       <TextField
-        {...register('backgroundImage', { required: '배경 이미지 URL은 필수입니다.' })}
-        type="url"
-        label="배경 이미지 URL"
-        placeholder="인쇄사의 배경 이미지 URL을 입력하세요"
-        error={Boolean(errors.backgroundImage)}
-        helperText={errors.backgroundImage?.message}
+        {...register('email', { required: '이메일은 필수입니다.' })}
+        type="email"
+        label="이메일"
+        placeholder="인쇄사의 이메일을 입력하세요"
+        error={Boolean(errors.email)}
+        helperText={errors.email?.message}
       />
+      <TextField
+        sx={{ gridColumn: '1 / span 2' }}
+        {...register('homepage')}
+        type="url"
+        label="홈페이지"
+        placeholder="인쇄사의 홈페이지 주소를 입력하세요"
+        error={Boolean(errors.homepage)}
+        helperText={errors.homepage?.message}
+      />
+
+      <Paper
+        variant="outlined"
+        sx={{
+          padding: '16.5px 14px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+        }}
+      >
+        <FormLabel>로고 이미지</FormLabel>
+        {logoPreviewUrl && (
+          <Avatar
+            src={logoPreviewUrl}
+            alt="Logo Preview"
+            sx={{ width: '100%', height: 'auto' }}
+            variant="rounded"
+          />
+        )}
+        <FileUploadButton onChange={handleLogoFileChange}>로고 이미지 선택</FileUploadButton>
+      </Paper>
+      <Paper
+        variant="outlined"
+        sx={{
+          padding: '16.5px 14px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+        }}
+      >
+        <FormLabel>배경 이미지</FormLabel>
+        {backgroundPreviewUrl && (
+          <Avatar
+            src={backgroundPreviewUrl}
+            alt="Background Preview"
+            sx={{ width: '100%', height: 'auto' }}
+            variant="rounded"
+          />
+        )}
+        <FileUploadButton onChange={handleBackgroundFileChange}>배경 이미지 선택</FileUploadButton>
+      </Paper>
+
+      <Paper variant="outlined" sx={{ gridColumn: '1 / span 2', overflow: 'hidden' }}>
+        <Box sx={{ p: '14px' }}>
+          <Alert severity="info">여기서 주소를 검색하면 아래에 주소가 자동으로 입력됩니다.</Alert>
+        </Box>
+        <Divider />
+        <DaumPostcode
+          style={postCodeStyle}
+          onComplete={onCompletePost}
+          autoClose={false}
+          focusInput={false}
+        />
+      </Paper>
+
+      <TextField
+        sx={{ gridColumn: '1 / span 2' }}
+        {...register('address', {
+          required: '주소는 필수입니다.',
+          minLength: {
+            value: 2,
+            message: '주소는 2글자 이상이어야 합니다.',
+          },
+          maxLength: {
+            value: 200,
+            message: '주소는 200글자 이하여야 합니다.',
+          },
+        })}
+        label="주소"
+        placeholder="인쇄사의 주소를 입력하세요"
+        error={Boolean(errors.address)}
+        helperText={errors.address?.message}
+      />
+
       <TextField
         {...register('latitude', {
           required: '위도는 필수입니다.',
@@ -194,6 +277,7 @@ export const UpdatePrintShopForm = ({
         placeholder="인쇄사의 위도를 입력하세요"
         error={Boolean(errors.latitude)}
         helperText={errors.latitude?.message}
+        InputProps={{ readOnly: true }}
       />
       <TextField
         {...register('longitude', {
@@ -207,7 +291,9 @@ export const UpdatePrintShopForm = ({
         placeholder="인쇄사의 경도를 입력하세요"
         error={Boolean(errors.longitude)}
         helperText={errors.longitude?.message}
+        InputProps={{ readOnly: true }}
       />
+
       <TextField
         {...register('introduction', {
           required: '소개글은 필수입니다.',
@@ -275,16 +361,17 @@ export const UpdatePrintShopForm = ({
           </FormControl>
         ))}
       </Box>
-      <Button
+      <LoadingButton
         sx={{ gridColumn: '1 / span 2' }}
         type="submit"
         size="large"
         startIcon={<Iconify icon="ic:baseline-edit" />}
         color="primary"
         variant="contained"
+        loading={isSubmitting}
       >
         수정하기
-      </Button>
+      </LoadingButton>
     </Box>
   );
 };

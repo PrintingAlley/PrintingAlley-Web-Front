@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import axios from 'src/utils/axios';
 
-const useFileUpload = () => {
+const useFileUpload = (defaultUrl: string | null = null) => {
   const [fileData, setFileData] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(defaultUrl);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;

@@ -3,7 +3,6 @@ import { useForm, Controller } from 'react-hook-form';
 import {
   Typography,
   TextField,
-  Button,
   Box,
   Chip,
   FormControl,
@@ -13,7 +12,6 @@ import {
   FormLabel,
   Paper,
   Avatar,
-  styled,
   Divider,
   Alert,
 } from '@mui/material';
@@ -26,34 +24,12 @@ import DaumPostcode from 'react-daum-postcode';
 import useFileUpload from 'src/hooks/useFileUpload';
 import useLatLng from 'src/hooks/useLatLng';
 import { useNavigate } from 'react-router';
+import LoadingButton from '@mui/lab/LoadingButton';
+import { FileUploadButton } from '../common/FileUploadButton';
 
 const postCodeStyle = {
   height: '450px',
 };
-
-const VisuallyHiddenInput = styled('input')({
-  clip: 'rect(0 0 0 0)',
-  clipPath: 'inset(50%)',
-  height: 1,
-  overflow: 'hidden',
-  position: 'absolute',
-  bottom: 0,
-  left: 0,
-  whiteSpace: 'nowrap',
-  width: 1,
-});
-
-const FileUploadButton = ({ onChange, children }: { onChange: any; children: React.ReactNode }) => (
-  <Button
-    component="label"
-    variant="outlined"
-    color="primary"
-    startIcon={<Iconify icon="ic:baseline-cloud-upload" />}
-  >
-    {children}
-    <VisuallyHiddenInput type="file" accept="image/*" onChange={onChange} />
-  </Button>
-);
 
 interface CreatePrintShopFormProps {
   topLevelTags: Tag[];
@@ -69,7 +45,7 @@ export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrin
     register,
     setValue,
     setFocus,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<CreatePrintShop>({
     mode: 'onChange',
     defaultValues: { latitude: '0', longitude: '0' },
@@ -357,16 +333,17 @@ export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrin
           </FormControl>
         ))}
       </Box>
-      <Button
+      <LoadingButton
         sx={{ gridColumn: '1 / span 2' }}
         type="submit"
         size="large"
-        startIcon={<Iconify icon="ic:baseline-add" />}
+        startIcon={<Iconify icon="ic:baseline-post-add" />}
         color="primary"
         variant="contained"
+        loading={isSubmitting}
       >
-        추가하기
-      </Button>
+        등록하기
+      </LoadingButton>
     </Box>
   );
 };

@@ -3,7 +3,6 @@ import axios from 'src/utils/axios';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { PrintShop } from 'src/types/print-shop';
-import { green } from '@mui/material/colors';
 import SkeletonSection from 'src/sections/common/SkeletonSection';
 import { UpdatePrintShopDialog } from 'src/sections/PrintShop/UpdatePrintShopDialog';
 import { useTopLevelTags } from 'src/hooks/useTopLevelTags';
@@ -65,7 +64,7 @@ export default function PrintShopDetailPage() {
               <Avatar
                 alt="Background"
                 src={printShop.backgroundImage}
-                sx={{ width: '100%', height: 240, bgcolor: green[500] }}
+                sx={{ width: '100%', height: 240 }}
                 variant="rounded"
               />
             </Grid>
