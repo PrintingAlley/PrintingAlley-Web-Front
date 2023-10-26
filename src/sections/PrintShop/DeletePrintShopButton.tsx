@@ -16,11 +16,11 @@ export const DeletePrintShopButton = ({ printShop, onDelete }: DeletePrintShopBu
     axios
       .delete(`print-shop/${printShop.id}`)
       .then(() => {
-        enqueueSnackbar('인쇄소가 성공적으로 삭제되었습니다.', { variant: 'success' });
+        enqueueSnackbar('인쇄사가 성공적으로 삭제되었습니다.', { variant: 'success' });
         onDelete();
       })
       .catch((error) => {
-        enqueueSnackbar(`인쇄소 삭제 중 오류가 발생했습니다. ${error.message}`, {
+        enqueueSnackbar(`인쇄사 삭제 중 오류가 발생했습니다. ${error.message}`, {
           variant: 'error',
         });
       });
@@ -32,7 +32,7 @@ export const DeletePrintShopButton = ({ printShop, onDelete }: DeletePrintShopBu
       startIcon={<Iconify icon="ic:baseline-delete" />}
       variant="soft"
     >
-      인쇄소 삭재
+      인쇄사 삭재
     </Button>
   );
 };
