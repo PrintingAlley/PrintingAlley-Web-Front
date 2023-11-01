@@ -21,6 +21,14 @@ const authenticatedNavbarItems = [
     path: '/',
   },
   {
+    label: '제품 목록',
+    path: '/product',
+  },
+  {
+    label: '제품 등록',
+    path: '/product/new',
+  },
+  {
     label: '인쇄 골목',
     path: '/print-shop',
   },
@@ -42,6 +50,10 @@ const defaultNavbarItems = [
   {
     label: '소개',
     path: '/',
+  },
+  {
+    label: '제품 목록',
+    path: '/product',
   },
   {
     label: '인쇄 골목',

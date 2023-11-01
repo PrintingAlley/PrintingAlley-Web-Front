@@ -1,15 +1,22 @@
 import { useState } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import Iconify from 'src/components/iconify/iconify';
-import { PrintShopDetail } from 'src/types/response.dto';
-import { UpdatePrintShopForm } from './UpdatePrintShopForm';
+import { ProductDetail, TagInterface } from 'src/types/response.dto';
+import { UpdateProductForm } from './UpdateProductForm';
 
-interface UpdatePrintShopDialogProps {
-  printShop: PrintShopDetail;
+interface UpdateProductDialogProps {
+  product: ProductDetail;
+  topLevelTags: TagInterface[];
+  tagHierarchies: Record<number, TagInterface[]>;
   onAdd: () => void;
 }
 
-export const UpdatePrintShopDialog = ({ printShop, onAdd }: UpdatePrintShopDialogProps) => {
+export const UpdateProductDialog = ({
+  product,
+  topLevelTags,
+  tagHierarchies,
+  onAdd,
+}: UpdateProductDialogProps) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -28,12 +35,17 @@ export const UpdatePrintShopDialog = ({ printShop, onAdd }: UpdatePrintShopDialo
   return (
     <>
       <Button onClick={handleOpen} startIcon={<Iconify icon="ic:baseline-edit" />} variant="soft">
-        인쇄사 수정
+        제품 수정
       </Button>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-        <DialogTitle variant="h4">인쇄사 수정</DialogTitle>
+        <DialogTitle variant="h4">제품 수정</DialogTitle>
         <DialogContent>
-          <UpdatePrintShopForm printShop={printShop} onAddSuccess={handleAddSuccess} />
+          <UpdateProductForm
+            product={product}
+            topLevelTags={topLevelTags}
+            tagHierarchies={tagHierarchies}
+            onAddSuccess={handleAddSuccess}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} variant="contained">

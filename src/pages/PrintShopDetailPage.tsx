@@ -1,24 +1,23 @@
-import { Avatar, Box, ButtonGroup, Chip, Divider, Grid, Link, Typography } from '@mui/material';
+import { Avatar, ButtonGroup, Divider, Grid, IconButton, Link, Typography } from '@mui/material';
 import axios from 'src/utils/axios';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { PrintShop } from 'src/types/print-shop';
 import SkeletonSection from 'src/sections/common/SkeletonSection';
 import { UpdatePrintShopDialog } from 'src/sections/PrintShop/UpdatePrintShopDialog';
-import { useTopLevelTags } from 'src/hooks/useTopLevelTags';
 import { DeletePrintShopButton } from 'src/sections/PrintShop/DeletePrintShopButton';
 import CenteredTitle from 'src/sections/common/CenteredTitle';
 import { Map, MapMarker, ZoomControl } from 'react-kakao-maps-sdk';
+import Iconify from 'src/components/iconify';
+import { GetPrintShopResponse, PrintShopDetail } from 'src/types/response.dto';
 
 export default function PrintShopDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { topLevelTags, tagHierarchies } = useTopLevelTags();
-  const [printShop, setPrintShop] = useState<PrintShop | null>(null);
+  const [printShop, setPrintShop] = useState<PrintShopDetail | null>(null);
 
   const fetchPrintShop = () => {
-    axios.get<PrintShop>(`print-shop/${id}`).then((response) => {
-      setPrintShop(response.data);
+    axios.get<GetPrintShopResponse>(`print-shop/${id}`).then((response) => {
+      setPrintShop(response.data.printShop);
     });
   };
 
@@ -30,6 +29,10 @@ export default function PrintShopDetailPage() {
     navigate('/print-shop', { replace: true });
   };
 
+  const goBack = () => {
+    navigate(-1);
+  };
+
   useEffect(() => {
     fetchPrintShop();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -39,7 +42,12 @@ export default function PrintShopDetailPage() {
     <>
       {printShop ? (
         <div>
+          <IconButton onClick={goBack}>
+            <Iconify icon="ic:round-arrow-back" />
+          </IconButton>
+
           <CenteredTitle title={printShop.name} />
+
           <Grid container spacing={3} alignItems="center" justifyContent="center">
             <Grid item xs={12} md={4} display="flex" justifyContent="center">
               <Avatar alt="Logo" src={printShop.logoImage} sx={{ width: 120, height: 120 }} />
@@ -77,25 +85,12 @@ export default function PrintShopDetailPage() {
                 <ZoomControl position="RIGHT" />
               </Map>
             </Grid>
-            <Grid item xs={12}>
-              <Typography variant="h6" gutterBottom>
-                Tags
-              </Typography>
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                {printShop.tags?.map((tag) => <Chip key={tag.id} label={tag.name} />)}
-              </Box>
-            </Grid>
           </Grid>
 
           <Divider sx={{ my: 4 }} />
 
           <ButtonGroup color="inherit">
-            <UpdatePrintShopDialog
-              printShop={printShop}
-              topLevelTags={topLevelTags}
-              tagHierarchies={tagHierarchies}
-              onAdd={onAdd}
-            />
+            <UpdatePrintShopDialog printShop={printShop} onAdd={onAdd} />
             <DeletePrintShopButton printShop={printShop} onDelete={onDelete} />
           </ButtonGroup>
         </div>

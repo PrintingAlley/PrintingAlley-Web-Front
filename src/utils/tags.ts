@@ -1,7 +1,7 @@
-import { Tag } from 'src/types/print-shop';
+import { TagInterface } from 'src/types/response.dto';
 
-export const flattenTags = (tags: Tag[]): Tag[] => {
-  let flattened: Tag[] = [];
+export const flattenTags = (tags: TagInterface[]): TagInterface[] => {
+  let flattened: TagInterface[] = [];
   tags.forEach((tag) => {
     flattened.push(tag);
     if (tag.children && tag.children.length > 0) {

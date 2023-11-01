@@ -1,14 +1,14 @@
 import { Typography, Chip, Box, Divider } from '@mui/material';
 import { Dispatch, SetStateAction, useEffect } from 'react';
-import { Tag } from 'src/types/print-shop';
+import { TagInterface } from 'src/types/response.dto';
 
 interface TagFilterProps {
-  selectedTopLevelTag: Tag | null;
-  setSelectedTopLevelTag: Dispatch<SetStateAction<Tag | null>>;
+  selectedTopLevelTag: TagInterface | null;
+  setSelectedTopLevelTag: Dispatch<SetStateAction<TagInterface | null>>;
   selectedTags: number[];
   setSelectedTags: Dispatch<SetStateAction<number[]>>;
-  topLevelTags: Tag[];
-  tags: Record<number, Tag[]>;
+  topLevelTags: TagInterface[];
+  tags: Record<number, TagInterface[]>;
 }
 
 export const TagFilter = ({

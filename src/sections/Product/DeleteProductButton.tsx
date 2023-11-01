@@ -2,25 +2,25 @@ import { Button } from '@mui/material';
 import Iconify from 'src/components/iconify/iconify';
 import { useSnackbar } from 'notistack';
 import axios from 'src/utils/axios';
-import { PrintShopDetail } from 'src/types/response.dto';
+import { ProductDetail } from 'src/types/response.dto';
 
-interface DeletePrintShopButtonProps {
-  printShop: PrintShopDetail;
+interface DeleteProductButtonProps {
+  product: ProductDetail;
   onDelete: () => void;
 }
 
-export const DeletePrintShopButton = ({ printShop, onDelete }: DeletePrintShopButtonProps) => {
+export const DeleteProductButton = ({ product, onDelete }: DeleteProductButtonProps) => {
   const { enqueueSnackbar } = useSnackbar();
-  const deletePrintShop = () => {
+  const deleteProduct = () => {
     if (!window.confirm('정말로 삭제하시겠습니까?')) return;
     axios
-      .delete(`/print-shop/${printShop.id}`)
+      .delete(`/product/${product.id}`)
       .then(() => {
-        enqueueSnackbar('인쇄사가 성공적으로 삭제되었습니다.', { variant: 'success' });
+        enqueueSnackbar('제품이 성공적으로 삭제되었습니다.', { variant: 'success' });
         onDelete();
       })
       .catch((error) => {
-        enqueueSnackbar(`인쇄사 삭제 중 오류가 발생했습니다. ${error.message}`, {
+        enqueueSnackbar(`제품 삭제 중 오류가 발생했습니다. ${error.message}`, {
           variant: 'error',
         });
       });
@@ -28,11 +28,11 @@ export const DeletePrintShopButton = ({ printShop, onDelete }: DeletePrintShopBu
 
   return (
     <Button
-      onClick={deletePrintShop}
+      onClick={deleteProduct}
       startIcon={<Iconify icon="ic:baseline-delete" />}
       variant="soft"
     >
-      인쇄사 삭제
+      제품 삭제
     </Button>
   );
 };

@@ -1,14 +1,14 @@
 import axios from 'src/utils/axios';
 import { useState, useEffect } from 'react';
-import { Tag } from 'src/types/print-shop';
+import { TagInterface } from 'src/types/response.dto';
 
 type TagResponse = {
-  hierarchies: Tag[];
+  hierarchies: TagInterface[];
 };
 
 export const useTopLevelTags = () => {
-  const [topLevelTags, setTopLevelTags] = useState<Tag[]>([]);
-  const [tagHierarchies, setTagHierarchies] = useState<Record<number, Tag[]>>({});
+  const [topLevelTags, setTopLevelTags] = useState<TagInterface[]>([]);
+  const [tagHierarchies, setTagHierarchies] = useState<Record<number, TagInterface[]>>({});
 
   useEffect(() => {
     axios.get<TagResponse>('tag').then((response) => {

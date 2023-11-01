@@ -32,7 +32,7 @@ export const SearchBar = ({ onSearch, resetSearch }: SearchBarProps) => {
     >
       <TextField
         value={searchQuery}
-        placeholder="인쇄사 이름을 검색하세요."
+        placeholder="검색어를 입력하세요"
         variant="outlined"
         fullWidth
         onChange={(e) => setSearchQuery(e.target.value)}

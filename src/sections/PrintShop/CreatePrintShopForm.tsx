@@ -1,25 +1,10 @@
 import { useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import {
-  Typography,
-  TextField,
-  Box,
-  Chip,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  FormLabel,
-  Paper,
-  Avatar,
-  Divider,
-  Alert,
-} from '@mui/material';
-import { CreatePrintShop, Tag } from 'src/types/print-shop';
+import { useForm } from 'react-hook-form';
+import { TextField, Box, FormLabel, Paper, Avatar, Divider, Alert } from '@mui/material';
+import { CreatePrintShop } from 'src/types/print-shop';
 import Iconify from 'src/components/iconify/iconify';
 import { useSnackbar } from 'notistack';
 import axios from 'src/utils/axios';
-import { flattenTags } from 'src/utils/tags';
 import DaumPostcode from 'react-daum-postcode';
 import useFileUpload from 'src/hooks/useFileUpload';
 import useLatLng from 'src/hooks/useLatLng';
@@ -31,16 +16,10 @@ const postCodeStyle = {
   height: '450px',
 };
 
-interface CreatePrintShopFormProps {
-  topLevelTags: Tag[];
-  tagHierarchies: Record<number, Tag[]>;
-}
-
-export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrintShopFormProps) => {
+export const CreatePrintShopForm = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const {
-    control,
     handleSubmit,
     register,
     setValue,
@@ -113,8 +92,8 @@ export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrin
             message: '상호명은 2글자 이상이어야 합니다.',
           },
           maxLength: {
-            value: 20,
-            message: '상호명은 20글자 이하여야 합니다.',
+            value: 50,
+            message: '상호명은 50글자 이하여야 합니다.',
           },
         })}
         label="상호명"
@@ -286,53 +265,7 @@ export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrin
         rows={4}
         sx={{ gridColumn: '1 / span 2' }}
       />
-      <Box
-        sx={{
-          gridColumn: '1 / span 2',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 2,
-        }}
-      >
-        {topLevelTags.map((topTag) => (
-          <FormControl key={topTag.id} fullWidth error={Boolean(errors.tagIds)}>
-            <InputLabel>{topTag.name}</InputLabel>
-            <Controller
-              name="tagIds"
-              control={control}
-              defaultValue={[]}
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  multiple
-                  renderValue={(selected) => (
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                      {(selected as number[]).map((value) => {
-                        const item = flattenTags(tagHierarchies[topTag.id] || []).find(
-                          (tag) => tag.id === value
-                        );
-                        if (!item) {
-                          return null;
-                        }
-                        return <Chip key={value} label={item.name} />;
-                      })}
-                    </Box>
-                  )}
-                >
-                  {flattenTags(tagHierarchies[topTag.id] || [])
-                    .filter((tag) => !tag.children.length)
-                    .map((tag) => (
-                      <MenuItem key={tag.id} value={tag.id}>
-                        {tag.name}
-                      </MenuItem>
-                    ))}
-                </Select>
-              )}
-            />
-            {errors.tagIds && <Typography color="error">{errors.tagIds.message}</Typography>}
-          </FormControl>
-        ))}
-      </Box>
+
       <LoadingButton
         sx={{ gridColumn: '1 / span 2' }}
         type="submit"

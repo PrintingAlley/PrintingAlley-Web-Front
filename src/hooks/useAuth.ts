@@ -1,15 +1,8 @@
-// useAuth.ts
 import { useEffect } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { HOST_API } from 'src/config-global';
+import { GetUserResponse, UserInterface } from 'src/types/response.dto';
 import axios from 'src/utils/axios';
-
-interface User {
-  name: string;
-  email: string;
-  profileImage?: string;
-  provider: string;
-}
 
 const useAuth = () => {
   const queryClient = useQueryClient();
@@ -39,8 +32,8 @@ const useAuth = () => {
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get('user');
-      return response.data;
+      const response = await axios.get<GetUserResponse>('user');
+      return response.data.user;
     } catch (error) {
       throw new Error('Unauthorized');
     }
@@ -59,7 +52,7 @@ const useAuth = () => {
     data: user,
     isError,
     isLoading,
-  } = useQuery<User>('user', fetchUser, {
+  } = useQuery<UserInterface>('user', fetchUser, {
     enabled: !!localStorage.getItem('token'),
     retry: false,
   });

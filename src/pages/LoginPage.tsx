@@ -58,7 +58,7 @@ export default function LoginPage() {
   if (user) {
     return (
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        <Avatar src={user.profileImage} alt={user.name} sx={{ width: 100, height: 100 }} />
+        <Avatar src={user.profileImage || ''} alt={user.name} sx={{ width: 100, height: 100 }} />
         <Typography>{user.name}님 환영합니다.</Typography>
         <Typography>{user.provider}로 로그인했습니다.</Typography>
         <Typography>{user.profileImage}</Typography>

@@ -1,16 +1,16 @@
 import { List, ListItem, ListItemAvatar, Avatar, ListItemText, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router';
 import Iconify from 'src/components/iconify/iconify';
-import { PrintShop } from 'src/types/print-shop';
+import { PrintShopInterface } from 'src/types/response.dto';
 
 interface PrintShopListProps {
-  printShops: PrintShop[];
+  printShops: PrintShopInterface[];
 }
 
 export const PrintShopList = ({ printShops }: PrintShopListProps) => {
   const navigate = useNavigate();
 
-  const goToPrintShopPage = (shop: PrintShop) => {
+  const goToPrintShopPage = (shop: PrintShopInterface) => {
     navigate(`/print-shop/${shop.id}`);
   };
 

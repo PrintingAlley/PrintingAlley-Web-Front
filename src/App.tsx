@@ -4,6 +4,15 @@ import 'simplebar-react/dist/simplebar.min.css';
 // image
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
+// carousel
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+// lightbox
+import 'yet-another-react-lightbox/styles.css';
+import 'yet-another-react-lightbox/plugins/captions.css';
+import 'yet-another-react-lightbox/plugins/thumbnails.css';
+
 // ----------------------------------------------------------------------
 
 // theme
@@ -21,6 +30,9 @@ import LoginPage from './pages/LoginPage';
 import PageContainer from './sections/common/PageContainer';
 import ScrollToTop from './sections/common/ScrollToTop';
 import useAuth from './hooks/useAuth';
+import ProductPage from './pages/ProductPage';
+import ProductDetailPage from './pages/ProductDetailPage';
+import NewProductPage from './pages/NewProductPage';
 
 // ----------------------------------------------------------------------
 
@@ -36,10 +48,13 @@ export default function App() {
         <PageContainer>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/product" element={<ProductPage />} />
+            <Route path="/product/:id" element={<ProductDetailPage />} />
             <Route path="/print-shop" element={<PrintShop />} />
             <Route path="/print-shop/:id" element={<PrintShopDetailPage />} />
             {isAuthenticated ? (
               <>
+                <Route path="/product/new" element={<NewProductPage />} />
                 <Route path="/print-shop/new" element={<NewPrintShopPage />} />
                 <Route path="/bookmark" element={<Home />} />
                 <Route path="/my" element={<LoginPage />} />
