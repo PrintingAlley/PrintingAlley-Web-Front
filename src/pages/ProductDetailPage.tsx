@@ -1,21 +1,6 @@
-import {
-  Avatar,
-  Box,
-  ButtonGroup,
-  Chip,
-  Divider,
-  Grid,
-  IconButton,
-  Link,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemSecondaryAction,
-  ListItemText,
-  Typography,
-} from '@mui/material';
+import { Avatar, Box, ButtonGroup, Chip, Divider, Grid, Link, Typography } from '@mui/material';
 import axios from 'src/utils/axios';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import SkeletonSection from 'src/sections/common/SkeletonSection';
 import { useTopLevelTags } from 'src/hooks/useTopLevelTags';
@@ -28,10 +13,65 @@ import {
 } from 'src/types/response.dto';
 import ProductDetailsCarousel from 'src/sections/Product/ProductDetailsCarousel';
 import useAuth from 'src/hooks/useAuth';
-import Iconify from 'src/components/iconify';
 import { NavLink } from 'react-router-dom';
 import { DeleteProductButton } from 'src/sections/Product/DeleteProductButton';
 import { UpdateProductDialog } from 'src/sections/Product/UpdateProductDialog';
+import NavigateBackButton from 'src/sections/common/NavigateBackButton';
+import { ReviewSection } from 'src/sections/Review/ReviewSection';
+
+function ProductInformation({ product }: { product: ProductDetail }) {
+  return (
+    <Grid container spacing={3}>
+      <Grid item xs={12} md={4}>
+        <Avatar
+          alt="Logo"
+          src={product.mainImage}
+          sx={{ width: 1, height: 'auto' }}
+          variant="rounded"
+        />
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        md={8}
+        sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+      >
+        <Typography variant="subtitle1" color="textSecondary">
+          {product.category.name}
+        </Typography>
+        <Divider sx={{ my: 0.5 }} />
+        <Typography>
+          <b>제작 인쇄사</b>{' '}
+          <Link component={NavLink} to={`/print-shop/${product.printShop.id}`}>
+            {product.printShop.name}
+          </Link>
+        </Typography>
+        <Divider sx={{ my: 0.5 }} />
+        <Typography>
+          <b>디자인</b> {product.designer}
+        </Typography>
+        <Divider sx={{ my: 0.5 }} />
+        <Typography>
+          <b>제품 크기</b> {product.size}
+        </Typography>
+        <Divider sx={{ my: 0.5 }} />
+        <Typography>
+          <b>종이</b> {product.paper}
+        </Typography>
+        <Divider sx={{ my: 0.5 }} />
+        <Typography>
+          <b>인쇄 방식</b> {product.tags.map((tag) => tag.name).join(', ')}
+        </Typography>
+        <Divider sx={{ my: 0.5 }} />
+        <Typography>
+          <b>후가공</b> {product.afterProcess}
+        </Typography>
+        <Divider sx={{ my: 0.5 }} />
+        <Typography>{product.introduction}</Typography>
+      </Grid>
+    </Grid>
+  );
+}
 
 export default function ProductDetailPage() {
   const { id } = useParams();
@@ -61,10 +101,6 @@ export default function ProductDetailPage() {
     navigate('/product', { replace: true });
   };
 
-  const goBack = () => {
-    navigate(-1);
-  };
-
   useEffect(() => {
     fetchProduct();
     fetchReviews();
@@ -75,54 +111,21 @@ export default function ProductDetailPage() {
     <>
       {product ? (
         <div>
-          <IconButton onClick={goBack}>
-            <Iconify icon="ic:round-arrow-back" />
-          </IconButton>
+          <NavigateBackButton />
 
           <CenteredTitle title={product.name} />
 
-          <Grid container spacing={3} alignItems="center" justifyContent="center">
-            <Grid item xs={12} md={4} display="flex" justifyContent="center">
-              <Avatar
-                alt="Logo"
-                src={product.mainImage}
-                sx={{ width: 120, height: 'auto' }}
-                variant="rounded"
-              />
-            </Grid>
-            <Grid item xs={12} md={8}>
-              <Typography variant="subtitle1" color="textSecondary">
-                {product.category.name}
-              </Typography>
-              <Typography>{product.printShop.name}</Typography>
-              <Typography>{product.printShop.email}</Typography>
-              <Typography fontWeight="medium">{product.introduction}</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="body2" sx={{ textAlign: 'center' }}>
-                {product.description}
-              </Typography>
-            </Grid>
-          </Grid>
-
-          <Box sx={{ height: 32 }} />
-
-          <Box>
-            <ProductDetailsCarousel product={product} />
-          </Box>
+          <ProductInformation product={product} />
 
           <Divider sx={{ my: 2 }} />
 
-          <Box>
-            <Typography variant="h6" gutterBottom>
-              제작 인쇄사
-            </Typography>
-            <Typography>{product.printShop.name}</Typography>
-            <Typography>{product.printShop.email}</Typography>
-            <Link component={NavLink} color="primary" to={`/print-shop/${product.printShop.id}`}>
-              인쇄사 페이지로 이동
-            </Link>
-          </Box>
+          <Typography variant="body2" sx={{ textAlign: 'center', whiteSpace: 'pre-wrap' }}>
+            {product.description}
+          </Typography>
+
+          <Divider sx={{ my: 2 }} />
+
+          <ProductDetailsCarousel product={product} />
 
           <Divider sx={{ my: 2 }} />
 
@@ -137,34 +140,13 @@ export default function ProductDetailPage() {
 
           <Divider sx={{ my: 2 }} />
 
-          <Box>
-            <Typography variant="h6" gutterBottom>
-              리뷰
-            </Typography>
-            <List>
-              {reviews?.map((review) => (
-                <React.Fragment key={review.id}>
-                  <ListItem>
-                    <ListItemAvatar>
-                      <Avatar alt="Logo" src={review.user?.profileImage || ''} />
-                    </ListItemAvatar>
-                    <ListItemText primary={review.user?.name} secondary={review.content} />
-                    {user?.id === review.user?.id && (
-                      <ListItemSecondaryAction>
-                        <IconButton>
-                          <Iconify icon="ic:round-edit" />
-                        </IconButton>
-                        <IconButton>
-                          <Iconify icon="ic:round-delete" />
-                        </IconButton>
-                      </ListItemSecondaryAction>
-                    )}
-                  </ListItem>
-                  <Divider variant="inset" component="li" />
-                </React.Fragment>
-              ))}
-            </List>
-          </Box>
+          <ReviewSection
+            type="product"
+            targetId={product.id}
+            reviews={reviews}
+            currentUser={user}
+            fetchReviews={fetchReviews}
+          />
 
           <Box sx={{ height: 64 }} />
 

@@ -1,6 +1,9 @@
 export interface CreateProduct {
   name: string;
-  priceInfo: string | null;
+  size: string;
+  paper: string;
+  afterProcess: string;
+  designer: string;
   introduction: string;
   description: string;
   mainImage: string;

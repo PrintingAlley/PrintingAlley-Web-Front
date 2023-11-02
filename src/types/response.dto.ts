@@ -6,7 +6,7 @@ export interface TagInterface {
   children: TagInterface[];
 }
 
-interface CategoryInterface {
+export interface CategoryInterface {
   id: number;
   name: string;
   image: string | null;
@@ -28,10 +28,13 @@ interface BookmarkGroupInterface {
   updatedAt: string;
 }
 
-interface ProductInterface {
+export interface ProductInterface {
   id: number;
   name: string;
-  priceInfo: string | null;
+  size: string;
+  paper: string;
+  afterProcess: string;
+  designer: string;
   introduction: string;
   description: string;
   mainImage: string;
@@ -61,7 +64,7 @@ interface PrintShopReviewInterface {
   id: number;
   content: string;
   rating: number;
-  images: string[];
+  images: string[] | null;
   createdAt: string;
   updateAt: string;
 }
@@ -70,7 +73,7 @@ interface ProductReviewInterface {
   id: number;
   content: string;
   rating: number;
-  images: string[];
+  images: string[] | null;
   createdAt: string;
   updateAt: string;
 }
@@ -116,7 +119,7 @@ interface PrintShopReviewWithPrintShop extends PrintShopReviewInterface {
   printShop: PrintShopInterface;
 }
 
-interface PrintShopReviewWithUser extends PrintShopReviewInterface {
+export interface PrintShopReviewWithUser extends PrintShopReviewInterface {
   user: UserInterface;
 }
 
@@ -193,4 +196,9 @@ export interface GetTagsResponse {
 // GET /tag/:id
 export interface GetTagResponse {
   tag: TagInterface;
+}
+
+// GET /category
+export interface GetCategoriesResponse {
+  categories: CategoryInterface[];
 }

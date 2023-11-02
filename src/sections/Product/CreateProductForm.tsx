@@ -24,6 +24,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { CreateProduct } from 'src/types/product';
 import { TagInterface } from 'src/types/response.dto';
 import useFilesUpload from 'src/hooks/useFilesUpload';
+import { useCategory } from 'src/hooks/useCategory';
 import { FileUploadButton } from '../common/FileUploadButton';
 import { FilesUploadButton } from '../common/FilesUploadButton';
 
@@ -34,6 +35,7 @@ interface CreateProductFormProps {
 
 export const CreateProductForm = ({ topLevelTags, tagHierarchies }: CreateProductFormProps) => {
   const navigate = useNavigate();
+  const { categories } = useCategory();
   const { enqueueSnackbar } = useSnackbar();
   const {
     control,
@@ -43,7 +45,8 @@ export const CreateProductForm = ({ topLevelTags, tagHierarchies }: CreateProduc
     formState: { errors, isSubmitting },
   } = useForm<CreateProduct>({
     mode: 'onChange',
-    defaultValues: { categoryId: 1, printShopId: 1 },
+    // TODO: printShopId 추후 제거
+    defaultValues: { printShopId: 1 },
   });
 
   const {
@@ -111,6 +114,98 @@ export const CreateProductForm = ({ topLevelTags, tagHierarchies }: CreateProduc
         placeholder="제품명을 입력하세요"
         error={Boolean(errors.name)}
         helperText={errors.name?.message}
+      />
+      <TextField
+        {...register('categoryId', {
+          required: '카테고리는 필수입니다.',
+          min: {
+            value: 1,
+            message: '카테고리를 선택하세요',
+          },
+        })}
+        label="카테고리"
+        placeholder="제품 카테고리를 선택하세요"
+        select
+        error={Boolean(errors.categoryId)}
+        helperText={errors.categoryId?.message}
+        defaultValue={0}
+      >
+        <MenuItem value={0} disabled>
+          카테고리를 선택하세요
+        </MenuItem>
+        {categories.map((item) => (
+          <MenuItem key={item.id} value={item.id}>
+            {item.name}
+          </MenuItem>
+        ))}
+      </TextField>
+      <TextField
+        {...register('size', {
+          required: '제품 크기는 필수입니다.',
+          minLength: {
+            value: 2,
+            message: '제품 크기는 2글자 이상이어야 합니다.',
+          },
+          maxLength: {
+            value: 50,
+            message: '제품 크기는 50글자 이하여야 합니다.',
+          },
+        })}
+        label="제품 크기"
+        placeholder="90*50mm"
+        error={Boolean(errors.size)}
+        helperText={errors.size?.message}
+      />
+      <TextField
+        {...register('paper', {
+          required: '종이 종류는 필수입니다.',
+          minLength: {
+            value: 2,
+            message: '종이 종류는 2글자 이상이어야 합니다.',
+          },
+          maxLength: {
+            value: 50,
+            message: '종이 종류는 50글자 이하여야 합니다.',
+          },
+        })}
+        label="종이 종류"
+        placeholder="종이이름+평량(g)"
+        error={Boolean(errors.paper)}
+        helperText={errors.paper?.message}
+      />
+      <TextField
+        {...register('afterProcess', {
+          required: '후가공은 필수입니다.',
+          minLength: {
+            value: 2,
+            message: '후가공은 2글자 이상이어야 합니다.',
+          },
+          maxLength: {
+            value: 50,
+            message: '후가공은 50글자 이하여야 합니다.',
+          },
+        })}
+        label="후가공"
+        placeholder="도무송"
+        error={Boolean(errors.afterProcess)}
+        helperText={errors.afterProcess?.message}
+      />
+      <TextField
+        {...register('designer', {
+          required: '디자이너 정보는 필수입니다.',
+          minLength: {
+            value: 2,
+            message: '디자이너 정보는 2글자 이상이어야 합니다.',
+          },
+          maxLength: {
+            value: 50,
+            message: '디자이너 정보는 50글자 이하여야 합니다.',
+          },
+        })}
+        label="디자이너 또는 디자인 스튜디오 이름"
+        placeholder="디자이너 정보를 입력하세요"
+        error={Boolean(errors.designer)}
+        helperText={errors.designer?.message}
       />
 
       <Paper
