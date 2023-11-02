@@ -83,7 +83,12 @@ export default function ProductDetailPage() {
 
           <Grid container spacing={3} alignItems="center" justifyContent="center">
             <Grid item xs={12} md={4} display="flex" justifyContent="center">
-              <Avatar alt="Logo" src={product.mainImage} sx={{ width: 120, height: 120 }} />
+              <Avatar
+                alt="Logo"
+                src={product.mainImage}
+                sx={{ width: 120, height: 'auto' }}
+                variant="rounded"
+              />
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="subtitle1" color="textSecondary">

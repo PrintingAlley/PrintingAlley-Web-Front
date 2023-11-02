@@ -11,6 +11,7 @@ import {
   Avatar,
   FormLabel,
   Paper,
+  IconButton,
 } from '@mui/material';
 import Iconify from 'src/components/iconify/iconify';
 import { useSnackbar } from 'notistack';
@@ -68,6 +69,7 @@ export const UpdateProductForm = ({
     handleFileChange: handleImageFilesChange,
     uploadFiles: uploadImageFiles,
     previewUrls: imagePreviewUrls,
+    removeFileAtIndex: removeImageFileAtIndex,
   } = useFilesUpload(images);
 
   const handleFormSubmit = async (data: CreateProduct) => {
@@ -77,7 +79,7 @@ export const UpdateProductForm = ({
     const formDataWithImages = {
       ...data,
       mainImage: mainImageUrl ?? mainImage,
-      images: imageUrls.length ? imageUrls : images,
+      images: imageUrls,
     };
 
     axios
@@ -154,14 +156,21 @@ export const UpdateProductForm = ({
       >
         <FormLabel>제품 이미지</FormLabel>
         <Box sx={{ display: 'flex', gap: 1, overflow: 'auto' }}>
-          {imagePreviewUrls.map((url) => (
-            <Avatar
-              key={url}
-              src={url}
-              alt="Image Preview"
-              sx={{ width: 200, height: 'auto' }}
-              variant="rounded"
-            />
+          {imagePreviewUrls.map((url, index) => (
+            <Box key={url} sx={{ position: 'relative' }}>
+              <Avatar
+                src={url}
+                alt="Image Preview"
+                sx={{ width: 200, height: 'auto' }}
+                variant="rounded"
+              />
+              <IconButton
+                sx={{ position: 'absolute', top: 8, right: 8, padding: 0 }}
+                onClick={() => removeImageFileAtIndex(index)}
+              >
+                <Iconify icon="ic:baseline-close" />
+              </IconButton>
+            </Box>
           ))}
         </Box>
         <FilesUploadButton onChange={handleImageFilesChange}>
