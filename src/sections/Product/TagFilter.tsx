@@ -42,6 +42,7 @@ export const TagFilter = ({
           justifyContent: 'center',
           gap: 2,
           py: 1,
+          flexWrap: 'wrap',
         }}
       >
         {topLevelTags.map((tag) => (
