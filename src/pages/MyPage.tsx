@@ -48,7 +48,7 @@ const loginProviders = [
   },
 ];
 
-export default function LoginPage() {
+export default function MyPage() {
   const { user, handleLoginRedirect, logout, withdraw, isLoading } = useAuth();
 
   if (isLoading) {
@@ -67,6 +67,11 @@ export default function LoginPage() {
         </Button>
         <Button onClick={withdraw} variant="soft" color="error">
           회원탈퇴
+        </Button>
+        <Button
+          onClick={() => navigator.clipboard.writeText(`Bearer ${localStorage.getItem('token')}`)}
+        >
+          copy token
         </Button>
       </Box>
     );

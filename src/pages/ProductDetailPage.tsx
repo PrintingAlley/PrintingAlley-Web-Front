@@ -3,7 +3,7 @@ import axios from 'src/utils/axios';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import SkeletonSection from 'src/sections/common/SkeletonSection';
-import { useTopLevelTags } from 'src/hooks/useTopLevelTags';
+import { useTag } from 'src/hooks/useTag';
 import CenteredTitle from 'src/sections/common/CenteredTitle';
 import {
   GetProductResponse,
@@ -77,7 +77,7 @@ export default function ProductDetailPage() {
   const { id } = useParams();
   const { user } = useAuth();
   const navigate = useNavigate();
-  const { topLevelTags, tagHierarchies } = useTopLevelTags();
+  const { topLevelTags, tagHierarchies } = useTag();
   const [product, setProduct] = useState<ProductDetail | null>(null);
   const [reviews, setReviews] = useState<ProductReviewWithUser[]>([]);
 

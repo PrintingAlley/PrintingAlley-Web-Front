@@ -35,7 +35,10 @@ const useAuth = () => {
       const response = await axios.get<GetUserResponse>('user');
       return response.data.user;
     } catch (error) {
-      throw new Error('Unauthorized');
+      if (error.response.status === 401) {
+        logout();
+      }
+      throw error;
     }
   };
 

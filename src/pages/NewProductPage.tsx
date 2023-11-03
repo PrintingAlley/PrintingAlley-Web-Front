@@ -1,10 +1,10 @@
-import { useTopLevelTags } from 'src/hooks/useTopLevelTags';
+import { useTag } from 'src/hooks/useTag';
 import CenteredTitle from 'src/sections/common/CenteredTitle';
 import { Box } from '@mui/material';
 import { CreateProductForm } from 'src/sections/Product/CreateProductForm';
 
 export default function NewProductPage() {
-  const { topLevelTags, tagHierarchies } = useTopLevelTags();
+  const { topLevelTags, tagHierarchies } = useTag();
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import { Typography, Chip, Box, Divider } from '@mui/material';
+import { Typography, Chip, Box, Divider, Avatar } from '@mui/material';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { TagInterface } from 'src/types/response.dto';
 
@@ -36,23 +36,33 @@ export const TagFilter = ({
 
   return (
     <Box>
-      <Typography variant="h5" gutterBottom>
-        카테고리 선택
-      </Typography>
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: 2,
+          py: 1,
+        }}
+      >
         {topLevelTags.map((tag) => (
-          <Chip
+          <Box
             key={tag.id}
-            variant={selectedTopLevelTag?.id === tag.id ? 'filled' : 'outlined'}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              cursor: 'pointer',
+            }}
             onClick={() => setSelectedTopLevelTag(tag)}
-            label={tag.name}
-          />
+          >
+            <Avatar src={tag.image ?? ''} alt={tag.name} sx={{ width: 56, height: 56 }} />
+            <Typography variant="caption">{tag.name}</Typography>
+          </Box>
         ))}
       </Box>
 
       {tagList.map((tag) => (
-        <Box key={tag.id}>
-          <Divider sx={{ my: 1.5 }} />
+        <Box key={tag.id} sx={{ mt: 2 }}>
           {tag.children.length > 0 ? (
             <Box>
               <Typography variant="subtitle1" gutterBottom>
@@ -61,15 +71,15 @@ export const TagFilter = ({
               <Box
                 sx={{
                   display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: 1,
+                  flexDirection: 'column',
+                  gap: 2,
                   ml: 1,
                 }}
               >
                 {tag.children.map((child) =>
                   child.children.length > 0 ? (
-                    <Box key={child.id} width={1} mb={1}>
-                      <Typography variant="subtitle2" mb={0.5}>
+                    <Box key={child.id}>
+                      <Typography variant="subtitle2" gutterBottom>
                         {child.name}
                       </Typography>
                       <Box
@@ -82,7 +92,7 @@ export const TagFilter = ({
                       >
                         {child.children.map((grandChild) => (
                           <Chip
-                            color="secondary"
+                            color="primary"
                             key={grandChild.id}
                             variant={selectedTags.includes(grandChild.id) ? 'filled' : 'outlined'}
                             onClick={() => handleTagClick(grandChild.id)}
@@ -93,7 +103,7 @@ export const TagFilter = ({
                     </Box>
                   ) : (
                     <Chip
-                      color="info"
+                      color="secondary"
                       key={child.id}
                       variant={selectedTags.includes(child.id) ? 'filled' : 'outlined'}
                       onClick={() => handleTagClick(child.id)}
@@ -102,10 +112,11 @@ export const TagFilter = ({
                   )
                 )}
               </Box>
+              <Divider sx={{ mt: 2 }} />
             </Box>
           ) : (
             <Chip
-              color="primary"
+              color="info"
               variant={selectedTags.includes(tag.id) ? 'filled' : 'outlined'}
               onClick={() => handleTagClick(tag.id)}
               label={tag.name}

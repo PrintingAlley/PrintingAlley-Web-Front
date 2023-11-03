@@ -322,8 +322,8 @@ export const UpdateProductForm = ({
         })}
         label="설명글"
         placeholder="제품에 대한 자세한 설명글을 입력하세요"
-        error={Boolean(errors.introduction)}
-        helperText={errors.introduction?.message}
+        error={Boolean(errors.description)}
+        helperText={errors.description?.message}
         multiline
         rows={4}
         sx={{ gridColumn: '1 / span 2' }}

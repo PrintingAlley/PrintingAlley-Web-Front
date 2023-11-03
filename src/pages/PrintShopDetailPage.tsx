@@ -1,4 +1,4 @@
-import { Avatar, Box, ButtonGroup, Divider, Typography } from '@mui/material';
+import { Avatar, Box, ButtonGroup, Divider } from '@mui/material';
 import axios from 'src/utils/axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
@@ -6,7 +6,6 @@ import SkeletonSection from 'src/sections/common/SkeletonSection';
 import { UpdatePrintShopDialog } from 'src/sections/PrintShop/UpdatePrintShopDialog';
 import { DeletePrintShopButton } from 'src/sections/PrintShop/DeletePrintShopButton';
 import CenteredTitle from 'src/sections/common/CenteredTitle';
-import { Map, MapMarker, ZoomControl } from 'react-kakao-maps-sdk';
 import {
   GetPrintShopResponse,
   GetPrintShopReviewsResponse,
@@ -18,6 +17,7 @@ import NavigateBackButton from 'src/sections/common/NavigateBackButton';
 import { ReviewSection } from 'src/sections/Review/ReviewSection';
 import PrintShopInfo from 'src/sections/PrintShop/PrintShopInfo';
 import PrintShopProducts from 'src/sections/PrintShop/PrintShopProducts';
+import PrintShopLocation from 'src/sections/PrintShop/PrintShopLocation';
 
 export default function PrintShopDetailPage() {
   const { id } = useParams();
@@ -75,16 +75,7 @@ export default function PrintShopDetailPage() {
 
           <Divider sx={{ my: 2 }} />
 
-          <Typography variant="h6" gutterBottom>
-            위치
-          </Typography>
-          <Map
-            center={{ lat: +printShop.latitude, lng: +printShop.longitude }}
-            style={{ width: '100%', height: 300, borderRadius: 12 }}
-          >
-            <MapMarker position={{ lat: +printShop.latitude, lng: +printShop.longitude }} />
-            <ZoomControl position="RIGHT" />
-          </Map>
+          <PrintShopLocation printShop={printShop} />
 
           <Divider sx={{ my: 2 }} />
 

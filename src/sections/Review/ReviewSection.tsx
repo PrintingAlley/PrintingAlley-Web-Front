@@ -50,10 +50,12 @@ function ReviewItem({
           }
           secondary={
             <>
-              <Typography color="textSecondary" variant="body2" gutterBottom>
+              <Typography variant="body2" gutterBottom>
                 {timeAgo}
               </Typography>
-              <Typography sx={{ whiteSpace: 'pre-wrap' }}>{review.content}</Typography>
+              <Typography color="text.primary" sx={{ whiteSpace: 'pre-wrap' }}>
+                {review.content}
+              </Typography>
               {review.images && (
                 <Box sx={{ mt: 1, display: 'flex', gap: 1, overflowX: 'auto' }}>
                   {review.images.map((img, index) => (

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Box, Pagination } from '@mui/material';
 import axios from 'src/utils/axios';
-import { useTopLevelTags } from 'src/hooks/useTopLevelTags';
+import { useTag } from 'src/hooks/useTag';
 import { TagFilter } from 'src/sections/Product/TagFilter';
 import { SearchBar } from 'src/sections/common/SearchBar';
 import CenteredTitle from 'src/sections/common/CenteredTitle';
@@ -9,7 +9,7 @@ import { GetProductsResponse, ProductWithTags, TagInterface } from 'src/types/re
 import { ProductList } from 'src/sections/Product/ProductList';
 
 export default function ProductPage() {
-  const { topLevelTags, tagHierarchies } = useTopLevelTags();
+  const { topLevelTags, tagHierarchies } = useTag();
   const [searchText, setSearchText] = useState<string>('');
   const [selectedTopLevelTag, setSelectedTopLevelTag] = useState<TagInterface | null>(null);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
@@ -48,7 +48,7 @@ export default function ProductPage() {
         gap: 3,
       }}
     >
-      <CenteredTitle title="제품 목록" />
+      <CenteredTitle title="인쇄 골목" />
 
       <SearchBar onSearch={setSearchText} resetSearch={resetSearch} />
 

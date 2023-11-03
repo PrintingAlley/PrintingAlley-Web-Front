@@ -21,7 +21,7 @@ const authenticatedNavbarItems = [
     path: '/',
   },
   {
-    label: '제품 목록',
+    label: '인쇄 골목',
     path: '/product',
   },
   {
@@ -29,7 +29,7 @@ const authenticatedNavbarItems = [
     path: '/product/new',
   },
   {
-    label: '인쇄 골목',
+    label: '인쇄사 목록',
     path: '/print-shop',
   },
   {

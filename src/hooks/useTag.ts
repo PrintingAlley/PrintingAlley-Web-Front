@@ -2,7 +2,7 @@ import axios from 'src/utils/axios';
 import { useState, useEffect } from 'react';
 import { GetTagsResponse, TagInterface } from 'src/types/response.dto';
 
-export const useTopLevelTags = () => {
+export const useTag = () => {
   const [topLevelTags, setTopLevelTags] = useState<TagInterface[]>([]);
   const [tagHierarchies, setTagHierarchies] = useState<Record<number, TagInterface[]>>({});
 

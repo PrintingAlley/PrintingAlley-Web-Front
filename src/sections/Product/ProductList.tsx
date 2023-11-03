@@ -18,9 +18,16 @@ export const ProductList = ({ products }: ProductListProps) => {
   return (
     <Masonry columns={{ xs: 2, sm: 3 }} spacing={2}>
       {products.map((product) => (
-        <Box key={product.id} onClick={() => goToProductPage(product)} sx={{ cursor: 'pointer' }}>
+        <Box
+          key={product.id}
+          onClick={() => goToProductPage(product)}
+          sx={{ display: 'flex', flexDirection: 'column', cursor: 'pointer' }}
+        >
           <Image src={product.mainImage} alt={product.name} sx={{ borderRadius: 1 }} />
-          <Typography variant="caption" sx={{ mx: 1 }}>
+          <Typography
+            variant="caption"
+            sx={{ mx: 1, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}
+          >
             {product.name}
           </Typography>
         </Box>

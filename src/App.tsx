@@ -26,7 +26,7 @@ import Home from './pages/HomePage';
 import PrintShop from './pages/PrintShopPage';
 import PrintShopDetailPage from './pages/PrintShopDetailPage';
 import NewPrintShopPage from './pages/NewPrintShopPage';
-import LoginPage from './pages/LoginPage';
+import MyPage from './pages/MyPage';
 import PageContainer from './sections/common/PageContainer';
 import ScrollToTop from './sections/common/ScrollToTop';
 import useAuth from './hooks/useAuth';
@@ -57,10 +57,10 @@ export default function App() {
                 <Route path="/product/new" element={<NewProductPage />} />
                 <Route path="/print-shop/new" element={<NewPrintShopPage />} />
                 <Route path="/bookmark" element={<Home />} />
-                <Route path="/my" element={<LoginPage />} />
+                <Route path="/my" element={<MyPage />} />
               </>
             ) : (
-              <Route path="/login" element={<LoginPage />} />
+              <Route path="/login" element={<MyPage />} />
             )}
             <Route path="*" element={<Home />} />
           </Routes>
