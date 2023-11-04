@@ -1,4 +1,4 @@
-import { Avatar, Box, ButtonGroup, Divider } from '@mui/material';
+import { Avatar, Box, Button, ButtonGroup, Divider } from '@mui/material';
 import axios from 'src/utils/axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
@@ -18,6 +18,7 @@ import { ReviewSection } from 'src/sections/Review/ReviewSection';
 import PrintShopInfo from 'src/sections/PrintShop/PrintShopInfo';
 import PrintShopProducts from 'src/sections/PrintShop/PrintShopProducts';
 import PrintShopLocation from 'src/sections/PrintShop/PrintShopLocation';
+import Iconify from 'src/components/iconify';
 
 export default function PrintShopDetailPage() {
   const { id } = useParams();
@@ -44,6 +45,10 @@ export default function PrintShopDetailPage() {
 
   const onDelete = () => {
     navigate('/print-shop', { replace: true });
+  };
+
+  const goToNewProductPage = () => {
+    navigate('/product/new');
   };
 
   useEffect(() => {
@@ -90,6 +95,13 @@ export default function PrintShopDetailPage() {
           <Box sx={{ height: 64 }} />
 
           <ButtonGroup color="inherit">
+            <Button
+              startIcon={<Iconify icon="ic:baseline-add" />}
+              variant="soft"
+              onClick={goToNewProductPage}
+            >
+              작업 등록
+            </Button>
             <UpdatePrintShopDialog printShop={printShop} onAdd={onAdd} />
             <DeletePrintShopButton printShop={printShop} onDelete={onDelete} />
           </ButtonGroup>

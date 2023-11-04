@@ -9,7 +9,6 @@ import { bgGradient } from 'src/theme/css';
 import Image from 'src/components/image';
 import Lightbox, { useLightBox } from 'src/components/lightbox';
 import Carousel, { useCarousel, CarouselArrowIndex } from 'src/components/carousel';
-import { ProductDetail } from 'src/types/response.dto';
 
 // ----------------------------------------------------------------------
 
@@ -61,14 +60,14 @@ const StyledThumbnailsContainer = styled('div')<{ length: number }>(({ length, t
 
 // ----------------------------------------------------------------------
 
-type Props = {
-  product: ProductDetail;
-};
+interface Props {
+  images: string[];
+}
 
-export default function ProductDetailsCarousel({ product }: Props) {
+export default function ProductDetailsCarousel({ images }: Props) {
   const theme = useTheme();
 
-  const slides = product.images.map((img) => ({
+  const slides = images.map((img) => ({
     src: img,
   }));
 

@@ -18,6 +18,7 @@ import ko from 'date-fns/locale/ko';
 import { AddReviewForm } from './AddReviewForm';
 import DeleteReviewButton from './DeleteReviewButton';
 import LoginModal from '../Login/LoginModal';
+import ReviewImageLightbox from './ReviewImageLightbox';
 
 function ReviewItem({
   type,
@@ -58,16 +59,8 @@ function ReviewItem({
                 {review.content}
               </Typography>
               {review.images && (
-                <Box sx={{ mt: 1, display: 'flex', gap: 1, overflowX: 'auto' }}>
-                  {review.images.map((img, index) => (
-                    <Box
-                      key={index}
-                      component="img"
-                      src={img}
-                      alt="Review Image"
-                      sx={{ width: 100, borderRadius: 1 }}
-                    />
-                  ))}
+                <Box sx={{ mt: 1, overflowX: 'auto' }}>
+                  <ReviewImageLightbox images={review.images} />
                 </Box>
               )}
             </>
