@@ -1,4 +1,4 @@
-import { Typography, Chip, Box, Divider, Avatar } from '@mui/material';
+import { Typography, Chip, Box, Divider, ButtonBase } from '@mui/material';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { TagInterface } from 'src/types/response.dto';
 
@@ -45,21 +45,34 @@ export const TagFilter = ({
           flexWrap: 'wrap',
         }}
       >
-        {topLevelTags.map((tag) => (
-          <Box
-            key={tag.id}
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              cursor: 'pointer',
-            }}
-            onClick={() => setSelectedTopLevelTag(tag)}
-          >
-            <Avatar src={tag.image ?? ''} alt={tag.name} sx={{ width: 56, height: 56 }} />
-            <Typography variant="caption">{tag.name}</Typography>
-          </Box>
-        ))}
+        {topLevelTags.map((tag) => {
+          const isSelected = selectedTopLevelTag?.id === tag.id;
+          return (
+            <ButtonBase
+              key={tag.id}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                cursor: 'pointer',
+                border: '1.5px solid',
+                borderColor: isSelected ? 'primary.light' : 'transparent',
+                borderRadius: 1,
+                backgroundColor: 'background.paper',
+                p: 0.5,
+              }}
+              onClick={() => setSelectedTopLevelTag(tag)}
+            >
+              <Box
+                component="img"
+                src={tag.image ?? ''}
+                alt={tag.name}
+                sx={{ width: 56, height: 56, WebkitUserDrag: 'none' }}
+              />
+              <Typography variant="caption">{tag.name}</Typography>
+            </ButtonBase>
+          );
+        })}
       </Box>
 
       {tagList.map((tag) => (

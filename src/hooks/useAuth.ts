@@ -30,16 +30,12 @@ const useAuth = () => {
     }
   }, []);
 
-  const fetchUser = async () => {
-    try {
-      const response = await axios.get<GetUserResponse>('user');
+  const fetchUser = async (): Promise<UserInterface> => {
+    const response = await axios.get<GetUserResponse>('user');
+    if (response.status === 200) {
       return response.data.user;
-    } catch (error) {
-      if (error.response.status === 401) {
-        logout();
-      }
-      throw error;
     }
+    throw new Error('유저 정보를 불러오는데 실패했습니다.');
   };
 
   const withdraw = async () => {
@@ -47,7 +43,9 @@ const useAuth = () => {
       await axios.delete('auth/withdrawal');
       logout();
     } catch (error) {
-      throw new Error('Unauthorized');
+      if (error.response.status === 401) {
+        alert('토큰이 만료되었습니다. 다시 로그인 후 시도해주세요.');
+      }
     }
   };
 
@@ -55,9 +53,12 @@ const useAuth = () => {
     data: user,
     isError,
     isLoading,
-  } = useQuery<UserInterface>('user', fetchUser, {
+  } = useQuery<UserInterface, Error>('user', fetchUser, {
     enabled: !!localStorage.getItem('token'),
     retry: false,
+    onError: () => {
+      logout();
+    },
   });
 
   return {

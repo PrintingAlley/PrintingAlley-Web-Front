@@ -17,6 +17,7 @@ import { formatDistanceToNow } from 'date-fns';
 import ko from 'date-fns/locale/ko';
 import { AddReviewForm } from './AddReviewForm';
 import DeleteReviewButton from './DeleteReviewButton';
+import LoginModal from '../Login/LoginModal';
 
 function ReviewItem({
   type,
@@ -106,7 +107,16 @@ export function ReviewSection({
       <Typography variant="h6" gutterBottom>
         리뷰
       </Typography>
-      <AddReviewForm type={type} targetId={targetId} onAdd={fetchReviews} />
+      {currentUser ? (
+        <AddReviewForm type={type} targetId={targetId} onAdd={fetchReviews} />
+      ) : (
+        <Box mb={1}>
+          <Typography variant="body2" gutterBottom>
+            로그인 후 리뷰를 작성할 수 있습니다.
+          </Typography>
+          <LoginModal variant="outlined" text="로그인하기" />
+        </Box>
+      )}
       <List>
         {reviews.map((review) => (
           <ReviewItem

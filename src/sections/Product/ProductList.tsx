@@ -16,7 +16,7 @@ export const ProductList = ({ products }: ProductListProps) => {
   };
 
   return (
-    <Masonry columns={{ xs: 2, sm: 3 }} spacing={2}>
+    <Masonry columns={{ xs: 2, sm: 3 }} spacing={2} sx={{ width: 'auto' }}>
       {products.map((product) => (
         <Box
           key={product.id}

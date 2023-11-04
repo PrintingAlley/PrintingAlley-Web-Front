@@ -13,7 +13,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Iconify from 'src/components/iconify/iconify';
 import useAuth from 'src/hooks/useAuth';
-import ThemeModeToggle from './common/ThemeModeToggle';
+import ThemeModeToggle from './ThemeModeToggle';
+import LoginModal from '../Login/LoginModal';
 
 const authenticatedNavbarItems = [
   {
@@ -58,10 +59,6 @@ const defaultNavbarItems = [
   {
     label: '인쇄 골목',
     path: '/print-shop',
-  },
-  {
-    label: '로그인',
-    path: '/login',
   },
 ];
 
@@ -124,6 +121,7 @@ const Navbar = () => {
               {item.label}
             </Button>
           ))}
+          <LoginModal />
         </Box>
         <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>
           <IconButton size="large" onClick={handleOpenNavMenu} color="inherit">
@@ -145,6 +143,7 @@ const Navbar = () => {
                 {page.label}
               </MenuItem>
             ))}
+            <LoginModal isMenuItem onClick={handleCloseNavMenu} />
           </Menu>
         </Box>
         <ThemeModeToggle />

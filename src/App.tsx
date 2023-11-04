@@ -21,7 +21,7 @@ import ThemeProvider from 'src/theme';
 import ProgressBar from 'src/components/progress-bar';
 import SnackbarProvider from 'src/components/snackbar/snackbar-provider';
 import { Routes, Route } from 'react-router-dom';
-import Navbar from './sections/Navbar';
+import Navbar from './sections/common/Navbar';
 import Home from './pages/HomePage';
 import PrintShop from './pages/PrintShopPage';
 import PrintShopDetailPage from './pages/PrintShopDetailPage';
@@ -52,15 +52,13 @@ export default function App() {
             <Route path="/product/:id" element={<ProductDetailPage />} />
             <Route path="/print-shop" element={<PrintShop />} />
             <Route path="/print-shop/:id" element={<PrintShopDetailPage />} />
-            {isAuthenticated ? (
+            {isAuthenticated && (
               <>
                 <Route path="/product/new" element={<NewProductPage />} />
                 <Route path="/print-shop/new" element={<NewPrintShopPage />} />
                 <Route path="/bookmark" element={<Home />} />
                 <Route path="/my" element={<MyPage />} />
               </>
-            ) : (
-              <Route path="/login" element={<MyPage />} />
             )}
             <Route path="*" element={<Home />} />
           </Routes>

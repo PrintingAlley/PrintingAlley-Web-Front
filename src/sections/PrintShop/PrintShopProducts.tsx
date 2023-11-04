@@ -20,7 +20,7 @@ const PrintShopProducts = ({ products }: Props) => {
       <Typography variant="h6" gutterBottom>
         작업
       </Typography>
-      <Masonry columns={{ xs: 2, sm: 3 }} spacing={2}>
+      <Masonry columns={{ xs: 2, sm: 3 }} spacing={2} sx={{ width: 'auto' }}>
         {products.map((product) => (
           <Box
             key={product.id}
