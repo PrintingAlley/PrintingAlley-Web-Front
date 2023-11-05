@@ -33,6 +33,7 @@ import useAuth from './hooks/useAuth';
 import ProductPage from './pages/ProductPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import NewProductPage from './pages/NewProductPage';
+import { MotionLazy } from './components/animate/motion-lazy';
 
 // ----------------------------------------------------------------------
 
@@ -41,29 +42,31 @@ export default function App() {
 
   return (
     <ThemeProvider>
-      <SnackbarProvider>
-        <ProgressBar />
-        <Navbar />
-        <ScrollToTop />
-        <PageContainer>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/product" element={<ProductPage />} />
-            <Route path="/product/:id" element={<ProductDetailPage />} />
-            <Route path="/print-shop" element={<PrintShop />} />
-            <Route path="/print-shop/:id" element={<PrintShopDetailPage />} />
-            {isAuthenticated && (
-              <>
-                <Route path="/product/new" element={<NewProductPage />} />
-                <Route path="/print-shop/new" element={<NewPrintShopPage />} />
-                <Route path="/bookmark" element={<Home />} />
-                <Route path="/my" element={<MyPage />} />
-              </>
-            )}
-            <Route path="*" element={<Home />} />
-          </Routes>
-        </PageContainer>
-      </SnackbarProvider>
+      <MotionLazy>
+        <SnackbarProvider>
+          <ProgressBar />
+          <Navbar />
+          <ScrollToTop />
+          <PageContainer>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/product" element={<ProductPage />} />
+              <Route path="/product/:id" element={<ProductDetailPage />} />
+              <Route path="/print-shop" element={<PrintShop />} />
+              <Route path="/print-shop/:id" element={<PrintShopDetailPage />} />
+              {isAuthenticated && (
+                <>
+                  <Route path="/product/new" element={<NewProductPage />} />
+                  <Route path="/print-shop/new" element={<NewPrintShopPage />} />
+                  <Route path="/bookmark" element={<Home />} />
+                  <Route path="/my" element={<MyPage />} />
+                </>
+              )}
+              <Route path="*" element={<Home />} />
+            </Routes>
+          </PageContainer>
+        </SnackbarProvider>
+      </MotionLazy>
     </ThemeProvider>
   );
 }
