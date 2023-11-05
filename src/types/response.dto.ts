@@ -54,8 +54,8 @@ export interface PrintShopInterface {
   introduction: string;
   logoImage: string;
   backgroundImage: string;
-  latitude: number;
-  longitude: number;
+  latitude: string;
+  longitude: string;
   createdAt: string;
   updateAt: string;
 }
@@ -155,6 +155,7 @@ export interface GetProductsResponse {
 // GET /product/:id
 export interface GetProductResponse {
   product: ProductDetail;
+  bookmarkId: number | null;
 }
 
 // GET /product/:id/review

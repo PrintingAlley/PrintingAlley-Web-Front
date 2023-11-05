@@ -68,6 +68,7 @@ export const CreatePrintShopForm = () => {
   const onCompletePost = (data: any) => {
     setValue('address', data.address);
     setLatLngFromAddress(data.address, setValue);
+    setFocus('address');
   };
 
   useEffect(() => {

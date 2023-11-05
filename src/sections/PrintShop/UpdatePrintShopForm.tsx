@@ -39,6 +39,7 @@ export const UpdatePrintShopForm = ({ printShop, onAddSuccess }: UpdatePrintShop
     handleSubmit,
     register,
     setValue,
+    setFocus,
     formState: { errors, isSubmitting },
   } = useForm<CreatePrintShop>({
     mode: 'onChange',
@@ -51,8 +52,8 @@ export const UpdatePrintShopForm = ({ printShop, onAddSuccess }: UpdatePrintShop
       representative,
       logoImage,
       backgroundImage,
-      latitude: `${latitude}`,
-      longitude: `${longitude}`,
+      latitude,
+      longitude,
       introduction,
     },
   });
@@ -95,6 +96,7 @@ export const UpdatePrintShopForm = ({ printShop, onAddSuccess }: UpdatePrintShop
   const onCompletePost = (data: any) => {
     setValue('address', data.address);
     setLatLngFromAddress(data.address, setValue);
+    setFocus('address');
   };
 
   return (

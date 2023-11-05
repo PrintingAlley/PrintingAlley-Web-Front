@@ -1,18 +1,9 @@
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Button,
-  IconButton,
-  Menu,
-  MenuItem,
-  Toolbar,
-  useTheme,
-} from '@mui/material';
+import { AppBar, Box, Button, IconButton, Menu, MenuItem, Toolbar, useTheme } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Iconify from 'src/components/iconify/iconify';
 import useAuth from 'src/hooks/useAuth';
+import Logo from 'src/components/logo';
 import ThemeModeToggle from './ThemeModeToggle';
 import LoginModal from '../Login/LoginModal';
 
@@ -109,7 +100,7 @@ const Navbar = () => {
       className={`${transparent ? 'transparent' : 'paper'}`}
     >
       <Toolbar>
-        <Avatar alt="인쇄 골목" src="/logo192.png" sx={{ width: 40, height: 40 }} />
+        <Logo />
         <Box sx={{ flexGrow: 1 }} />
         <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
           {navbarItems.map((item) => (
