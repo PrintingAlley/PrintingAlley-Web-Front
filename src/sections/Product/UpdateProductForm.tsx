@@ -377,7 +377,6 @@ export const UpdateProductForm = ({
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <LoadingButton
-            sx={{ gridColumn: '1 / span 2' }}
             type="submit"
             size="large"
             startIcon={<Iconify icon="ic:baseline-edit" />}

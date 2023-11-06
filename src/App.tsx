@@ -24,6 +24,7 @@ import ThemeProvider from 'src/theme';
 import ProgressBar from 'src/components/progress-bar';
 import SnackbarProvider from 'src/components/snackbar/snackbar-provider';
 import { Routes, Route } from 'react-router-dom';
+import { MotionLazy } from './components/animate/motion-lazy';
 import Navbar from './sections/common/Navbar';
 import Home from './pages/HomePage';
 import PrintShop from './pages/PrintShopPage';
@@ -36,7 +37,10 @@ import useAuth from './hooks/useAuth';
 import ProductPage from './pages/ProductPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import NewProductPage from './pages/NewProductPage';
-import { MotionLazy } from './components/animate/motion-lazy';
+import NewContentPage from './pages/NewContentPage';
+import ContentDetailPage from './pages/ContentDetailPage';
+import ContentWebViewPage from './pages/ContentWebViewPage';
+import ContentPage from './pages/ContentPage';
 
 // ----------------------------------------------------------------------
 
@@ -52,13 +56,16 @@ export default function App() {
           <ScrollToTop />
           <PageContainer>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<ContentPage />} />
+              <Route path="/content/:id" element={<ContentDetailPage />} />
+              <Route path="/content-webview/:id" element={<ContentWebViewPage />} />
               <Route path="/product" element={<ProductPage />} />
               <Route path="/product/:id" element={<ProductDetailPage />} />
               <Route path="/print-shop" element={<PrintShop />} />
               <Route path="/print-shop/:id" element={<PrintShopDetailPage />} />
               {isAuthenticated && (
                 <>
+                  <Route path="/content/new" element={<NewContentPage />} />
                   <Route path="/product/new" element={<NewProductPage />} />
                   <Route path="/print-shop/new" element={<NewPrintShopPage />} />
                   <Route path="/bookmark" element={<Home />} />

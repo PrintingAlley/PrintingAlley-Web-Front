@@ -89,6 +89,15 @@ export interface UserInterface {
   updateAt: string;
 }
 
+export interface ContentInterface {
+  id: number;
+  title: string;
+  content: string;
+  thumbnail: string;
+  createdAt: string;
+  updateAt: string;
+}
+
 export interface ProductWithTags extends ProductInterface {
   tags: TagInterface[];
 }
@@ -202,4 +211,14 @@ export interface GetTagResponse {
 // GET /category
 export interface GetCategoriesResponse {
   categories: CategoryInterface[];
+}
+
+// GET /content
+export interface GetContentsResponse {
+  contents: ContentInterface[];
+}
+
+// GET /content/:id
+export interface GetContentResponse {
+  content: ContentInterface;
 }

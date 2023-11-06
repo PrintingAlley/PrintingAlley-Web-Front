@@ -15,7 +15,7 @@ export default function PrintShopPage() {
 
   const fetchPrintShops = (page = 1, search = '', tags = [] as number[]) => {
     axios
-      .get<GetPrintShopsResponse>('print-shop', {
+      .get<GetPrintShopsResponse>('/print-shop', {
         params: { page, size, searchText: search, tagIds: tags },
       })
       .then((response) => {
