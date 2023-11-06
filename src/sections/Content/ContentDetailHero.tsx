@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
 import { alpha, useTheme } from '@mui/material/styles';
 import { bgGradient } from 'src/theme/css';
-import { fDate } from 'src/utils/format-time';
+import { fDateTime } from 'src/utils/format-time';
 import { ContentInterface } from 'src/types/response.dto';
 
 // ----------------------------------------------------------------------
@@ -57,7 +57,7 @@ export default function ContentDetailHero({ content }: { content: ContentInterfa
           <Stack sx={{ pb: { xs: 2, md: 8 } }}>
             <ListItemText
               sx={{ color: 'common.white' }}
-              primary={fDate(createdAt)}
+              primary={fDateTime(createdAt)}
               primaryTypographyProps={{ typography: 'subtitle1', mb: 0.5 }}
               secondaryTypographyProps={{
                 color: 'inherit',

@@ -13,8 +13,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { ProductReviewWithUser, UserInterface } from 'src/types/response.dto';
-import { formatDistanceToNow } from 'date-fns';
-import ko from 'date-fns/locale/ko';
+import { fToNow } from 'src/utils/format-time';
 import { AddReviewForm } from './AddReviewForm';
 import DeleteReviewButton from './DeleteReviewButton';
 import LoginModal from '../Login/LoginModal';
@@ -35,7 +34,7 @@ function ReviewItem({
 }) {
   const isCurrentUserReview = currentUser?.id === review.user.id;
   const createdAt = new Date(review.createdAt);
-  const timeAgo = formatDistanceToNow(createdAt, { addSuffix: true, locale: ko });
+  const timeAgo = fToNow(createdAt);
 
   return (
     <React.Fragment key={review.id}>
