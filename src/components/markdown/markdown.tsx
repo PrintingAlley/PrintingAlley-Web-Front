@@ -20,6 +20,7 @@ export default function Markdown({ sx, ...other }: MarkdownProps) {
   return (
     <StyledMarkdown sx={sx}>
       <ReactMarkdown
+        className="ql-editor"
         rehypePlugins={[rehypeRaw, rehypeHighlight, [remarkGfm, { singleTilde: false }]]}
         components={components}
         {...other}
