@@ -1,4 +1,3 @@
-/* eslint-disable import/no-duplicates */
 import {
   Typography,
   List,
