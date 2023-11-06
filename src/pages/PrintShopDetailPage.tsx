@@ -100,7 +100,7 @@ export default function PrintShopDetailPage() {
               variant="soft"
               onClick={goToNewProductPage}
             >
-              작업 등록
+              상품 등록
             </Button>
             <UpdatePrintShopDialog printShop={printShop} onAdd={onAdd} />
             <DeletePrintShopButton printShop={printShop} onDelete={onDelete} />

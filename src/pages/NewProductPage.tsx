@@ -8,7 +8,7 @@ export default function NewProductPage() {
 
   return (
     <div>
-      <Title title="제품 등록" />
+      <Title title="상품 등록" />
       <Box sx={{ height: 16 }} />
       <CreateProductForm topLevelTags={topLevelTags} tagHierarchies={tagHierarchies} />
     </div>

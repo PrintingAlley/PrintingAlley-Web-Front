@@ -1,8 +1,11 @@
 // scrollbar
 import 'simplebar-react/dist/simplebar.min.css';
 
-// image
+// lazy image
 import 'react-lazy-load-image-component/src/effects/blur.css';
+
+// editor
+import 'react-quill/dist/quill.snow.css';
 
 // carousel
 import 'slick-carousel/slick/slick.css';

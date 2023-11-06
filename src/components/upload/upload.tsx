@@ -46,7 +46,10 @@ export default function Upload({
 
   const renderPlaceholder = (
     <Stack spacing={0.5} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6">이미지를 드래그하거나 선택하세요.</Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 }}>
+        <Iconify icon="ic:baseline-cloud-upload" />
+        <Typography variant="h6">이미지를 드래그하거나 선택하세요.</Typography>
+      </Box>
       <Typography variant="body2" sx={{ color: 'text.secondary' }}>
         이미지를 드래그해서 넣거나
         <Box

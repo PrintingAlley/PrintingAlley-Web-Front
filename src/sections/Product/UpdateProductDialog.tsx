@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Divider } from '@mui/material';
 import Iconify from 'src/components/iconify/iconify';
 import { ProductDetail, TagInterface } from 'src/types/response.dto';
 import { UpdateProductForm } from './UpdateProductForm';
@@ -38,7 +38,8 @@ export const UpdateProductDialog = ({
         제품 수정
       </Button>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-        <DialogTitle variant="h4">제품 수정</DialogTitle>
+        <DialogTitle variant="h4">상품 수정</DialogTitle>
+        <Divider sx={{ borderStyle: 'dashed' }} />
         <DialogContent>
           <UpdateProductForm
             product={product}
@@ -47,6 +48,7 @@ export const UpdateProductDialog = ({
             onAddSuccess={handleAddSuccess}
           />
         </DialogContent>
+        <Divider sx={{ borderStyle: 'dashed' }} />
         <DialogActions>
           <Button onClick={handleClose} variant="contained">
             닫기

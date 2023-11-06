@@ -5,7 +5,7 @@ export const uploadFileAndGetUrl = async (file: File) => {
   formData.append('file', file);
   try {
     const response = await axios.post('/upload', formData);
-    return response.data.url;
+    return response.data.url as string;
   } catch (error) {
     console.error('Error uploading file:', error);
     return null;
@@ -19,7 +19,7 @@ export const uploadFilesAndGetUrls = async (files: File[]) => {
   });
   try {
     const response = await axios.post('/upload/multiple', formData);
-    return response.data.urls;
+    return response.data.urls as string[];
   } catch (error) {
     console.error('Error uploading file:', error);
     return null;

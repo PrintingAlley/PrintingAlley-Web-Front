@@ -18,6 +18,7 @@ import { DeleteProductButton } from 'src/sections/Product/DeleteProductButton';
 import { UpdateProductDialog } from 'src/sections/Product/UpdateProductDialog';
 import NavigateBackButton from 'src/sections/common/NavigateBackButton';
 import { ReviewSection } from 'src/sections/Review/ReviewSection';
+import Markdown from 'src/components/markdown';
 
 function ProductInformation({ product }: { product: ProductDetail }) {
   return (
@@ -119,9 +120,7 @@ export default function ProductDetailPage() {
 
           <Divider sx={{ my: 2 }} />
 
-          <Typography variant="body2" sx={{ textAlign: 'center', whiteSpace: 'pre-wrap' }}>
-            {product.description}
-          </Typography>
+          <Markdown sx={{ py: 2 }}>{product.description}</Markdown>
 
           <Divider sx={{ my: 2 }} />
 
