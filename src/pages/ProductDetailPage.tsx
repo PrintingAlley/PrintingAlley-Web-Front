@@ -19,6 +19,7 @@ import { UpdateProductDialog } from 'src/sections/Product/UpdateProductDialog';
 import NavigateBackButton from 'src/sections/common/NavigateBackButton';
 import { ReviewSection } from 'src/sections/Review/ReviewSection';
 import Markdown from 'src/components/markdown';
+import BookmarkModal from 'src/sections/Product/BookmarkModal';
 
 function ProductInformation({ product }: { product: ProductDetail }) {
   return (
@@ -117,6 +118,10 @@ export default function ProductDetailPage() {
           <CenteredTitle title={product.name} />
 
           <ProductInformation product={product} />
+
+          <Box sx={{ height: 16 }} />
+
+          <BookmarkModal product={product} fetchProduct={fetchProduct} />
 
           <Divider sx={{ my: 2 }} />
 

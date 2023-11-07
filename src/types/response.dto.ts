@@ -28,6 +28,13 @@ export interface BookmarkGroupInterface {
   updatedAt: string;
 }
 
+export interface BookmarkGroupWithHasProduct {
+  id: number;
+  name: string;
+  hasProduct: boolean;
+  bookmarkId: number | null;
+}
+
 export interface ProductInterface {
   id: number;
   name: string;
@@ -197,6 +204,11 @@ export interface GetBookmarkGroupsResponse {
 // GET /bookmark/group/:id
 export interface GetBookmarkGroupResponse {
   bookmarkGroup: BookmarkGroupDetail;
+}
+
+// GET /bookmark/group/has-product/:productId
+export interface GetBookmarkGroupsWithHasProductResponse {
+  bookmarkGroups: BookmarkGroupWithHasProduct[];
 }
 
 // GET /tag

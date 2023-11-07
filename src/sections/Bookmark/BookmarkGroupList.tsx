@@ -47,7 +47,7 @@ const checkboxStyle = {
     mr: 0,
   },
   color: 'primary.contrastText',
-  mr: 0.2,
+  mr: 0.1,
 };
 
 interface CheckboxProps {
@@ -111,8 +111,10 @@ export const BookmarkGroupList = ({
     );
   };
 
-  const isSelectAllGroups = selectedGroups.length === bookmarkGroups.length;
-  const isSelectAllBookmarks = selectedBookmarks.length === currentGroup?.bookmarks.length;
+  const isSelectAllGroups =
+    bookmarkGroups.length && selectedGroups.length === bookmarkGroups.length;
+  const isSelectAllBookmarks =
+    currentGroup?.bookmarks.length && selectedBookmarks.length === currentGroup?.bookmarks.length;
 
   const toggleSelectAllGroups = () => {
     if (isSelectAllGroups) {
@@ -179,7 +181,11 @@ export const BookmarkGroupList = ({
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <CreateBookmarkDialog onAdd={fetchBookmarkGroups} />
             <Stack direction="row" spacing={1}>
-              <Button onClick={toggleSelectAllGroups} variant="outlined">
+              <Button
+                onClick={toggleSelectAllGroups}
+                variant="outlined"
+                disabled={bookmarkGroups.length === 0}
+              >
                 {isSelectAllGroups ? '전체 선택 해제' : '전체 선택'}
               </Button>
               <Button
@@ -247,7 +253,11 @@ export const BookmarkGroupList = ({
               목록으로
             </Button>
             <Stack direction="row" spacing={1}>
-              <Button onClick={toggleSelectAllBookmarks} variant="outlined">
+              <Button
+                onClick={toggleSelectAllBookmarks}
+                variant="outlined"
+                disabled={currentGroup.bookmarks.length === 0}
+              >
                 {isSelectAllBookmarks ? '전체 선택 해제' : '전체 선택'}
               </Button>
               <Button
