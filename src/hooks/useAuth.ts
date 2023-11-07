@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router';
 import { HOST_API } from 'src/config-global';
 import { GetUserResponse, UserInterface } from 'src/types/response.dto';
 import axios from 'src/utils/axios';
 
 const useAuth = () => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const handleLoginRedirect = (provider: string) => {
     window.location.href = `${HOST_API}/auth/${provider}`;
@@ -13,13 +15,13 @@ const useAuth = () => {
 
   const saveToken = (token: string) => {
     localStorage.setItem('token', token);
-    window.location.href = '/';
+    navigate('/');
   };
 
   const logout = async () => {
     localStorage.removeItem('token');
     queryClient.invalidateQueries('user');
-    window.location.href = '/';
+    navigate('/');
   };
 
   useEffect(() => {
@@ -28,6 +30,7 @@ const useAuth = () => {
     if (token) {
       saveToken(token);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchUser = async (): Promise<UserInterface> => {

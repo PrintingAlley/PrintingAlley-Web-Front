@@ -28,7 +28,7 @@ export const TagFilter = ({
   };
 
   useEffect(() => {
-    setSelectedTags([]);
+    setSelectedTags(selectedTopLevelTag ? [selectedTopLevelTag.id] : []);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTopLevelTag]);
 
