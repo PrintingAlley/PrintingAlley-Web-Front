@@ -27,6 +27,7 @@ import axios from 'src/utils/axios';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router';
 import CreateBookmarkDialog from '../Bookmark/CreateBookmarkDialog';
+import UpdateBookmarkDialog from '../Bookmark/UpdateBookmarkDialog';
 
 interface Props {
   product: ProductDetail;
@@ -170,7 +171,15 @@ export default function BookmarkModal({ product, fetchProduct }: Props) {
                 {bookmarkGroups.length ? (
                   bookmarkGroups.map((bookmarkGroup) => (
                     <TableRow key={bookmarkGroup.id}>
-                      <TableCell>{bookmarkGroup.name}</TableCell>
+                      <TableCell>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                          {bookmarkGroup.name}
+                          <UpdateBookmarkDialog
+                            bookmarkGroup={bookmarkGroup}
+                            onUpdate={fetchBookmarkGroups}
+                          />
+                        </Box>
+                      </TableCell>
                       <TableCell align="center">
                         {bookmarkGroup.hasProduct ? (
                           <IconButton color="primary" onClick={() => removeBookmark(bookmarkGroup)}>

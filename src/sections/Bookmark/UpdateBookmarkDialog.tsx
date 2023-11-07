@@ -8,6 +8,7 @@ import {
   TextField,
   DialogActions,
   Button,
+  IconButton,
   Paper,
   PaperProps,
 } from '@mui/material';
@@ -16,6 +17,7 @@ import { useEffect, useState } from 'react';
 import Draggable from 'react-draggable';
 import { useForm } from 'react-hook-form';
 import Iconify from 'src/components/iconify';
+import { BookmarkGroupDetail, BookmarkGroupWithHasProduct } from 'src/types/response.dto';
 import axios from 'src/utils/axios';
 
 function PaperComponent(props: PaperProps) {
@@ -26,11 +28,15 @@ function PaperComponent(props: PaperProps) {
   );
 }
 
-interface CreateBookmarkDialogProps {
-  onAdd: () => void;
+interface UpdateBookmarkDialogProps {
+  bookmarkGroup: BookmarkGroupDetail | BookmarkGroupWithHasProduct;
+  onUpdate: () => void;
 }
 
-export default function CreateBookmarkDialog({ onAdd }: CreateBookmarkDialogProps) {
+export default function UpdateBookmarkDialog({
+  bookmarkGroup,
+  onUpdate,
+}: UpdateBookmarkDialogProps) {
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = useState(false);
   const openDialog = () => setOpen(true);
@@ -43,14 +49,14 @@ export default function CreateBookmarkDialog({ onAdd }: CreateBookmarkDialogProp
     setFocus,
     setError,
     formState: { errors, isSubmitting },
-  } = useForm<{ name: string }>();
+  } = useForm<{ name: string }>({ defaultValues: { name: bookmarkGroup.name } });
 
   const onSubmit = (data: { name: string }) => {
     axios
-      .post('/bookmark/group', data)
+      .put(`/bookmark/group/${bookmarkGroup.id}`, data)
       .then(() => {
-        enqueueSnackbar('그룹이 성공적으로 추가되었습니다.', { variant: 'success' });
-        onAdd();
+        enqueueSnackbar('그룹이 성공적으로 수정되었습니다.', { variant: 'success' });
+        onUpdate();
         reset();
         closeDialog();
       })
@@ -59,11 +65,15 @@ export default function CreateBookmarkDialog({ onAdd }: CreateBookmarkDialogProp
           setError('name', { type: 'manual', message: error.message });
           setFocus('name');
         }
-        enqueueSnackbar(`그룹 추가 중 오류가 발생했습니다. ${error.message}`, {
+        enqueueSnackbar(`그룹 수정 중 오류가 발생했습니다. ${error.message}`, {
           variant: 'error',
         });
       });
   };
+
+  useEffect(() => {
+    reset({ name: bookmarkGroup.name });
+  }, [bookmarkGroup, reset]);
 
   useEffect(() => {
     if (open) {
@@ -73,9 +83,9 @@ export default function CreateBookmarkDialog({ onAdd }: CreateBookmarkDialogProp
 
   return (
     <>
-      <Button onClick={openDialog} startIcon={<Iconify icon="mdi:plus" />} variant="outlined">
-        북마크 그룹 추가
-      </Button>
+      <IconButton onClick={openDialog} size="small">
+        <Iconify icon="mdi:pencil" />
+      </IconButton>
       <Dialog
         open={open}
         onClose={closeDialog}
@@ -85,7 +95,7 @@ export default function CreateBookmarkDialog({ onAdd }: CreateBookmarkDialogProp
         aria-labelledby="draggable-dialog-title"
       >
         <DialogTitle sx={{ cursor: 'move' }} id="draggable-dialog-title">
-          북마크 그룹 추가
+          북마크 그룹 수정
         </DialogTitle>
         <DialogContent sx={{ width: 360, maxWidth: 1 }}>
           <Stack spacing={2}>
@@ -110,7 +120,7 @@ export default function CreateBookmarkDialog({ onAdd }: CreateBookmarkDialogProp
             취소
           </Button>
           <LoadingButton loading={isSubmitting} type="submit" color="primary" variant="contained">
-            추가
+            수정
           </LoadingButton>
         </DialogActions>
       </Dialog>

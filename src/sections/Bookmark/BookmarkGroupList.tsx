@@ -23,6 +23,7 @@ import { fDate } from 'src/utils/format-time';
 import { useNavigate } from 'react-router';
 import { useSnackbar } from 'notistack';
 import CreateBookmarkDialog from './CreateBookmarkDialog';
+import UpdateBookmarkDialog from './UpdateBookmarkDialog';
 
 const checkboxWrapperStyle = (theme: Theme) => ({
   position: 'absolute',
@@ -138,7 +139,7 @@ export const BookmarkGroupList = ({
       .delete(`/bookmark/groups`, { data: { groupIds: selectedGroups } })
       .then(() => {
         enqueueSnackbar('그룹이 성공적으로 삭제되었습니다.', { variant: 'success' });
-        fetchBookmarkGroups();
+        fetchPageData();
       })
       .catch((error) => {
         enqueueSnackbar(`그룹 삭제 중 오류가 발생했습니다. ${error.message}`, {
@@ -153,13 +154,20 @@ export const BookmarkGroupList = ({
       .delete(`/bookmark/batch`, { data: { bookmarkIds: selectedBookmarks } })
       .then(() => {
         enqueueSnackbar('북마크가 성공적으로 삭제되었습니다.', { variant: 'success' });
-        fetchBookmarkGroup(currentGroup!.id);
+        fetchPageData();
       })
       .catch((error) => {
         enqueueSnackbar(`북마크 삭제 중 오류가 발생했습니다. ${error.message}`, {
           variant: 'error',
         });
       });
+  };
+
+  const fetchPageData = () => {
+    fetchBookmarkGroups();
+    if (currentGroup) {
+      fetchBookmarkGroup(currentGroup.id);
+    }
   };
 
   useEffect(() => {
@@ -270,7 +278,10 @@ export const BookmarkGroupList = ({
             </Stack>
           </Box>
 
-          <Typography variant="h5">{currentGroup.name}</Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+            <Typography variant="h5">{currentGroup.name}</Typography>
+            <UpdateBookmarkDialog bookmarkGroup={currentGroup} onUpdate={fetchPageData} />
+          </Box>
 
           {currentGroup.bookmarks.length ? (
             <Masonry columns={{ xs: 2, sm: 3 }} spacing={2} sx={{ width: 'auto' }}>
