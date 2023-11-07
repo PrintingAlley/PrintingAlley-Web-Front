@@ -37,7 +37,7 @@ export const ProductList = ({ products }: ProductListProps) => {
         </Masonry>
       ) : (
         <Typography variant="h6" sx={{ mt: 4 }}>
-          검색 결과가 없습니다. 😢
+          결과가 없습니다. 😢
         </Typography>
       )}
     </>
