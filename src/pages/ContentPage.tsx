@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Box } from '@mui/material';
 import axios from 'src/utils/axios';
 import { GetContentsResponse, ContentInterface } from 'src/types/response.dto';
 import { ContentList } from 'src/sections/Content/ContentList';
@@ -19,17 +18,9 @@ export default function ContentPage() {
   }, []);
 
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 3,
-      }}
-    >
+    <div>
       <Title title="인쇄가 어려운 당신에게" />
-
       <ContentList contents={contents} />
-    </Box>
+    </div>
   );
 }

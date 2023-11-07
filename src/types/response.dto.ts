@@ -21,7 +21,7 @@ interface BookmarkInterface {
   product: ProductWithTags;
 }
 
-interface BookmarkGroupInterface {
+export interface BookmarkGroupInterface {
   id: number;
   name: string;
   createdAt: string;
@@ -132,11 +132,12 @@ export interface PrintShopReviewWithUser extends PrintShopReviewInterface {
   user: UserInterface;
 }
 
-interface BookmarkGroupWithBookmarkCount extends BookmarkGroupInterface {
+export interface BookmarkGroupWithExtra extends BookmarkGroupInterface {
   bookmarkCount: number;
+  recentImage: string | null;
 }
 
-interface BookmarkGroupDetail extends BookmarkGroupInterface {
+export interface BookmarkGroupDetail extends BookmarkGroupInterface {
   bookmarks: BookmarkInterface[];
 }
 
@@ -190,7 +191,7 @@ export interface GetPrintShopReviewsResponse {
 
 // GET /bookmark/group
 export interface GetBookmarkGroupsResponse {
-  bookmarkGroups: BookmarkGroupWithBookmarkCount[];
+  bookmarkGroups: BookmarkGroupWithExtra[];
 }
 
 // GET /bookmark/group/:id

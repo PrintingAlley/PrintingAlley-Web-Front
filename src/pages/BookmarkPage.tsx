@@ -1,0 +1,29 @@
+import { useEffect, useState } from 'react';
+import { BookmarkGroupList } from 'src/sections/Bookmark/BookmarkGroupList';
+import Title from 'src/sections/common/Title';
+import { BookmarkGroupWithExtra, GetBookmarkGroupsResponse } from 'src/types/response.dto';
+import axios from 'src/utils/axios';
+
+export default function BookmarkPage() {
+  const [bookmarkGroups, setBookmarkGroups] = useState<BookmarkGroupWithExtra[]>([]);
+
+  const fetchBookmarkGroups = () => {
+    axios.get<GetBookmarkGroupsResponse>('/bookmark/group').then((response) => {
+      setBookmarkGroups(response.data.bookmarkGroups);
+    });
+  };
+
+  useEffect(() => {
+    fetchBookmarkGroups();
+  }, []);
+
+  return (
+    <div>
+      <Title title="나의 북마크 목록" />
+      <BookmarkGroupList
+        bookmarkGroups={bookmarkGroups}
+        fetchBookmarkGroups={fetchBookmarkGroups}
+      />
+    </div>
+  );
+}

@@ -41,6 +41,7 @@ import NewContentPage from './pages/NewContentPage';
 import ContentDetailPage from './pages/ContentDetailPage';
 import ContentWebViewPage from './pages/ContentWebViewPage';
 import ContentPage from './pages/ContentPage';
+import BookmarkPage from './pages/BookmarkPage';
 
 // ----------------------------------------------------------------------
 
@@ -68,7 +69,7 @@ export default function App() {
                   <Route path="/content/new" element={<NewContentPage />} />
                   <Route path="/product/new" element={<NewProductPage />} />
                   <Route path="/print-shop/new" element={<NewPrintShopPage />} />
-                  <Route path="/bookmark" element={<Home />} />
+                  <Route path="/bookmark" element={<BookmarkPage />} />
                   <Route path="/my" element={<MyPage />} />
                 </>
               )}
