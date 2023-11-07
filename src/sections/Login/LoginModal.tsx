@@ -15,53 +15,43 @@ import useAuth from 'src/hooks/useAuth';
 const LoginButton = styled(Button)(({ theme }) => ({
   padding: theme.spacing(1.5, 3),
   img: {
-    height: '24px',
+    height: 24,
   },
   p: {
-    fontWeight: 'bold',
+    fontWeight: 600,
   },
+  border: '1px solid',
+  borderColor: theme.palette.divider,
 }));
 
 const loginProviders = [
   {
     name: 'naver',
     label: '네이버',
-    icon: '/icons/naver-logo-white.png',
-    styles: { backgroundColor: '#03C75A !important', color: '#FFFFFF' },
+    icon: '/icons/naver-logo.svg',
   },
   {
     name: 'kakao',
     label: '카카오',
-    icon: '/icons/kakao-logo.png',
-    styles: { backgroundColor: '#FEE500 !important', color: '#191919' },
+    icon: '/icons/kakao-logo.svg',
   },
   {
     name: 'google',
     label: '구글',
-    icon: '/icons/google-logo.png',
-    styles: {
-      backgroundColor: '#FFFFFF !important',
-      color: '#000000',
-      border: '1px solid',
-      borderColor: 'divider',
-    },
+    icon: '/icons/google-logo.svg',
   },
   {
     name: 'apple',
     label: '애플',
-    icon: '/icons/apple-logo.png',
-    styles: {
-      backgroundColor: '#FFFFFF !important',
-      color: '#000000',
-      border: '1px solid',
-      borderColor: 'divider',
-    },
+    icon: '/icons/apple-logo.svg',
   },
 ];
 
 interface Props {
   variant?: 'contained' | 'outlined' | 'text';
   text?: string;
+  color?: 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success' | 'inherit';
+  startIcon?: React.ReactNode;
   isMenuItem?: boolean;
   onClick?: () => void;
 }
@@ -69,6 +59,8 @@ interface Props {
 export default function LoginModal({
   variant = 'text',
   text = '로그인',
+  color = 'inherit',
+  startIcon,
   isMenuItem = false,
   onClick,
 }: Props) {
@@ -93,7 +85,7 @@ export default function LoginModal({
           {isMenuItem ? (
             <MenuItem onClick={onClickMenuItem}>{text}</MenuItem>
           ) : (
-            <Button variant={variant} onClick={handleOpen}>
+            <Button variant={variant} color={color} startIcon={startIcon} onClick={handleOpen}>
               {text}
             </Button>
           )}
@@ -111,7 +103,6 @@ export default function LoginModal({
                   <LoginButton
                     key={provider.name}
                     startIcon={<Box component="img" src={provider.icon} alt={provider.name} />}
-                    sx={provider.styles}
                     onClick={() => handleLoginRedirect(provider.name)}
                   >
                     <Typography sx={{ width: 192 }}>{provider.label} 로그인</Typography>

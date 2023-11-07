@@ -1,12 +1,23 @@
-import { Typography, Chip, Box, Divider, ButtonBase } from '@mui/material';
+import {
+  Typography,
+  Chip,
+  Box,
+  Divider,
+  ButtonBase,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Stack,
+} from '@mui/material';
 import { Dispatch, SetStateAction, useEffect } from 'react';
+import Iconify from 'src/components/iconify';
 import { TagInterface } from 'src/types/response.dto';
 
 interface TagFilterProps {
   selectedTopLevelTag: TagInterface | null;
   setSelectedTopLevelTag: Dispatch<SetStateAction<TagInterface | null>>;
-  selectedTags: number[];
-  setSelectedTags: Dispatch<SetStateAction<number[]>>;
+  selectedTags: TagInterface[];
+  setSelectedTags: Dispatch<SetStateAction<TagInterface[]>>;
   topLevelTags: TagInterface[];
   tags: Record<number, TagInterface[]>;
 }
@@ -19,16 +30,16 @@ export const TagFilter = ({
   topLevelTags,
   tags,
 }: TagFilterProps) => {
-  const handleTagClick = (tagId: number) => {
-    if (selectedTags.includes(tagId)) {
-      setSelectedTags((prev) => prev.filter((id) => id !== tagId));
+  const handleTagClick = (tag: TagInterface) => {
+    if (selectedTags.includes(tag)) {
+      setSelectedTags((prev) => prev.filter((id) => id !== tag));
     } else {
-      setSelectedTags((prev) => [...prev, tagId]);
+      setSelectedTags((prev) => [...prev, tag]);
     }
   };
 
   useEffect(() => {
-    setSelectedTags(selectedTopLevelTag ? [selectedTopLevelTag.id] : []);
+    setSelectedTags(selectedTopLevelTag ? [selectedTopLevelTag] : []);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTopLevelTag]);
 
@@ -75,69 +86,105 @@ export const TagFilter = ({
         })}
       </Box>
 
-      {tagList.map((tag) => (
-        <Box key={tag.id} sx={{ mt: 2 }}>
-          {tag.children.length > 0 ? (
-            <Box>
-              <Typography variant="subtitle1" gutterBottom>
-                {tag.name}
-              </Typography>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 2,
-                  ml: 1,
-                }}
-              >
-                {tag.children.map((child) =>
-                  child.children.length > 0 ? (
-                    <Box key={child.id}>
-                      <Typography variant="subtitle2" gutterBottom>
-                        {child.name}
-                      </Typography>
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          flexWrap: 'wrap',
-                          gap: 1,
-                          ml: 1,
-                        }}
-                      >
-                        {child.children.map((grandChild) => (
+      {tagList.length > 0 && (
+        <Accordion
+          variant="outlined"
+          sx={{
+            mt: 2,
+            borderRadius: 1,
+            '&.MuiAccordion-root:before': {
+              display: 'none',
+            },
+          }}
+        >
+          <AccordionSummary expandIcon={<Iconify icon="ic:round-expand-more" />}>
+            <Stack spacing={1}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                <Typography variant="subtitle1">필터</Typography>
+                <Iconify icon="ic:round-filter-alt" />
+              </Box>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, overflow: 'auto' }}>
+                {selectedTags.map((tag) => (
+                  <Chip
+                    key={tag.id}
+                    color="primary"
+                    label={tag.name}
+                    onDelete={tag === selectedTopLevelTag ? undefined : () => handleTagClick(tag)}
+                  />
+                ))}
+              </Box>
+            </Stack>
+          </AccordionSummary>
+          <AccordionDetails>
+            {tagList.map((tag, index) => (
+              <Box key={tag.id}>
+                {tag.children.length > 0 ? (
+                  <Box>
+                    <Typography variant="subtitle1" gutterBottom>
+                      {tag.name}
+                    </Typography>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 2,
+                        mb: 2,
+                        ml: 1,
+                      }}
+                    >
+                      {tag.children.map((child) =>
+                        child.children.length > 0 ? (
+                          <Box key={child.id}>
+                            <Typography variant="subtitle2" gutterBottom>
+                              {child.name}
+                            </Typography>
+                            <Box
+                              sx={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                gap: 1,
+                                ml: 1,
+                              }}
+                            >
+                              {child.children.map((grandChild) => (
+                                <Chip
+                                  color="primary"
+                                  key={grandChild.id}
+                                  variant={
+                                    selectedTags.includes(grandChild) ? 'filled' : 'outlined'
+                                  }
+                                  onClick={() => handleTagClick(grandChild)}
+                                  label={grandChild.name}
+                                />
+                              ))}
+                            </Box>
+                          </Box>
+                        ) : (
                           <Chip
-                            color="primary"
-                            key={grandChild.id}
-                            variant={selectedTags.includes(grandChild.id) ? 'filled' : 'outlined'}
-                            onClick={() => handleTagClick(grandChild.id)}
-                            label={grandChild.name}
+                            color="secondary"
+                            key={child.id}
+                            variant={selectedTags.includes(child) ? 'filled' : 'outlined'}
+                            onClick={() => handleTagClick(child)}
+                            label={child.name}
                           />
-                        ))}
-                      </Box>
+                        )
+                      )}
                     </Box>
-                  ) : (
-                    <Chip
-                      color="secondary"
-                      key={child.id}
-                      variant={selectedTags.includes(child.id) ? 'filled' : 'outlined'}
-                      onClick={() => handleTagClick(child.id)}
-                      label={child.name}
-                    />
-                  )
+                    {index !== tagList.length - 1 && <Divider sx={{ mb: 2 }} />}
+                  </Box>
+                ) : (
+                  <Chip
+                    color="info"
+                    variant={selectedTags.includes(tag) ? 'filled' : 'outlined'}
+                    onClick={() => handleTagClick(tag)}
+                    label={tag.name}
+                  />
                 )}
               </Box>
-              <Divider sx={{ mt: 2 }} />
-            </Box>
-          ) : (
-            <Chip
-              color="info"
-              variant={selectedTags.includes(tag.id) ? 'filled' : 'outlined'}
-              onClick={() => handleTagClick(tag.id)}
-              label={tag.name}
-            />
-          )}
-        </Box>
-      ))}
+            ))}
+          </AccordionDetails>
+        </Accordion>
+      )}
     </Box>
   );
 };

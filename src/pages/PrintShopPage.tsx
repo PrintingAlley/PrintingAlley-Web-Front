@@ -13,10 +13,10 @@ export default function PrintShopPage() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const size = 10;
 
-  const fetchPrintShops = (page = 1, search = '', tags = [] as number[]) => {
+  const fetchPrintShops = (page = 1, search = '') => {
     axios
       .get<GetPrintShopsResponse>('/print-shop', {
-        params: { page, size, searchText: search, tagIds: tags },
+        params: { page, size, searchText: search },
       })
       .then((response) => {
         setPrintShops(response.data.printShops);

@@ -16,22 +16,30 @@ export const ProductList = ({ products }: ProductListProps) => {
   };
 
   return (
-    <Masonry columns={{ xs: 2, sm: 3 }} spacing={2} sx={{ width: 'auto' }}>
-      {products.map((product) => (
-        <Box
-          key={product.id}
-          onClick={() => goToProductPage(product.id)}
-          sx={{ display: 'flex', flexDirection: 'column', cursor: 'pointer' }}
-        >
-          <Image src={product.mainImage} alt={product.name} sx={{ borderRadius: 1 }} />
-          <Typography
-            variant="caption"
-            sx={{ mx: 0.5, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}
-          >
-            {product.name}
-          </Typography>
-        </Box>
-      ))}
-    </Masonry>
+    <>
+      {products.length ? (
+        <Masonry columns={{ xs: 2, sm: 3 }} spacing={2} sx={{ width: 'auto' }}>
+          {products.map((product) => (
+            <Box
+              key={product.id}
+              onClick={() => goToProductPage(product.id)}
+              sx={{ display: 'flex', flexDirection: 'column', cursor: 'pointer' }}
+            >
+              <Image src={product.mainImage} alt={product.name} sx={{ borderRadius: 1 }} />
+              <Typography
+                variant="caption"
+                sx={{ mx: 0.5, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}
+              >
+                {product.name}
+              </Typography>
+            </Box>
+          ))}
+        </Masonry>
+      ) : (
+        <Typography variant="h6" sx={{ mt: 4 }}>
+          검색 결과가 없습니다. 😢
+        </Typography>
+      )}
+    </>
   );
 };

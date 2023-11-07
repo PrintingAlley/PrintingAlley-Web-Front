@@ -9,20 +9,16 @@ import LoginModal from '../Login/LoginModal';
 
 const authenticatedNavbarItems = [
   {
-    label: '소개',
-    path: '/',
-  },
-  {
     label: '인쇄 골목',
-    path: '/product',
+    path: '/',
   },
   {
     label: '인쇄사 목록',
     path: '/print-shop',
   },
   {
-    label: '인쇄사 등록',
-    path: '/print-shop/new',
+    label: '콘텐츠',
+    path: '/content',
   },
   {
     label: '북마크',
@@ -36,16 +32,16 @@ const authenticatedNavbarItems = [
 
 const defaultNavbarItems = [
   {
-    label: '소개',
-    path: '/',
-  },
-  {
     label: '인쇄 골목',
-    path: '/product',
+    path: '/',
   },
   {
     label: '인쇄사 목록',
     path: '/print-shop',
+  },
+  {
+    label: '콘텐츠',
+    path: '/content',
   },
 ];
 

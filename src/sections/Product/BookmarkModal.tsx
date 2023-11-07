@@ -6,7 +6,6 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
-  Link,
   Paper,
   Stack,
   Table,
@@ -125,19 +124,15 @@ export default function BookmarkModal({ product, fetchProduct }: Props) {
 
   return (
     <>
-      <Stack direction="row" alignItems="center" justifyContent="center" spacing={0.5}>
-        <IconButton color="primary" onClick={handleOpen}>
-          {product.isBookmarked ? (
-            <Iconify icon="mdi:bookmark" />
-          ) : (
-            <Iconify icon="mdi:bookmark-outline" />
-          )}
-        </IconButton>
-        <Link component="button" onClick={handleOpen}>
-          {product.isBookmarked ? '다른 그룹에 북마크 추가하기' : '북마크 추가하기'}
-        </Link>
-      </Stack>
-
+      <Button
+        color="primary"
+        onClick={handleOpen}
+        startIcon={
+          <Iconify icon={product.isBookmarked ? 'mdi:bookmark' : 'mdi:bookmark-outline'} />
+        }
+      >
+        {product.isBookmarked ? '다른 그룹에 북마크 추가하기' : '북마크 추가하기'}
+      </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle
           sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
@@ -147,7 +142,7 @@ export default function BookmarkModal({ product, fetchProduct }: Props) {
             onClick={navigateToBookmark}
             variant="soft"
             color="primary"
-            sx={{ float: 'right' }}
+            endIcon={<Iconify icon="ic:round-keyboard-arrow-right" />}
           >
             북마크 페이지로 이동
           </Button>
@@ -172,7 +167,7 @@ export default function BookmarkModal({ product, fetchProduct }: Props) {
                   bookmarkGroups.map((bookmarkGroup) => (
                     <TableRow key={bookmarkGroup.id}>
                       <TableCell>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                           {bookmarkGroup.name}
                           <UpdateBookmarkDialog
                             bookmarkGroup={bookmarkGroup}

@@ -88,7 +88,7 @@ interface ProductReviewInterface {
 export interface UserInterface {
   id: number;
   provider: string;
-  userType: string;
+  userType: 'GENERAL' | 'PRINT_SHOP_OWNER' | 'ADMIN';
   name: string;
   profileImage: string | null;
   email: string | null;

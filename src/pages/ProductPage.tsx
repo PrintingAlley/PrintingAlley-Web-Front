@@ -12,16 +12,16 @@ export default function ProductPage() {
   const { topLevelTags, tagHierarchies } = useTag();
   const [searchText, setSearchText] = useState<string>('');
   const [selectedTopLevelTag, setSelectedTopLevelTag] = useState<TagInterface | null>(null);
-  const [selectedTags, setSelectedTags] = useState<number[]>([]);
+  const [selectedTags, setSelectedTags] = useState<TagInterface[]>([]);
   const [products, setProducts] = useState<ProductWithTags[]>([]);
   const [totalProducts, setTotalProducts] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const size = 10;
 
-  const fetchProducts = (page = 1, search = '', tags = [] as number[]) => {
+  const fetchProducts = (page = 1, search = '', tags = [] as TagInterface[]) => {
     axios
       .get<GetProductsResponse>('/product', {
-        params: { page, size, searchText: search, tagIds: tags },
+        params: { page, size, searchText: search, tagIds: tags.map((tag) => tag.id) },
       })
       .then((response) => {
         setProducts(response.data.products);

@@ -1,4 +1,14 @@
-import { Avatar, Box, ButtonGroup, Chip, Divider, Grid, Link, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  ButtonGroup,
+  Chip,
+  Divider,
+  Grid,
+  Link,
+  Stack,
+  Typography,
+} from '@mui/material';
 import axios from 'src/utils/axios';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
@@ -20,6 +30,8 @@ import NavigateBackButton from 'src/sections/common/NavigateBackButton';
 import { ReviewSection } from 'src/sections/Review/ReviewSection';
 import Markdown from 'src/components/markdown';
 import BookmarkModal from 'src/sections/Product/BookmarkModal';
+import LoginModal from 'src/sections/Login/LoginModal';
+import Iconify from 'src/components/iconify';
 
 function ProductInformation({ product }: { product: ProductDetail }) {
   return (
@@ -77,7 +89,7 @@ function ProductInformation({ product }: { product: ProductDetail }) {
 
 export default function ProductDetailPage() {
   const { id } = useParams();
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const { topLevelTags, tagHierarchies } = useTag();
   const [product, setProduct] = useState<ProductDetail | null>(null);
@@ -121,7 +133,17 @@ export default function ProductDetailPage() {
 
           <Box sx={{ height: 16 }} />
 
-          <BookmarkModal product={product} fetchProduct={fetchProduct} />
+          <Stack alignItems="center" justifyContent="center">
+            {isAuthenticated ? (
+              <BookmarkModal product={product} fetchProduct={fetchProduct} />
+            ) : (
+              <LoginModal
+                text="로그인하여 북마크에 추가하기"
+                color="primary"
+                startIcon={<Iconify icon="mdi:bookmark-outline" />}
+              />
+            )}
+          </Stack>
 
           <Divider sx={{ my: 2 }} />
 
