@@ -28,7 +28,7 @@ declare module '@mui/material/styles' {
   }
 }
 
-const primaryFont = 'Public Sans, sans-serif'; // Google Font
+const primaryFont = 'Pretendard, sans-serif';
 // const secondaryFont = 'CircularStd, sans-serif'; // Local Font
 
 // ----------------------------------------------------------------------

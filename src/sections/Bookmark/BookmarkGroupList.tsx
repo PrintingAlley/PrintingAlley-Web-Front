@@ -217,7 +217,10 @@ export const BookmarkGroupList = ({
                       textOverflow: 'ellipsis',
                     }}
                   >
-                    {bookmarkGroup.name}
+                    {bookmarkGroup.name}{' '}
+                    <Typography component="span" color="text.secondary" variant="subtitle1">
+                      · {bookmarkGroup.bookmarkCount}개
+                    </Typography>
                   </Typography>
                   <Typography variant="caption" color="text.secondary">
                     만든 날짜: {fDate(bookmarkGroup.createdAt)}
