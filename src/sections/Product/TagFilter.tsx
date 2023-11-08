@@ -100,7 +100,10 @@ export const TagFilter = ({
           <Stack spacing={1}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
               <Typography variant="subtitle1">필터</Typography>
-              <Iconify icon="ic:round-filter-alt" />
+              <Iconify
+                icon="ic:round-filter-alt"
+                color={selectedTags.length ? 'primary.light' : 'text.disabled'}
+              />
             </Box>
             {tagList.length ? (
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, overflow: 'auto' }}>
