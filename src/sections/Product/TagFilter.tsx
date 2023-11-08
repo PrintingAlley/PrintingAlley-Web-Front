@@ -9,7 +9,9 @@ import {
   AccordionSummary,
   Stack,
 } from '@mui/material';
+import { m } from 'framer-motion';
 import { Dispatch, SetStateAction, useEffect } from 'react';
+import { varFade } from 'src/components/animate';
 import Iconify from 'src/components/iconify';
 import { TagInterface } from 'src/types/response.dto';
 
@@ -46,13 +48,12 @@ export const TagFilter = ({
   const tagList = selectedTopLevelTag ? tags[selectedTopLevelTag.id] : [];
 
   return (
-    <Box>
+    <Stack spacing={4} my={1}>
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'center',
           gap: 2,
-          py: 1,
           flexWrap: 'wrap',
         }}
       >
@@ -86,37 +87,40 @@ export const TagFilter = ({
         })}
       </Box>
 
-      {tagList.length > 0 && (
-        <Accordion
-          variant="outlined"
-          sx={{
-            mt: 2,
-            borderRadius: 1,
-            '&.MuiAccordion-root:before': {
-              display: 'none',
-            },
-          }}
-        >
-          <AccordionSummary expandIcon={<Iconify icon="ic:round-expand-more" />}>
-            <Stack spacing={1}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                <Typography variant="subtitle1">필터</Typography>
-                <Iconify icon="ic:round-filter-alt" />
-              </Box>
+      <Accordion
+        variant="outlined"
+        sx={{
+          borderRadius: 1,
+          '&.MuiAccordion-root:before': {
+            display: 'none',
+          },
+        }}
+      >
+        <AccordionSummary expandIcon={<Iconify icon="ic:round-expand-more" />}>
+          <Stack spacing={1}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+              <Typography variant="subtitle1">필터</Typography>
+              <Iconify icon="ic:round-filter-alt" />
+            </Box>
+            {tagList.length ? (
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, overflow: 'auto' }}>
                 {selectedTags.map((tag) => (
                   <Chip
                     key={tag.id}
+                    component={m.div}
+                    {...varFade().in}
                     color="primary"
                     label={tag.name}
                     onDelete={tag === selectedTopLevelTag ? undefined : () => handleTagClick(tag)}
                   />
                 ))}
               </Box>
-            </Stack>
-          </AccordionSummary>
-          <AccordionDetails>
-            {tagList.map((tag, index) => (
+            ) : null}
+          </Stack>
+        </AccordionSummary>
+        <AccordionDetails>
+          {tagList.length ? (
+            tagList.map((tag, index) => (
               <Box key={tag.id}>
                 {tag.children.length > 0 ? (
                   <Box>
@@ -181,10 +185,14 @@ export const TagFilter = ({
                   />
                 )}
               </Box>
-            ))}
-          </AccordionDetails>
-        </Accordion>
-      )}
-    </Box>
+            ))
+          ) : (
+            <Typography variant="body2" color="text.secondary">
+              카테고리를 선택하면 필터가 표시됩니다.
+            </Typography>
+          )}
+        </AccordionDetails>
+      </Accordion>
+    </Stack>
   );
 };

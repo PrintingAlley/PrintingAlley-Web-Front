@@ -44,8 +44,6 @@ export default function ContentDetailHero({ content }: { content: ContentInterfa
             sx={{
               zIndex: 9,
               color: 'common.white',
-              position: 'absolute',
-              maxWidth: 360,
               pt: { xs: 2, md: 8 },
             }}
           >
