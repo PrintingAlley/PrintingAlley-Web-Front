@@ -48,7 +48,7 @@ export const TagFilter = ({
   const tagList = selectedTopLevelTag ? tags[selectedTopLevelTag.id] : [];
 
   return (
-    <Stack spacing={4} my={1}>
+    <Stack spacing={2} mb={1}>
       <Box
         sx={{
           display: 'flex',

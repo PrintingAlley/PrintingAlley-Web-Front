@@ -1,8 +1,10 @@
+import { uploadFileAndGetUrl } from 'src/utils/upload';
 import { useEffect } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router';
 import { HOST_API } from 'src/config-global';
 import { GetUserResponse, UserInterface } from 'src/types/response.dto';
+import { UpdateUser } from 'src/types/user';
 import axios from 'src/utils/axios';
 
 const useAuth = () => {
@@ -52,6 +54,23 @@ const useAuth = () => {
     }
   };
 
+  const updateUser = async (data: UpdateUser) => {
+    let profileImageUrl = data.profileImage;
+    if (profileImageUrl instanceof File) {
+      profileImageUrl = await uploadFileAndGetUrl(profileImageUrl);
+    }
+
+    const formDataWithImages = {
+      ...data,
+      profileImage: profileImageUrl,
+    };
+
+    const response = await axios.put<UpdateUser>('user', formDataWithImages);
+    if (response.status === 200) {
+      queryClient.invalidateQueries('user');
+    }
+  };
+
   const {
     data: user,
     isError,
@@ -72,6 +91,7 @@ const useAuth = () => {
     isAuthenticated: !!localStorage.getItem('token'),
     isError,
     isLoading,
+    updateUser,
   };
 };
 
