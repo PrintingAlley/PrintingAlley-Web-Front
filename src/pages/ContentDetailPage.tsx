@@ -25,7 +25,7 @@ export default function ContentDetailPage() {
   };
 
   const onDelete = () => {
-    navigate('/', { replace: true });
+    navigate('/content', { replace: true });
   };
 
   useEffect(() => {

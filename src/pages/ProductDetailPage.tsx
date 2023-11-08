@@ -112,7 +112,7 @@ export default function ProductDetailPage() {
   };
 
   const onDelete = () => {
-    navigate('/product', { replace: true });
+    navigate('/', { replace: true });
   };
 
   useEffect(() => {
