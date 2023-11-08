@@ -3,15 +3,14 @@ import { Button, Box, Typography, Avatar, Stack, Card, TextField } from '@mui/ma
 import { enqueueSnackbar } from 'notistack';
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
 import { RHFUploadAvatar } from 'src/components/hook-form';
 import FormProvider from 'src/components/hook-form/form-provider';
 import useAuth from 'src/hooks/useAuth';
+import AdminMenu from 'src/sections/Admin/AdminMenu';
 import { UpdateUser } from 'src/types/user';
 
 export default function MyPage() {
-  const navigate = useNavigate();
-  const { user, logout, withdraw, isLoading, updateUser } = useAuth();
+  const { user, handleLogout, withdraw, isLoading, updateUser } = useAuth();
   const [editMode, setEditMode] = useState(false);
 
   const methods = useForm<UpdateUser>({
@@ -155,7 +154,7 @@ export default function MyPage() {
       )}
 
       <Box>
-        <Button onClick={logout} variant="soft" color="warning">
+        <Button onClick={handleLogout} variant="soft" color="warning">
           로그아웃
         </Button>
       </Box>
@@ -167,19 +166,8 @@ export default function MyPage() {
           회원탈퇴 시, 모든 정보가 삭제되며{'\n'}복구할 수 없습니다.
         </Typography>
       </Stack>
-      <Typography variant="h6" sx={{ mt: 4 }}>
-        어드민 메뉴
-      </Typography>
-      <Box>
-        <Button onClick={() => navigate('/content/new')} variant="soft" color="info">
-          콘텐츠 작성 페이지
-        </Button>
-      </Box>
-      <Box>
-        <Button onClick={() => navigate('/print-shop/new')} variant="soft" color="info">
-          인쇄소 추가 페이지
-        </Button>
-      </Box>
+
+      {user.userType === 'ADMIN' && <AdminMenu />}
     </Stack>
   );
 }

@@ -15,6 +15,11 @@ const useAuth = () => {
     window.location.href = `${HOST_API}/auth/${provider}`;
   };
 
+  const handleLogout = () => {
+    if (!window.confirm('로그아웃 하시겠습니까?')) return;
+    logout();
+  };
+
   const saveToken = (token: string) => {
     localStorage.setItem('token', token);
     navigate('/');
@@ -44,6 +49,7 @@ const useAuth = () => {
   };
 
   const withdraw = async () => {
+    if (!window.confirm('회원탈퇴 하시겠습니까?\n탈퇴 후에는 복구할 수 없습니다.')) return;
     try {
       await axios.delete('auth/withdrawal');
       logout();
@@ -86,7 +92,7 @@ const useAuth = () => {
   return {
     user,
     handleLoginRedirect,
-    logout,
+    handleLogout,
     withdraw,
     isAuthenticated: !!localStorage.getItem('token'),
     isError,
