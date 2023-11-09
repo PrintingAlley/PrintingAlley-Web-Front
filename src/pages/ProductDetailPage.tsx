@@ -135,7 +135,7 @@ export default function ProductDetailPage() {
 
           <KakaoShareButton productDetail={product} />
 
-          <CenteredTitle title={product.name} sx={{ my: 5 }} />
+          <CenteredTitle title={product.name} sx={{ mt: 8, mb: 5 }} />
 
           <ProductInformation product={product} />
 

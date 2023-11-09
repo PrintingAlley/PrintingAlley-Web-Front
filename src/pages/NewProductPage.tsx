@@ -16,7 +16,7 @@ export default function NewProductPage() {
 
       <NavigateBackButton />
 
-      <Title title="상품 등록" />
+      <Title title="상품 등록" sx={{ mt: 8 }} />
 
       <Box sx={{ height: 16 }} />
 

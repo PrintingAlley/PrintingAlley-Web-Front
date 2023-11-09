@@ -13,7 +13,7 @@ export default function NewPrintShopPage() {
 
       <NavigateBackButton />
 
-      <Title title="인쇄사 등록" />
+      <Title title="인쇄사 등록" sx={{ mt: 8 }} />
 
       <Box sx={{ height: 16 }} />
 

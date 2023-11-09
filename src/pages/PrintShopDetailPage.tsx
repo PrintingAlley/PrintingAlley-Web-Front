@@ -71,11 +71,11 @@ export default function PrintShopDetailPage() {
 
           <KakaoShareButton printShopDetail={printShop} />
 
-          <CenteredTitle title={printShop.name} sx={{ my: 5 }} />
+          <CenteredTitle title={printShop.name} sx={{ mt: 8, mb: 5 }} />
 
           <PrintShopInfo printShop={printShop} />
 
-          <Box sx={{ height: 32 }} />
+          <Box sx={{ height: 40 }} />
 
           <Avatar
             alt="Background"
