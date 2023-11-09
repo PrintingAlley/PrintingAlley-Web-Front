@@ -172,7 +172,7 @@ export const CreatePrintShopForm = () => {
         </Card>
 
         <Card>
-          <CardHeader title="상품 이미지 등록" />
+          <CardHeader title="인쇄사 이미지 등록" />
           <Stack spacing={3} sx={{ p: 3 }}>
             <Paper
               variant="outlined"
@@ -220,7 +220,7 @@ export const CreatePrintShopForm = () => {
         </Card>
 
         <Card>
-          <CardHeader title="상품 이미지 등록" />
+          <CardHeader title="인쇄사 위치 정보" />
           <Stack spacing={3} sx={{ p: 3 }}>
             <Paper variant="outlined" sx={{ overflow: 'hidden' }}>
               <Box sx={{ p: '14px' }}>
