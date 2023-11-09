@@ -9,7 +9,7 @@ import { Helmet } from 'react-helmet-async';
 
 export default function PrintShopPage() {
   const [searchText, setSearchText] = useState<string>('');
-  const [printShops, setPrintShops] = useState<PrintShopInterface[]>([]);
+  const [printShops, setPrintShops] = useState<PrintShopInterface[] | null>(null);
   const [totalPrintShops, setTotalPrintShops] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const size = 10;
@@ -43,7 +43,7 @@ export default function PrintShopPage() {
 
       <SearchBar onSearch={setSearchText} resetSearch={resetSearch} />
 
-      <PrintShopList printShops={printShops} />
+      {printShops && <PrintShopList printShops={printShops} />}
 
       <Box sx={{ flexGrow: 1 }} />
 

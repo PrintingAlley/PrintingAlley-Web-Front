@@ -6,7 +6,7 @@ import { BookmarkGroupWithExtra, GetBookmarkGroupsResponse } from 'src/types/res
 import axios from 'src/utils/axios';
 
 export default function BookmarkPage() {
-  const [bookmarkGroups, setBookmarkGroups] = useState<BookmarkGroupWithExtra[]>([]);
+  const [bookmarkGroups, setBookmarkGroups] = useState<BookmarkGroupWithExtra[] | null>(null);
 
   const fetchBookmarkGroups = () => {
     axios.get<GetBookmarkGroupsResponse>('/bookmark/group').then((response) => {
@@ -26,10 +26,12 @@ export default function BookmarkPage() {
 
       <Title title="나의 북마크 목록" />
 
-      <BookmarkGroupList
-        bookmarkGroups={bookmarkGroups}
-        fetchBookmarkGroups={fetchBookmarkGroups}
-      />
+      {bookmarkGroups && (
+        <BookmarkGroupList
+          bookmarkGroups={bookmarkGroups}
+          fetchBookmarkGroups={fetchBookmarkGroups}
+        />
+      )}
     </div>
   );
 }

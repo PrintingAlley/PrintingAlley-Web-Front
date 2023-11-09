@@ -14,7 +14,7 @@ export default function ProductPage() {
   const [searchText, setSearchText] = useState<string>('');
   const [selectedTopLevelTag, setSelectedTopLevelTag] = useState<TagInterface | null>(null);
   const [selectedTags, setSelectedTags] = useState<TagInterface[]>([]);
-  const [products, setProducts] = useState<ProductWithTags[]>([]);
+  const [products, setProducts] = useState<ProductWithTags[] | null>(null);
   const [totalProducts, setTotalProducts] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const size = 10;
@@ -59,7 +59,7 @@ export default function ProductPage() {
         tags={tagHierarchies}
       />
 
-      <ProductList products={products} />
+      {products && <ProductList products={products} />}
 
       <Box sx={{ flexGrow: 1 }} />
 

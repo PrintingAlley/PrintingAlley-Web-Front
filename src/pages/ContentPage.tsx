@@ -6,7 +6,7 @@ import Title from 'src/sections/common/Title';
 import { Helmet } from 'react-helmet-async';
 
 export default function ContentPage() {
-  const [contents, setContents] = useState<ContentInterface[]>([]);
+  const [contents, setContents] = useState<ContentInterface[] | null>(null);
 
   const fetchContents = () => {
     axios.get<GetContentsResponse>('/content').then((response) => {
@@ -26,7 +26,7 @@ export default function ContentPage() {
 
       <Title title="인쇄가 어려운 당신에게" />
 
-      <ContentList contents={contents} />
+      {contents && <ContentList contents={contents} />}
     </div>
   );
 }

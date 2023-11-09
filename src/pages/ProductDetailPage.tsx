@@ -37,7 +37,7 @@ import { Helmet } from 'react-helmet-async';
 
 function ProductInformation({ product }: { product: ProductDetail }) {
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={{ xs: 5, md: 3 }}>
       <Grid item xs={12} md={4}>
         <Avatar
           alt="Logo"
