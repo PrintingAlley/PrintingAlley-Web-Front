@@ -2,6 +2,7 @@ import React, { useEffect, useCallback } from 'react';
 import { PrintShopDetail, ProductDetail } from 'src/types/response.dto';
 import Iconify from 'src/components/iconify';
 import { Box, IconButton, Tooltip } from '@mui/material';
+import { KAKAO_KEY } from 'src/config-global';
 
 interface ShareButtonProps {
   productDetail?: ProductDetail;
@@ -11,7 +12,7 @@ interface ShareButtonProps {
 const KakaoShareButton: React.FC<ShareButtonProps> = ({ productDetail, printShopDetail }) => {
   useEffect(() => {
     if (window.Kakao && !window.Kakao.isInitialized()) {
-      window.Kakao.init(process.env.REACT_APP_KAKAO_KEY);
+      window.Kakao.init(KAKAO_KEY);
     }
   }, []);
 

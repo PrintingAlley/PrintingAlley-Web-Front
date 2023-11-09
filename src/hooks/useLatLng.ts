@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { UseFormSetValue } from 'react-hook-form';
-import { KAKAO_REST_API } from 'src/config-global';
+import { KAKAO_REST_API_KEY } from 'src/config-global';
 import { CreatePrintShop } from 'src/types/print-shop';
 
 const useLatLng = () => {
@@ -11,7 +11,7 @@ const useLatLng = () => {
     try {
       const response = await axios.get(
         `https://dapi.kakao.com/v2/local/search/address.json?query=${address}`,
-        { headers: { Authorization: `KakaoAK ${KAKAO_REST_API}` } }
+        { headers: { Authorization: `KakaoAK ${KAKAO_REST_API_KEY}` } }
       );
 
       const { documents } = response.data;
