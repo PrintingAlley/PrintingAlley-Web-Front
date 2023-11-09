@@ -1,10 +1,9 @@
-import { Routes, Route } from 'react-router';
+import { Routes, Route, Navigate } from 'react-router';
 import useAuth from './hooks/useAuth';
 import BookmarkPage from './pages/BookmarkPage';
 import ContentDetailPage from './pages/ContentDetailPage';
 import ContentPage from './pages/ContentPage';
 import ContentWebViewPage from './pages/ContentWebViewPage';
-import HomePage from './pages/HomePage';
 import MyPage from './pages/MyPage';
 import NewContentPage from './pages/NewContentPage';
 import NewPrintShopPage from './pages/NewPrintShopPage';
@@ -50,7 +49,7 @@ export default function Router() {
       {isAuthenticated && [...AuthenticatedRoutes()]}
       {user?.userType === UserType.PRINTSHOP_OWNER && [...PrintShopOwnerRoutes()]}
       {user?.userType === UserType.ADMIN && [...AdminRoutes()]}
-      <Route path="*" element={<HomePage />} />
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 }

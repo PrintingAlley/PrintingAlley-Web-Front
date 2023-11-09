@@ -11,6 +11,7 @@ import FormProvider from 'src/components/hook-form/form-provider';
 import { RHFUpload } from 'src/components/hook-form';
 import { CreateContent } from 'src/types/content';
 import { uploadFileAndGetUrl } from 'src/utils/upload';
+import { MAX_FILE_UPLOAD_SIZE } from 'src/config-global';
 
 export const CreateContentForm = () => {
   const navigate = useNavigate();
@@ -104,7 +105,7 @@ export const CreateContentForm = () => {
               <Typography variant="subtitle2">썸네일 이미지</Typography>
               <RHFUpload
                 name="thumbnail"
-                maxSize={3145728}
+                maxSize={MAX_FILE_UPLOAD_SIZE}
                 onDrop={handleDrop}
                 onDelete={handleRemoveFile}
               />

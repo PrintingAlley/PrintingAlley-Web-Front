@@ -5,6 +5,7 @@ import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { RHFUpload } from 'src/components/hook-form';
 import FormProvider from 'src/components/hook-form/form-provider';
+import { MAX_FILE_UPLOAD_SIZE } from 'src/config-global';
 import { CreateReview } from 'src/types/review';
 import axios from 'src/utils/axios';
 import { uploadFilesAndGetUrls } from 'src/utils/upload';
@@ -143,7 +144,7 @@ export function AddReviewForm({
           multiple
           thumbnail
           name="images"
-          maxSize={3145728}
+          maxSize={MAX_FILE_UPLOAD_SIZE}
           onDrop={handleDrop}
           onRemove={handleRemoveFile}
           onRemoveAll={handleRemoveAllFiles}

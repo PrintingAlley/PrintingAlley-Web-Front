@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router';
 import { RHFUploadAvatar } from 'src/components/hook-form';
 import FormProvider from 'src/components/hook-form/form-provider';
 import Iconify from 'src/components/iconify';
+import { MAX_FILE_UPLOAD_SIZE } from 'src/config-global';
 import useAuth from 'src/hooks/useAuth';
 import AdminMenu from 'src/sections/Admin/AdminMenu';
 import { UpdateUser } from 'src/types/user';
@@ -107,7 +108,7 @@ export default function MyPage() {
                   <Typography variant="subtitle2">썸네일 이미지</Typography>
                   <RHFUploadAvatar
                     name="profileImage"
-                    maxSize={3145728}
+                    maxSize={MAX_FILE_UPLOAD_SIZE}
                     onDrop={handleDrop}
                     onDelete={handleRemoveFile}
                   />
