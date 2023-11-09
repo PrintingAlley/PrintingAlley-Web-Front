@@ -16,52 +16,79 @@ const KakaoShareButton: React.FC<ShareButtonProps> = ({ productDetail, printShop
   }, []);
 
   const sendKakaoMessage = useCallback(() => {
-    if (window.Kakao && !window.Kakao.isInitialized()) {
+    if (!(window.Kakao && window.Kakao.isInitialized())) {
       console.error('Kakao SDK not initialized');
       return;
     }
 
-    const sharedDetail = productDetail ?? printShopDetail;
-    if (!sharedDetail) {
-      console.error('No detail provided for sharing');
-      return;
-    }
-
+    let kakaoPayload: any;
     const mobileWebUrl = window.location.href;
     const webUrl = window.location.href;
 
-    const kakaoPayload: any = {
-      objectType: 'feed',
-      content: {
-        title: sharedDetail.name,
-        description: productDetail?.description ?? printShopDetail?.introduction,
-        imageUrl: productDetail?.mainImage ?? printShopDetail?.logoImage,
-        link: {
-          mobileWebUrl,
-          webUrl,
-        },
-      },
-      buttons: [
-        {
-          title: '자세히 보기',
-          link: { mobileWebUrl, webUrl },
-        },
-      ],
-    };
-
     if (productDetail) {
-      kakaoPayload.social = {
-        likeCount: productDetail.bookmarkCount ?? 0,
+      kakaoPayload = {
+        objectType: 'feed',
+        content: {
+          title: productDetail.name,
+          description: productDetail.introduction,
+          imageUrl: productDetail.mainImage,
+          link: {
+            mobileWebUrl,
+            webUrl,
+          },
+        },
+        social: {
+          likeCount: productDetail.bookmarkCount,
+          commentCount: productDetail.reviews.length,
+        },
+        buttons: [
+          {
+            title: '자세히 보기',
+            link: { mobileWebUrl, webUrl },
+          },
+          {
+            title: '앱으로 보기',
+            link: { mobileWebUrl, webUrl },
+          },
+        ],
+      };
+    } else if (printShopDetail) {
+      kakaoPayload = {
+        objectType: 'location',
+        content: {
+          title: printShopDetail.name,
+          description: printShopDetail.introduction,
+          imageUrl: printShopDetail.logoImage,
+          link: {
+            mobileWebUrl,
+            webUrl,
+          },
+        },
+        address: printShopDetail.address,
+        social: {
+          commentCount: printShopDetail.reviews.length,
+        },
+        buttons: [
+          {
+            title: '자세히 보기',
+            link: { mobileWebUrl, webUrl },
+          },
+        ],
       };
     }
 
-    window.Kakao.Share.sendDefault(kakaoPayload);
+    if (kakaoPayload) {
+      window.Kakao.Share.sendDefault(kakaoPayload);
+    }
   }, [productDetail, printShopDetail]);
 
   return (
     <Box sx={{ position: 'relative' }}>
       <Tooltip title="카카오톡으로 공유하기">
-        <IconButton onClick={sendKakaoMessage} sx={{ position: 'absolute', right: -18 }}>
+        <IconButton
+          onClick={sendKakaoMessage}
+          sx={{ position: 'absolute', right: { xs: 0, md: -18 } }}
+        >
           <Iconify icon="ri:kakao-talk-fill" />
         </IconButton>
       </Tooltip>

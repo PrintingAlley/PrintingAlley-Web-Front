@@ -41,7 +41,7 @@ function ProductInformation({ product }: { product: ProductDetail }) {
         <Avatar
           alt="Logo"
           src={product.mainImage}
-          sx={{ width: 1, height: 'auto' }}
+          sx={{ width: 1, height: 'auto', maxWidth: { xs: 200, md: 1 }, mx: 'auto' }}
           variant="rounded"
         />
       </Grid>
