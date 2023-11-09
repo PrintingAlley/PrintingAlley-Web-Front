@@ -43,7 +43,12 @@ const PrintShopInfo = ({ printShop }: Props) => (
       <Divider sx={{ my: 0.5 }} />
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
         <Iconify icon="carbon:link" color="text.secondary" />
-        <Link color="primary" href={printShop.homepage} target="_blank">
+        <Link
+          color="primary"
+          href={printShop.homepage}
+          target="_blank"
+          sx={{ textOverflow: 'ellipsis', overflow: 'hidden', width: 1 }}
+        >
           {printShop.homepage}
         </Link>
       </Box>
