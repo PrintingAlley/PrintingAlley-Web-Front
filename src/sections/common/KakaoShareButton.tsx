@@ -11,7 +11,7 @@ interface ShareButtonProps {
 const KakaoShareButton: React.FC<ShareButtonProps> = ({ productDetail, printShopDetail }) => {
   useEffect(() => {
     if (window.Kakao && !window.Kakao.isInitialized()) {
-      window.Kakao.init(process.env.REACT_APP_KAKAO_REST_API);
+      window.Kakao.init(process.env.REACT_APP_KAKAO_KEY);
     }
   }, []);
 
@@ -61,7 +61,7 @@ const KakaoShareButton: React.FC<ShareButtonProps> = ({ productDetail, printShop
   return (
     <Box sx={{ position: 'relative' }}>
       <Tooltip title="카카오톡으로 공유하기">
-        <IconButton onClick={sendKakaoMessage} sx={{ position: 'absolute', right: -18, top: 8 }}>
+        <IconButton onClick={sendKakaoMessage} sx={{ position: 'absolute', right: -18 }}>
           <Iconify icon="ri:kakao-talk-fill" />
         </IconButton>
       </Tooltip>
