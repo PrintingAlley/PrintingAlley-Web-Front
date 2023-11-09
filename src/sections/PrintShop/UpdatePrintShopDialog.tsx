@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Divider } from '@mui/material';
 import Iconify from 'src/components/iconify/iconify';
 import { PrintShopDetail } from 'src/types/response.dto';
 import { UpdatePrintShopForm } from './UpdatePrintShopForm';
@@ -32,9 +32,11 @@ export const UpdatePrintShopDialog = ({ printShop, onAdd }: UpdatePrintShopDialo
       </Button>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
         <DialogTitle variant="h4">인쇄사 수정</DialogTitle>
+        <Divider sx={{ borderStyle: 'dashed' }} />
         <DialogContent>
           <UpdatePrintShopForm printShop={printShop} onAddSuccess={handleAddSuccess} />
         </DialogContent>
+        <Divider sx={{ borderStyle: 'dashed' }} />
         <DialogActions>
           <Button onClick={handleClose} variant="contained">
             닫기

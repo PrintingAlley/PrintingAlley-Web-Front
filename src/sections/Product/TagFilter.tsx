@@ -40,6 +40,14 @@ export const TagFilter = ({
     }
   };
 
+  const toggleTopLevelTag = (tag: TagInterface) => {
+    if (selectedTopLevelTag?.id === tag.id) {
+      setSelectedTopLevelTag(null);
+    } else {
+      setSelectedTopLevelTag(tag);
+    }
+  };
+
   useEffect(() => {
     setSelectedTags(selectedTopLevelTag ? [selectedTopLevelTag] : []);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -73,7 +81,9 @@ export const TagFilter = ({
                 backgroundColor: 'background.paper',
                 p: 0.5,
               }}
-              onClick={() => setSelectedTopLevelTag(tag)}
+              onClick={() => {
+                toggleTopLevelTag(tag);
+              }}
             >
               <Box
                 component="img"
@@ -95,6 +105,7 @@ export const TagFilter = ({
             display: 'none',
           },
         }}
+        disableGutters
       >
         <AccordionSummary expandIcon={<Iconify icon="ic:round-expand-more" />}>
           <Stack spacing={1}>
