@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Pagination } from '@mui/material';
+import { Box, Pagination, Stack } from '@mui/material';
 import axios from 'src/utils/axios';
 import { useTag } from 'src/hooks/useTag';
 import { TagFilter } from 'src/sections/Product/TagFilter';
@@ -7,6 +7,7 @@ import { SearchBar } from 'src/sections/common/SearchBar';
 import CenteredTitle from 'src/sections/common/CenteredTitle';
 import { GetProductsResponse, ProductWithTags, TagInterface } from 'src/types/response.dto';
 import { ProductList } from 'src/sections/Product/ProductList';
+import { Helmet } from 'react-helmet-async';
 
 export default function ProductPage() {
   const { topLevelTags, tagHierarchies } = useTag();
@@ -40,14 +41,11 @@ export default function ProductPage() {
   }, [currentPage, searchText, selectedTags]);
 
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 3,
-      }}
-    >
+    <Stack spacing={3}>
+      <Helmet>
+        <title>인쇄 골목</title>
+      </Helmet>
+
       <CenteredTitle title="인쇄 골목" />
 
       <SearchBar onSearch={setSearchText} resetSearch={resetSearch} />
@@ -75,6 +73,6 @@ export default function ProductPage() {
         showFirstButton
         showLastButton
       />
-    </Box>
+    </Stack>
   );
 }

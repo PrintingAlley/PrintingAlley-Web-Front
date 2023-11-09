@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Box, Pagination } from '@mui/material';
+import { Box, Pagination, Stack } from '@mui/material';
 import axios from 'src/utils/axios';
 import { PrintShopList } from 'src/sections/PrintShop/PrintShopList';
 import { SearchBar } from 'src/sections/common/SearchBar';
 import CenteredTitle from 'src/sections/common/CenteredTitle';
 import { GetPrintShopsResponse, PrintShopInterface } from 'src/types/response.dto';
+import { Helmet } from 'react-helmet-async';
 
 export default function PrintShopPage() {
   const [searchText, setSearchText] = useState<string>('');
@@ -33,14 +34,11 @@ export default function PrintShopPage() {
   }, [currentPage, searchText]);
 
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 3,
-      }}
-    >
+    <Stack spacing={3}>
+      <Helmet>
+        <title>인쇄사 목록 | 인쇄 골목</title>
+      </Helmet>
+
       <CenteredTitle title="인쇄사 목록" />
 
       <SearchBar onSearch={setSearchText} resetSearch={resetSearch} />
@@ -59,6 +57,6 @@ export default function PrintShopPage() {
         showFirstButton
         showLastButton
       />
-    </Box>
+    </Stack>
   );
 }

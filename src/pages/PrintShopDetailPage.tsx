@@ -20,6 +20,7 @@ import PrintShopProducts from 'src/sections/PrintShop/PrintShopProducts';
 import PrintShopLocation from 'src/sections/PrintShop/PrintShopLocation';
 import Iconify from 'src/components/iconify';
 import KakaoShareButton from 'src/sections/common/KakaoShareButton';
+import { Helmet } from 'react-helmet-async';
 
 export default function PrintShopDetailPage() {
   const { id } = useParams();
@@ -62,6 +63,10 @@ export default function PrintShopDetailPage() {
     <>
       {printShop ? (
         <div>
+          <Helmet>
+            <title>{printShop.name} | 인쇄 골목</title>
+          </Helmet>
+
           <NavigateBackButton />
 
           <KakaoShareButton printShopDetail={printShop} />

@@ -6,6 +6,7 @@ import SkeletonSection from 'src/sections/common/SkeletonSection';
 import { ContentInterface, GetContentResponse } from 'src/types/response.dto';
 import Markdown from 'src/components/markdown';
 import ContentDetailHero from 'src/sections/Content/ContentDetailHero';
+import { Helmet } from 'react-helmet-async';
 
 export default function ContentWebViewPage() {
   const { id } = useParams();
@@ -23,22 +24,28 @@ export default function ContentWebViewPage() {
   }, [id]);
 
   return (
-    <Dialog open fullScreen>
-      <Container maxWidth="sm">
-        {content ? (
-          <>
-            <ContentDetailHero content={content} />
+    <div>
+      <Helmet>
+        <title>{content?.title} | 인쇄 골목</title>
+      </Helmet>
 
-            <Box sx={{ height: 40 }} />
+      <Dialog open fullScreen>
+        <Container maxWidth="sm">
+          {content ? (
+            <>
+              <ContentDetailHero content={content} />
 
-            <Markdown>{content.content}</Markdown>
+              <Box sx={{ height: 40 }} />
 
-            <Box sx={{ height: 64 }} />
-          </>
-        ) : (
-          <SkeletonSection />
-        )}
-      </Container>
-    </Dialog>
+              <Markdown>{content.content}</Markdown>
+
+              <Box sx={{ height: 64 }} />
+            </>
+          ) : (
+            <SkeletonSection />
+          )}
+        </Container>
+      </Dialog>
+    </div>
   );
 }

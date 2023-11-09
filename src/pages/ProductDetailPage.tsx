@@ -33,6 +33,7 @@ import BookmarkModal from 'src/sections/Product/BookmarkModal';
 import LoginModal from 'src/sections/Login/LoginModal';
 import Iconify from 'src/components/iconify';
 import KakaoShareButton from 'src/sections/common/KakaoShareButton';
+import { Helmet } from 'react-helmet-async';
 
 function ProductInformation({ product }: { product: ProductDetail }) {
   return (
@@ -126,6 +127,10 @@ export default function ProductDetailPage() {
     <>
       {product ? (
         <div>
+          <Helmet>
+            <title>{product.name} | 인쇄 골목</title>
+          </Helmet>
+
           <NavigateBackButton />
 
           <KakaoShareButton productDetail={product} />

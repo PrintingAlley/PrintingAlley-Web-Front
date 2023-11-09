@@ -8,6 +8,7 @@ import Markdown from 'src/components/markdown';
 import ContentDetailHero from 'src/sections/Content/ContentDetailHero';
 import { DeleteContentButton } from 'src/sections/Content/DeleteContentButton';
 import { UpdateContentDialog } from 'src/sections/Content/UpdateContentDialog';
+import { Helmet } from 'react-helmet-async';
 
 export default function ContentDetailPage() {
   const { id } = useParams();
@@ -37,6 +38,10 @@ export default function ContentDetailPage() {
     <>
       {content ? (
         <div>
+          <Helmet>
+            <title>{content.title} | 인쇄 골목</title>
+          </Helmet>
+
           <ContentDetailHero content={content} />
 
           <Box sx={{ height: 40 }} />

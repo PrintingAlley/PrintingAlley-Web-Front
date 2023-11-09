@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { BookmarkGroupList } from 'src/sections/Bookmark/BookmarkGroupList';
 import Title from 'src/sections/common/Title';
 import { BookmarkGroupWithExtra, GetBookmarkGroupsResponse } from 'src/types/response.dto';
@@ -19,7 +20,12 @@ export default function BookmarkPage() {
 
   return (
     <div>
+      <Helmet>
+        <title>북마크 | 인쇄 골목</title>
+      </Helmet>
+
       <Title title="나의 북마크 목록" />
+
       <BookmarkGroupList
         bookmarkGroups={bookmarkGroups}
         fetchBookmarkGroups={fetchBookmarkGroups}

@@ -2,6 +2,7 @@ import { LoadingButton } from '@mui/lab';
 import { Button, Box, Typography, Avatar, Stack, Card, TextField, Divider } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import { useCallback, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { RHFUploadAvatar } from 'src/components/hook-form';
@@ -89,127 +90,137 @@ export default function MyPage() {
   }
 
   return (
-    <Stack spacing={2} my={8} sx={{ width: 1, alignItems: 'center' }}>
-      {editMode ? (
-        <Box sx={{ width: 400, maxWidth: 1 }}>
-          <Typography variant="h4" gutterBottom sx={{ mx: 1 }}>
-            프로필 수정
-          </Typography>
-          <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-            <Stack spacing={3} sx={{ p: 2.5 }} component={Card}>
-              <Stack spacing={1.5}>
-                <Typography variant="subtitle2">썸네일 이미지</Typography>
-                <RHFUploadAvatar
-                  name="profileImage"
-                  maxSize={3145728}
-                  onDrop={handleDrop}
-                  onDelete={handleRemoveFile}
+    <>
+      <Helmet>
+        <title>내 정보 | 인쇄 골목</title>
+      </Helmet>
+
+      <Stack spacing={2} my={8} sx={{ width: 1, alignItems: 'center' }}>
+        {editMode ? (
+          <Box sx={{ width: 400, maxWidth: 1 }}>
+            <Typography variant="h4" gutterBottom sx={{ mx: 1 }}>
+              프로필 수정
+            </Typography>
+            <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+              <Stack spacing={3} sx={{ p: 2.5 }} component={Card}>
+                <Stack spacing={1.5}>
+                  <Typography variant="subtitle2">썸네일 이미지</Typography>
+                  <RHFUploadAvatar
+                    name="profileImage"
+                    maxSize={3145728}
+                    onDrop={handleDrop}
+                    onDelete={handleRemoveFile}
+                  />
+                </Stack>
+                <TextField
+                  {...register('name', {
+                    required: '이름은 필수입니다.',
+                    minLength: {
+                      value: 2,
+                      message: '이름은 2글자 이상이어야 합니다.',
+                    },
+                    maxLength: {
+                      value: 200,
+                      message: '이름은 200글자 이하여야 합니다.',
+                    },
+                  })}
+                  label="이름"
+                  placeholder="이름을 입력하세요"
+                  error={Boolean(errors.name)}
+                  helperText={errors.name?.message}
                 />
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1.5 }}>
+                  <Button onClick={() => setEditMode(false)} variant="soft" color="primary">
+                    취소
+                  </Button>
+                  <LoadingButton
+                    type="submit"
+                    color="primary"
+                    variant="contained"
+                    loading={isSubmitting}
+                  >
+                    저장
+                  </LoadingButton>
+                </Box>
               </Stack>
-              <TextField
-                {...register('name', {
-                  required: '이름은 필수입니다.',
-                  minLength: {
-                    value: 2,
-                    message: '이름은 2글자 이상이어야 합니다.',
-                  },
-                  maxLength: {
-                    value: 200,
-                    message: '이름은 200글자 이하여야 합니다.',
-                  },
-                })}
-                label="이름"
-                placeholder="이름을 입력하세요"
-                error={Boolean(errors.name)}
-                helperText={errors.name?.message}
-              />
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1.5 }}>
-                <Button onClick={() => setEditMode(false)} variant="soft" color="primary">
-                  취소
-                </Button>
-                <LoadingButton
-                  type="submit"
-                  color="primary"
-                  variant="contained"
-                  loading={isSubmitting}
-                >
-                  저장
-                </LoadingButton>
-              </Box>
-            </Stack>
-          </FormProvider>
-        </Box>
-      ) : (
-        <>
-          <Avatar src={user.profileImage || ''} alt={user.name} sx={{ width: 100, height: 100 }} />
-          <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
-            {user.name}님 환영합니다. 👋
-          </Typography>
-        </>
-      )}
-
-      <Stack direction="row" spacing={1.5} alignItems="center">
-        {!editMode && (
-          <Button onClick={() => setEditMode(true)} variant="soft" color="primary">
-            프로필 수정
-          </Button>
+            </FormProvider>
+          </Box>
+        ) : (
+          <>
+            <Avatar
+              src={user.profileImage || ''}
+              alt={user.name}
+              sx={{ width: 100, height: 100 }}
+            />
+            <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+              {user.name}님 환영합니다. 👋
+            </Typography>
+          </>
         )}
-        <Button onClick={handleLogout} variant="soft" color="warning">
-          로그아웃
-        </Button>
-      </Stack>
 
-      <Divider flexItem sx={{ my: 2, borderStyle: 'dashed' }} />
-
-      {user.printShops.length ? (
-        <Box>
-          {user.printShops.map((printShop) => (
-            <Button
-              key={printShop.id}
-              onClick={() => navigate(`/print-shop/${printShop.id}`)}
-              variant="soft"
-              color="info"
-              startIcon={<Iconify icon="ic:baseline-print" />}
-            >
-              내 인쇄사 관리하기
+        <Stack direction="row" spacing={1.5} alignItems="center">
+          {!editMode && (
+            <Button onClick={() => setEditMode(true)} variant="soft" color="primary">
+              프로필 수정
             </Button>
-          ))}
-        </Box>
-      ) : (
-        <Stack spacing={1} alignItems="center">
-          <Avatar
-            src="/assets/images/print-shop-owner.jpg"
-            alt="Print Shop Owner"
-            sx={{ width: 150, height: 150 }}
-            variant="rounded"
-          />
-
-          <Typography variant="h6">인쇄사 사장님이신가요? 인쇄사를 등록해 보세요!</Typography>
-
-          <Button
-            onClick={() => navigate('/print-shop/new')}
-            variant="soft"
-            color="info"
-            startIcon={<Iconify icon="ic:round-local-printshop" />}
-            endIcon={<Iconify icon="ic:round-keyboard-arrow-right" />}
-          >
-            인쇄사 등록하기
+          )}
+          <Button onClick={handleLogout} variant="soft" color="warning">
+            로그아웃
           </Button>
         </Stack>
-      )}
 
-      <Divider flexItem sx={{ my: 2, borderStyle: 'dashed' }} />
+        <Divider flexItem sx={{ my: 2, borderStyle: 'dashed' }} />
 
-      <Stack direction="row" spacing={1} alignItems="center">
-        <Button onClick={withdraw} variant="soft" color="error">
-          회원탈퇴
-        </Button>
-        <Typography variant="caption" color="text.secondary" sx={{ whiteSpace: 'pre-wrap' }}>
-          회원탈퇴 시, 모든 정보가 삭제되며{'\n'}복구할 수 없습니다.
-        </Typography>
+        {user.printShops.length ? (
+          <Box>
+            {user.printShops.map((printShop) => (
+              <Button
+                key={printShop.id}
+                onClick={() => navigate(`/print-shop/${printShop.id}`)}
+                variant="soft"
+                color="info"
+                startIcon={<Iconify icon="ic:baseline-print" />}
+              >
+                내 인쇄사 관리하기
+              </Button>
+            ))}
+          </Box>
+        ) : (
+          <Stack spacing={1} alignItems="center">
+            <Avatar
+              src="/assets/images/print-shop-owner.jpg"
+              alt="Print Shop Owner"
+              sx={{ width: 150, height: 150 }}
+              variant="rounded"
+            />
+
+            <Typography variant="h6">인쇄사 사장님이신가요? 인쇄사를 등록해 보세요!</Typography>
+
+            <Button
+              onClick={() => navigate('/print-shop/new')}
+              variant="soft"
+              color="info"
+              startIcon={<Iconify icon="ic:round-local-printshop" />}
+              endIcon={<Iconify icon="ic:round-keyboard-arrow-right" />}
+            >
+              인쇄사 등록하기
+            </Button>
+          </Stack>
+        )}
+
+        <Divider flexItem sx={{ my: 2, borderStyle: 'dashed' }} />
+
+        <Stack direction="row" spacing={1} alignItems="center">
+          <Button onClick={withdraw} variant="soft" color="error">
+            회원탈퇴
+          </Button>
+          <Typography variant="caption" color="text.secondary" sx={{ whiteSpace: 'pre-wrap' }}>
+            회원탈퇴 시, 모든 정보가 삭제되며{'\n'}복구할 수 없습니다.
+          </Typography>
+        </Stack>
+
+        {user.userType === 'ADMIN' && <AdminMenu />}
       </Stack>
-
-      {user.userType === 'ADMIN' && <AdminMenu />}
-    </Stack>
+    </>
   );
 }
