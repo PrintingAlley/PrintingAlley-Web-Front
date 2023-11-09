@@ -19,6 +19,7 @@ import PrintShopInfo from 'src/sections/PrintShop/PrintShopInfo';
 import PrintShopProducts from 'src/sections/PrintShop/PrintShopProducts';
 import PrintShopLocation from 'src/sections/PrintShop/PrintShopLocation';
 import Iconify from 'src/components/iconify';
+import KakaoShareButton from 'src/sections/common/KakaoShareButton';
 
 export default function PrintShopDetailPage() {
   const { id } = useParams();
@@ -62,6 +63,8 @@ export default function PrintShopDetailPage() {
       {printShop ? (
         <div>
           <NavigateBackButton />
+
+          <KakaoShareButton printShopDetail={printShop} />
 
           <CenteredTitle title={printShop.name} sx={{ my: 5 }} />
 

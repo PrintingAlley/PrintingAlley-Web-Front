@@ -32,6 +32,7 @@ import Markdown from 'src/components/markdown';
 import BookmarkModal from 'src/sections/Product/BookmarkModal';
 import LoginModal from 'src/sections/Login/LoginModal';
 import Iconify from 'src/components/iconify';
+import KakaoShareButton from 'src/sections/common/KakaoShareButton';
 
 function ProductInformation({ product }: { product: ProductDetail }) {
   return (
@@ -126,6 +127,8 @@ export default function ProductDetailPage() {
       {product ? (
         <div>
           <NavigateBackButton />
+
+          <KakaoShareButton productDetail={product} />
 
           <CenteredTitle title={product.name} sx={{ my: 5 }} />
 
