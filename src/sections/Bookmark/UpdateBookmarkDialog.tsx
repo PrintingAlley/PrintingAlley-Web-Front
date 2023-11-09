@@ -83,7 +83,7 @@ export default function UpdateBookmarkDialog({
 
   return (
     <>
-      <IconButton onClick={openDialog} size="small">
+      <IconButton onClick={openDialog} size="small" disableFocusRipple>
         <Iconify icon="mdi:pencil" />
       </IconButton>
       <Dialog

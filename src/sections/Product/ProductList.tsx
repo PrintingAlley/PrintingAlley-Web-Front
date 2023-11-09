@@ -3,6 +3,7 @@ import Masonry from '@mui/lab/Masonry';
 import { useNavigate } from 'react-router';
 import { ProductInterface, ProductWithTags } from 'src/types/response.dto';
 import Image from 'src/components/image';
+import NoResult from '../common/NoResult';
 
 interface ProductListProps {
   products: ProductWithTags[] | ProductInterface[];
@@ -36,9 +37,7 @@ export const ProductList = ({ products }: ProductListProps) => {
           ))}
         </Masonry>
       ) : (
-        <Typography variant="h6" sx={{ mt: 4 }}>
-          결과가 없습니다. 😢
-        </Typography>
+        <NoResult />
       )}
     </>
   );

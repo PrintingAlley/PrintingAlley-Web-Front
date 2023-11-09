@@ -9,6 +9,7 @@ import {
   Rating,
   ListItemSecondaryAction,
   Divider,
+  Stack,
 } from '@mui/material';
 import React from 'react';
 import { ProductReviewWithUser, UserInterface } from 'src/types/response.dto';
@@ -108,18 +109,24 @@ export function ReviewSection({
           <LoginModal variant="outlined" text="로그인하기" />
         </Box>
       )}
-      <List>
-        {reviews.map((review) => (
-          <ReviewItem
-            key={review.id}
-            type={type}
-            targetId={targetId}
-            review={review}
-            currentUser={currentUser}
-            fetchReviews={fetchReviews}
-          />
-        ))}
-      </List>
+      {reviews.length ? (
+        <List>
+          {reviews.map((review) => (
+            <ReviewItem
+              key={review.id}
+              type={type}
+              targetId={targetId}
+              review={review}
+              currentUser={currentUser}
+              fetchReviews={fetchReviews}
+            />
+          ))}
+        </List>
+      ) : (
+        <Stack justifyContent="center" alignItems="center" height={160}>
+          <Typography color="text.secondary">첫 번째 리뷰를 작성해보세요!</Typography>
+        </Stack>
+      )}
     </>
   );
 }

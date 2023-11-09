@@ -73,7 +73,12 @@ export default function CreateBookmarkDialog({ onAdd }: CreateBookmarkDialogProp
 
   return (
     <>
-      <Button onClick={openDialog} startIcon={<Iconify icon="mdi:plus" />} variant="outlined">
+      <Button
+        onClick={openDialog}
+        startIcon={<Iconify icon="mdi:plus" />}
+        variant="outlined"
+        disableFocusRipple
+      >
         북마크 그룹 추가
       </Button>
       <Dialog

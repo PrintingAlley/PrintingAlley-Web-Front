@@ -10,5 +10,4 @@ export interface CreateProduct {
   images: string[];
   tagIds: number[];
   categoryId: number;
-  printShopId: number;
 }

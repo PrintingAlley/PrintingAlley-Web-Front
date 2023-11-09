@@ -60,11 +60,7 @@ export const CreateProductForm = ({ topLevelTags, tagHierarchies }: CreateProduc
   const { categories } = useCategory();
   const { enqueueSnackbar } = useSnackbar();
 
-  const methods = useForm<CreateProduct>({
-    mode: 'onChange',
-    // TODO: printShopId 추후 제거
-    defaultValues: { printShopId: 1 },
-  });
+  const methods = useForm<CreateProduct>({ mode: 'onChange' });
 
   const {
     control,

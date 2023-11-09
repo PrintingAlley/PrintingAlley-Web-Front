@@ -1,15 +1,8 @@
-import {
-  List,
-  ListItem,
-  ListItemAvatar,
-  Avatar,
-  ListItemText,
-  IconButton,
-  Typography,
-} from '@mui/material';
+import { List, ListItem, ListItemAvatar, Avatar, ListItemText, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router';
 import Iconify from 'src/components/iconify/iconify';
 import { PrintShopInterface } from 'src/types/response.dto';
+import NoResult from '../common/NoResult';
 
 interface PrintShopListProps {
   printShops: PrintShopInterface[];
@@ -43,9 +36,7 @@ export const PrintShopList = ({ printShops }: PrintShopListProps) => {
           ))}
         </List>
       ) : (
-        <Typography variant="h6" sx={{ mt: 4 }}>
-          결과가 없습니다. 😢
-        </Typography>
+        <NoResult />
       )}
     </>
   );

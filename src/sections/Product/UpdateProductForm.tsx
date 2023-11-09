@@ -75,8 +75,6 @@ export const UpdateProductForm = ({
       mainImage,
       images,
       categoryId: category.id,
-      // TODO: printShopId 추후 제거
-      printShopId: 1,
       tagIds: flattenTags(tags).map((tag) => tag.id),
     },
   });

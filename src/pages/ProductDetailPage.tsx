@@ -127,7 +127,7 @@ export default function ProductDetailPage() {
         <div>
           <NavigateBackButton />
 
-          <CenteredTitle title={product.name} />
+          <CenteredTitle title={product.name} sx={{ my: 5 }} />
 
           <ProductInformation product={product} />
 
@@ -176,15 +176,17 @@ export default function ProductDetailPage() {
 
           <Box sx={{ height: 64 }} />
 
-          <ButtonGroup color="inherit">
-            <UpdateProductDialog
-              product={product}
-              topLevelTags={topLevelTags}
-              tagHierarchies={tagHierarchies}
-              onAdd={onAdd}
-            />
-            <DeleteProductButton product={product} onDelete={onDelete} />
-          </ButtonGroup>
+          {user?.id === product.ownerId && (
+            <ButtonGroup color="inherit">
+              <UpdateProductDialog
+                product={product}
+                topLevelTags={topLevelTags}
+                tagHierarchies={tagHierarchies}
+                onAdd={onAdd}
+              />
+              <DeleteProductButton product={product} onDelete={onDelete} />
+            </ButtonGroup>
+          )}
         </div>
       ) : (
         <SkeletonSection />

@@ -14,11 +14,6 @@ export default function AdminMenu() {
           콘텐츠 작성 페이지
         </Button>
       </Box>
-      <Box>
-        <Button onClick={() => navigate('/print-shop/new')} variant="soft" color="info">
-          인쇄소 추가 페이지
-        </Button>
-      </Box>
     </>
   );
 }

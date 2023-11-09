@@ -62,7 +62,9 @@ export default function PrintShopDetailPage() {
       {printShop ? (
         <div>
           <NavigateBackButton />
-          <CenteredTitle title={printShop.name} />
+
+          <CenteredTitle title={printShop.name} sx={{ my: 5 }} />
+
           <PrintShopInfo printShop={printShop} />
 
           <Box sx={{ height: 32 }} />
@@ -94,17 +96,19 @@ export default function PrintShopDetailPage() {
 
           <Box sx={{ height: 64 }} />
 
-          <ButtonGroup color="inherit">
-            <Button
-              startIcon={<Iconify icon="ic:baseline-add" />}
-              variant="soft"
-              onClick={goToNewProductPage}
-            >
-              상품 등록
-            </Button>
-            <UpdatePrintShopDialog printShop={printShop} onAdd={onAdd} />
-            <DeletePrintShopButton printShop={printShop} onDelete={onDelete} />
-          </ButtonGroup>
+          {user?.id === printShop.ownerId && (
+            <ButtonGroup color="inherit">
+              <Button
+                startIcon={<Iconify icon="ic:baseline-add" />}
+                variant="soft"
+                onClick={goToNewProductPage}
+              >
+                상품 등록
+              </Button>
+              <UpdatePrintShopDialog printShop={printShop} onAdd={onAdd} />
+              <DeletePrintShopButton printShop={printShop} onDelete={onDelete} />
+            </ButtonGroup>
+          )}
         </div>
       ) : (
         <SkeletonSection />

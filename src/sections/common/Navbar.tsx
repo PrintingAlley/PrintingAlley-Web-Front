@@ -1,6 +1,6 @@
 import { AppBar, Box, Button, IconButton, Menu, MenuItem, Toolbar, useTheme } from '@mui/material';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Iconify from 'src/components/iconify/iconify';
 import useAuth from 'src/hooks/useAuth';
 import Logo from 'src/components/logo';
@@ -47,6 +47,7 @@ const defaultNavbarItems = [
 
 const Navbar = () => {
   const { isAuthenticated } = useAuth();
+  const location = useLocation();
   const navigate = useNavigate();
   const theme = useTheme();
   const [position, setPosition] = useState(window.pageYOffset);
@@ -99,11 +100,21 @@ const Navbar = () => {
         <Logo />
         <Box sx={{ flexGrow: 1 }} />
         <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-          {navbarItems.map((item) => (
-            <Button key={item.label} onClick={() => navigate(item.path)}>
-              {item.label}
-            </Button>
-          ))}
+          {navbarItems.map((item) => {
+            const isActive = location.pathname === item.path;
+            return (
+              <Button
+                key={item.label}
+                onClick={() => navigate(item.path)}
+                sx={{
+                  color: isActive ? 'primary.main' : 'inherit',
+                  fontWeight: isActive ? 700 : 600,
+                }}
+              >
+                {item.label}
+              </Button>
+            );
+          })}
           <LoginModal />
         </Box>
         <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>

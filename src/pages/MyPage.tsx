@@ -1,15 +1,18 @@
 import { LoadingButton } from '@mui/lab';
-import { Button, Box, Typography, Avatar, Stack, Card, TextField } from '@mui/material';
+import { Button, Box, Typography, Avatar, Stack, Card, TextField, Divider } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 import { RHFUploadAvatar } from 'src/components/hook-form';
 import FormProvider from 'src/components/hook-form/form-provider';
+import Iconify from 'src/components/iconify';
 import useAuth from 'src/hooks/useAuth';
 import AdminMenu from 'src/sections/Admin/AdminMenu';
 import { UpdateUser } from 'src/types/user';
 
 export default function MyPage() {
+  const navigate = useNavigate();
   const { user, handleLogout, withdraw, isLoading, updateUser } = useAuth();
   const [editMode, setEditMode] = useState(false);
 
@@ -86,14 +89,14 @@ export default function MyPage() {
   }
 
   return (
-    <Stack spacing={2} my={8}>
+    <Stack spacing={2} my={8} sx={{ width: 1, alignItems: 'center' }}>
       {editMode ? (
-        <>
-          <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+        <Box sx={{ width: 400, maxWidth: 1 }}>
+          <Typography variant="h4" gutterBottom sx={{ mx: 1 }}>
             프로필 수정
           </Typography>
           <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-            <Stack spacing={2} width={1} sx={{ maxWidth: 400, p: 2.5 }} component={Card}>
+            <Stack spacing={3} sx={{ p: 2.5 }} component={Card}>
               <Stack spacing={1.5}>
                 <Typography variant="subtitle2">썸네일 이미지</Typography>
                 <RHFUploadAvatar
@@ -135,7 +138,7 @@ export default function MyPage() {
               </Box>
             </Stack>
           </FormProvider>
-        </>
+        </Box>
       ) : (
         <>
           <Avatar src={user.profileImage || ''} alt={user.name} sx={{ width: 100, height: 100 }} />
@@ -145,20 +148,59 @@ export default function MyPage() {
         </>
       )}
 
-      {!editMode && (
-        <Box>
+      <Stack direction="row" spacing={1.5} alignItems="center">
+        {!editMode && (
           <Button onClick={() => setEditMode(true)} variant="soft" color="primary">
             프로필 수정
           </Button>
-        </Box>
-      )}
-
-      <Box>
+        )}
         <Button onClick={handleLogout} variant="soft" color="warning">
           로그아웃
         </Button>
-      </Box>
-      <Stack direction="row" spacing={2} alignItems="center">
+      </Stack>
+
+      <Divider flexItem sx={{ my: 2, borderStyle: 'dashed' }} />
+
+      {user.printShops.length ? (
+        <Box>
+          {user.printShops.map((printShop) => (
+            <Button
+              key={printShop.id}
+              onClick={() => navigate(`/print-shop/${printShop.id}`)}
+              variant="soft"
+              color="info"
+              startIcon={<Iconify icon="ic:baseline-print" />}
+            >
+              내 인쇄사 관리하기
+            </Button>
+          ))}
+        </Box>
+      ) : (
+        <Stack spacing={1} alignItems="center">
+          <Avatar
+            src="/assets/images/print-shop-owner.jpg"
+            alt="Print Shop Owner"
+            sx={{ width: 150, height: 150 }}
+            variant="rounded"
+          />
+
+          <Typography variant="h6">인쇄사 사장님이신가요? 인쇄사를 등록해 보세요!</Typography>
+
+          <Button
+            onClick={() => navigate('/print-shop/new')}
+            variant="soft"
+            color="info"
+            startIcon={<Iconify icon="ic:round-local-printshop" />}
+            endIcon={<Iconify icon="ic:round-keyboard-arrow-right" />}
+          >
+            인쇄사 등록하기
+          </Button>
+        </Stack>
+      )}
+
+      <Divider flexItem sx={{ my: 2, borderStyle: 'dashed' }} />
+
+      <Stack direction="row" spacing={1} alignItems="center">
         <Button onClick={withdraw} variant="soft" color="error">
           회원탈퇴
         </Button>

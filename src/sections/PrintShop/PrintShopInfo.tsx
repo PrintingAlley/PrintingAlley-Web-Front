@@ -12,7 +12,7 @@ const PrintShopInfo = ({ printShop }: Props) => (
       <Avatar
         alt="Logo"
         src={printShop.logoImage}
-        sx={{ width: 1, height: 'auto', aspectRatio: 1, maxWidth: { xs: 150, sm: 1 }, mx: 'auto' }}
+        sx={{ width: 1, height: 'auto', aspectRatio: 1, maxWidth: { xs: 150, md: 1 }, mx: 'auto' }}
       />
     </Grid>
     <Grid item xs={12} md={8}>

@@ -12,7 +12,7 @@ interface DeletePrintShopButtonProps {
 export const DeletePrintShopButton = ({ printShop, onDelete }: DeletePrintShopButtonProps) => {
   const { enqueueSnackbar } = useSnackbar();
   const deletePrintShop = () => {
-    if (!window.confirm('정말로 삭제하시겠습니까?')) return;
+    if (!window.confirm('정말로 삭제하시겠습니까?\n삭제된 인쇄사는 복구할 수 없습니다.')) return;
     axios
       .delete(`/print-shop/${printShop.id}`)
       .then(() => {

@@ -13,12 +13,10 @@ import PrintShopDetailPage from './pages/PrintShopDetailPage';
 import PrintShopPage from './pages/PrintShopPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import ProductPage from './pages/ProductPage';
+import { UserType } from './types/response.dto';
 
 function PrintShopOwnerRoutes() {
-  return [
-    <Route key="new-print-shop" path="/print-shop/new" element={<NewPrintShopPage />} />,
-    <Route key="new-product" path="/product/new" element={<NewProductPage />} />,
-  ];
+  return [];
 }
 
 function AdminRoutes() {
@@ -30,6 +28,8 @@ function AdminRoutes() {
 
 function AuthenticatedRoutes() {
   return [
+    <Route key="new-print-shop" path="/print-shop/new" element={<NewPrintShopPage />} />,
+    <Route key="new-product" path="/product/new" element={<NewProductPage />} />,
     <Route key="bookmark" path="/bookmark" element={<BookmarkPage />} />,
     <Route key="my" path="/my" element={<MyPage />} />,
   ];
@@ -48,8 +48,8 @@ export default function Router() {
       <Route path="/print-shop" element={<PrintShopPage />} />
       <Route path="/print-shop/:id" element={<PrintShopDetailPage />} />
       {isAuthenticated && [...AuthenticatedRoutes()]}
-      {user?.userType === 'PRINT_SHOP_OWNER' && [...PrintShopOwnerRoutes()]}
-      {user?.userType === 'ADMIN' && [...AdminRoutes()]}
+      {user?.userType === UserType.PRINTSHOP_OWNER && [...PrintShopOwnerRoutes()]}
+      {user?.userType === UserType.ADMIN && [...AdminRoutes()]}
       <Route path="*" element={<HomePage />} />
     </Routes>
   );

@@ -1,3 +1,21 @@
+export enum UserType {
+  GENERAL = 'GENERAL',
+  PRINTSHOP_OWNER = 'PRINTSHOP_OWNER',
+  ADMIN = 'ADMIN',
+}
+
+export interface UserInterface {
+  id: number;
+  provider: string;
+  userType: UserType;
+  name: string;
+  profileImage: string | null;
+  email: string | null;
+  printShops: PrintShopInterface[];
+  createdAt: string;
+  updateAt: string;
+}
+
 export interface TagInterface {
   id: number;
   name: string;
@@ -85,17 +103,6 @@ interface ProductReviewInterface {
   updateAt: string;
 }
 
-export interface UserInterface {
-  id: number;
-  provider: string;
-  userType: 'GENERAL' | 'PRINT_SHOP_OWNER' | 'ADMIN';
-  name: string;
-  profileImage: string | null;
-  email: string | null;
-  createdAt: string;
-  updateAt: string;
-}
-
 export interface ContentInterface {
   id: number;
   title: string;
@@ -110,6 +117,7 @@ export interface ProductWithTags extends ProductInterface {
 }
 
 export interface ProductDetail extends ProductInterface {
+  ownerId: number;
   tags: TagInterface[];
   category: CategoryInterface;
   printShop: PrintShopInterface;
@@ -127,6 +135,7 @@ export interface ProductReviewWithUser extends ProductReviewInterface {
 }
 
 export interface PrintShopDetail extends PrintShopInterface {
+  ownerId: number;
   products: ProductInterface[];
   reviews: PrintShopReviewInterface[];
 }
