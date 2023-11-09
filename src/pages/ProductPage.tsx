@@ -41,7 +41,7 @@ export default function ProductPage() {
   }, [currentPage, searchText, selectedTags]);
 
   return (
-    <Stack spacing={3}>
+    <Stack spacing={3} flexGrow={1}>
       <Helmet>
         <title>인쇄 골목</title>
       </Helmet>

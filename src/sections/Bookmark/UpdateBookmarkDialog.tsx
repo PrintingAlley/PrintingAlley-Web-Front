@@ -11,6 +11,7 @@ import {
   IconButton,
   Paper,
   PaperProps,
+  Tooltip,
 } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
@@ -83,9 +84,11 @@ export default function UpdateBookmarkDialog({
 
   return (
     <>
-      <IconButton onClick={openDialog} size="small" disableFocusRipple>
-        <Iconify icon="mdi:pencil" />
-      </IconButton>
+      <Tooltip title="북마크 그룹 이름 수정">
+        <IconButton onClick={openDialog} size="small" disableFocusRipple>
+          <Iconify icon="mdi:pencil" />
+        </IconButton>
+      </Tooltip>
       <Dialog
         open={open}
         onClose={closeDialog}

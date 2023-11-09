@@ -1,4 +1,4 @@
-import { Switch } from '@mui/material';
+import { Switch, Tooltip } from '@mui/material';
 import { useRecoilState } from 'recoil';
 import { themeModeState } from 'src/store/atoms';
 
@@ -8,7 +8,13 @@ function ThemeModeToggle() {
     setThemeMode(event.target.checked ? 'dark' : 'light');
   };
   localStorage.setItem('themeMode', themeMode);
-  return <Switch checked={themeMode === 'dark'} onChange={handleChange} />;
+  return (
+    <Tooltip title={themeMode === 'dark' ? '라이트 모드로 보기' : '다크 모드로 보기'}>
+      <div>
+        <Switch checked={themeMode === 'dark'} onChange={handleChange} />
+      </div>
+    </Tooltip>
+  );
 }
 
 export default ThemeModeToggle;

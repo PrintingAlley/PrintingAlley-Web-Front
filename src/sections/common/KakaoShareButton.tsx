@@ -85,10 +85,7 @@ const KakaoShareButton: React.FC<ShareButtonProps> = ({ productDetail, printShop
   return (
     <Box sx={{ position: 'relative' }}>
       <Tooltip title="카카오톡으로 공유하기">
-        <IconButton
-          onClick={sendKakaoMessage}
-          sx={{ position: 'absolute', right: { xs: 0, md: -18 } }}
-        >
+        <IconButton onClick={sendKakaoMessage} sx={{ position: 'absolute', right: 0, top: 4 }}>
           <Iconify icon="ri:kakao-talk-fill" />
         </IconButton>
       </Tooltip>

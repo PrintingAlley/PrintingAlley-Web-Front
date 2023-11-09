@@ -1,4 +1,4 @@
-import { IconButton } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
 import Iconify from 'src/components/iconify';
 import axiosInstance from 'src/utils/axios';
 import { CreateReview } from 'src/types/review';
@@ -28,9 +28,11 @@ function DeleteReviewButton({ reviewId, onAdd, type, targetId }: DeleteReviewBut
       });
   };
   return (
-    <IconButton onClick={handleDelete}>
-      <Iconify icon="ic:round-delete" />
-    </IconButton>
+    <Tooltip title="리뷰 삭제">
+      <IconButton onClick={handleDelete}>
+        <Iconify icon="ic:round-delete" />
+      </IconButton>
+    </Tooltip>
   );
 }
 

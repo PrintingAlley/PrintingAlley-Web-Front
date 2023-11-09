@@ -14,6 +14,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Iconify from 'src/components/iconify';
@@ -177,13 +178,20 @@ export default function BookmarkModal({ product, fetchProduct }: Props) {
                       </TableCell>
                       <TableCell align="center">
                         {bookmarkGroup.hasProduct ? (
-                          <IconButton color="primary" onClick={() => removeBookmark(bookmarkGroup)}>
-                            <Iconify icon="mdi:bookmark" />
-                          </IconButton>
+                          <Tooltip title="북마크 해제">
+                            <IconButton
+                              color="primary"
+                              onClick={() => removeBookmark(bookmarkGroup)}
+                            >
+                              <Iconify icon="mdi:bookmark" />
+                            </IconButton>
+                          </Tooltip>
                         ) : (
-                          <IconButton color="primary" onClick={() => addBookmark(bookmarkGroup)}>
-                            <Iconify icon="mdi:bookmark-outline" />
-                          </IconButton>
+                          <Tooltip title="북마크 추가">
+                            <IconButton color="primary" onClick={() => addBookmark(bookmarkGroup)}>
+                              <Iconify icon="mdi:bookmark-outline" />
+                            </IconButton>
+                          </Tooltip>
                         )}
                       </TableCell>
                     </TableRow>

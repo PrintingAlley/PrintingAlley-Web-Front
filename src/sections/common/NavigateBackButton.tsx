@@ -1,4 +1,4 @@
-import { Box, Button } from '@mui/material';
+import { Box, IconButton, Tooltip } from '@mui/material';
 import { useNavigate } from 'react-router';
 import Iconify from 'src/components/iconify';
 
@@ -10,15 +10,12 @@ export default function NavigateBackButton() {
   };
 
   return (
-    <Box sx={{ position: 'relative', display: { xs: 'none', md: 'block' } }}>
-      <Button
-        variant="soft"
-        onClick={handleNavigateBack}
-        sx={{ position: 'absolute', left: -160 }}
-        startIcon={<Iconify icon="ic:round-keyboard-arrow-left" />}
-      >
-        뒤로가기
-      </Button>
+    <Box sx={{ position: 'relative' }}>
+      <Tooltip title="뒤로가기">
+        <IconButton onClick={handleNavigateBack} sx={{ position: 'absolute', left: 0, top: 4 }}>
+          <Iconify icon="ic:round-arrow-back" />
+        </IconButton>
+      </Tooltip>
     </Box>
   );
 }
