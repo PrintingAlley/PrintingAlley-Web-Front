@@ -10,15 +10,22 @@ import { ContentInterface } from 'src/types/response.dto';
 
 // ----------------------------------------------------------------------
 
-export default function ContentDetailHero({ content }: { content: ContentInterface }) {
+export default function ContentDetailHero({
+  content,
+  isWebView = false,
+}: {
+  content: ContentInterface;
+  isWebView?: boolean;
+}) {
   const { title, thumbnail, createdAt } = content;
   const theme = useTheme();
 
   return (
-    <Box sx={{ height: 360 }}>
+    <Box sx={{ height: isWebView ? 360 : { xs: 304, sm: 296 } }}>
       <Box
         sx={{
           position: 'absolute',
+          top: 0,
           left: 0,
           width: 1,
           height: 360,
@@ -44,7 +51,7 @@ export default function ContentDetailHero({ content }: { content: ContentInterfa
             sx={{
               zIndex: 9,
               color: 'common.white',
-              pt: { xs: 2, md: 8 },
+              pt: isWebView ? { xs: 2, md: 8 } : 10,
             }}
           >
             {title}

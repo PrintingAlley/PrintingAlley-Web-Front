@@ -54,6 +54,8 @@ const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const navbarItems = isAuthenticated ? authenticatedNavbarItems : defaultNavbarItems;
+  const isContentDetailPage =
+    location.pathname.includes('/content/') && location.pathname !== '/content/new';
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -84,12 +86,13 @@ const Navbar = () => {
       position="fixed"
       sx={{
         '&.transparent': {
+          color: isContentDetailPage ? 'common.white' : 'inherit',
           backgroundColor: 'transparent',
           boxShadow: 0,
           transition: 'background-color 0.1s ease-out, box-shadow 0.1s ease-out',
         },
         '&.paper': {
-          backgroundColor: theme.palette.background.paper,
+          backgroundColor: 'background.paper',
           boxShadow: 'rgb(0 0 0 / 8%) 0px 0px 8px',
           transition: 'background-color 0.1s ease-out, box-shadow 0.1s ease-out',
         },

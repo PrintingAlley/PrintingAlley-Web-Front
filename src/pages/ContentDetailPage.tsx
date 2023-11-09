@@ -3,15 +3,17 @@ import axios from 'src/utils/axios';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import SkeletonSection from 'src/sections/common/SkeletonSection';
-import { ContentInterface, GetContentResponse } from 'src/types/response.dto';
+import { ContentInterface, GetContentResponse, UserType } from 'src/types/response.dto';
 import Markdown from 'src/components/markdown';
 import ContentDetailHero from 'src/sections/Content/ContentDetailHero';
 import { DeleteContentButton } from 'src/sections/Content/DeleteContentButton';
 import { UpdateContentDialog } from 'src/sections/Content/UpdateContentDialog';
 import { Helmet } from 'react-helmet-async';
+import useAuth from 'src/hooks/useAuth';
 
 export default function ContentDetailPage() {
   const { id } = useParams();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [content, setContent] = useState<ContentInterface | null>(null);
 
@@ -50,10 +52,12 @@ export default function ContentDetailPage() {
 
           <Box sx={{ height: 64 }} />
 
-          <ButtonGroup color="inherit">
-            <UpdateContentDialog content={content} onAdd={onAdd} />
-            <DeleteContentButton content={content} onDelete={onDelete} />
-          </ButtonGroup>
+          {user?.userType === UserType.ADMIN && (
+            <ButtonGroup color="inherit">
+              <UpdateContentDialog content={content} onAdd={onAdd} />
+              <DeleteContentButton content={content} onDelete={onDelete} />
+            </ButtonGroup>
+          )}
         </div>
       ) : (
         <SkeletonSection />
