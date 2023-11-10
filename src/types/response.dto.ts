@@ -51,6 +51,8 @@ export interface BookmarkGroupWithHasProduct {
   name: string;
   hasProduct: boolean;
   bookmarkId: number | null;
+  bookmarkCount: number | null;
+  recentImage: string | null;
 }
 
 export interface ProductInterface {

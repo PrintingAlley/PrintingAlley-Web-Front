@@ -1,20 +1,19 @@
 import {
-  Box,
+  Avatar,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   IconButton,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
   Paper,
   Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Tooltip,
+  Typography,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Iconify from 'src/components/iconify';
@@ -27,7 +26,6 @@ import axios from 'src/utils/axios';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router';
 import CreateBookmarkDialog from '../Bookmark/CreateBookmarkDialog';
-import UpdateBookmarkDialog from '../Bookmark/UpdateBookmarkDialog';
 
 interface Props {
   product: ProductDetail;
@@ -148,75 +146,76 @@ export default function BookmarkModal({ product, fetchProduct }: Props) {
             북마크 페이지로 이동
           </Button>
         </DialogTitle>
-        <DialogContent sx={{ width: 400, maxWidth: 1 }}>
-          <TableContainer
-            component={Paper}
-            variant="outlined"
-            sx={{ minHeight: 200, maxHeight: 400 }}
-          >
-            <Table size="small" stickyHeader>
-              <TableHead>
-                <TableRow>
-                  <TableCell>그룹 이름</TableCell>
-                  <TableCell align="center" width={80}>
-                    북마크
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {bookmarkGroups.length ? (
-                  bookmarkGroups.map((bookmarkGroup) => (
-                    <TableRow key={bookmarkGroup.id}>
-                      <TableCell>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                          {bookmarkGroup.name}
-                          <UpdateBookmarkDialog
-                            bookmarkGroup={bookmarkGroup}
-                            onUpdate={fetchBookmarkGroups}
-                          />
-                        </Box>
-                      </TableCell>
-                      <TableCell align="center">
-                        {bookmarkGroup.hasProduct ? (
-                          <Tooltip title="북마크 해제">
-                            <IconButton
-                              color="primary"
-                              onClick={() => removeBookmark(bookmarkGroup)}
-                            >
-                              <Iconify icon="mdi:bookmark" />
-                            </IconButton>
-                          </Tooltip>
-                        ) : (
-                          <Tooltip title="북마크 추가">
-                            <IconButton color="primary" onClick={() => addBookmark(bookmarkGroup)}>
-                              <Iconify icon="mdi:bookmark-outline" />
-                            </IconButton>
-                          </Tooltip>
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell colSpan={2} align="center" sx={{ color: 'text.disabled', p: 4 }}>
-                      <Stack spacing={1}>
-                        북마크 그룹이 없습니다.
-                        <Box>
-                          <Button
-                            onClick={addBookmarkToDefaultGroup}
-                            variant="contained"
-                            color="primary"
-                          >
-                            기본 그룹에 추가하기
-                          </Button>
-                        </Box>
-                      </Stack>
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
+        <DialogContent
+          sx={{
+            width: 400,
+            maxWidth: 1,
+            minHeight: 200,
+            maxHeight: 400,
+            display: 'flex',
+          }}
+        >
+          {bookmarkGroups.length ? (
+            <List
+              component={Paper}
+              variant="outlined"
+              sx={{
+                '& .MuiListItem-root:not(:last-of-type)': {
+                  borderBottom: '1px dashed',
+                  borderColor: 'divider',
+                },
+                width: 1,
+                overflow: 'auto',
+              }}
+              disablePadding
+            >
+              {bookmarkGroups.map((bookmarkGroup) => (
+                <ListItem
+                  key={bookmarkGroup.id}
+                  secondaryAction={
+                    bookmarkGroup.hasProduct ? (
+                      <Tooltip title="북마크 해제">
+                        <IconButton color="primary" onClick={() => removeBookmark(bookmarkGroup)}>
+                          <Iconify icon="mdi:bookmark" />
+                        </IconButton>
+                      </Tooltip>
+                    ) : (
+                      <Tooltip title="북마크 추가">
+                        <IconButton color="primary" onClick={() => addBookmark(bookmarkGroup)}>
+                          <Iconify icon="mdi:bookmark-outline" />
+                        </IconButton>
+                      </Tooltip>
+                    )
+                  }
+                >
+                  <ListItemAvatar>
+                    <Avatar
+                      alt="Logo"
+                      src={bookmarkGroup.recentImage || '/assets/images/placeholder.svg'}
+                    />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={bookmarkGroup.name}
+                    secondary={`${bookmarkGroup.bookmarkCount}개의 북마크`}
+                  />
+                </ListItem>
+              ))}
+            </List>
+          ) : (
+            <Stack gap={1} justifyContent="center" alignItems="center" width={1}>
+              <Typography variant="body2" sx={{ color: 'text.disabled' }}>
+                북마크 그룹이 없습니다.
+              </Typography>
+              <Button
+                onClick={addBookmarkToDefaultGroup}
+                variant="contained"
+                color="primary"
+                endIcon={<Iconify icon="mdi:bookmark-outline" />}
+              >
+                기본 그룹에 추가하기
+              </Button>
+            </Stack>
+          )}
         </DialogContent>
         <DialogActions>
           <CreateBookmarkDialog onAdd={fetchBookmarkGroups} />
