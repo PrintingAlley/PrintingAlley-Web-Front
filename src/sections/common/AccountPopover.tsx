@@ -55,7 +55,6 @@ export default function AccountPopover() {
             variants={varHover(1.05)}
             onClick={popover.onOpen}
             sx={{
-              mx: 0.5,
               width: 40,
               height: 40,
               background: (theme) => alpha(theme.palette.grey[500], 0.08),

@@ -79,7 +79,7 @@ export default function LoginModal({
         <>
           {isIconButton ? (
             <Tooltip title="로그인">
-              <IconButton onClick={handleOpen} sx={{ mx: 0.5 }}>
+              <IconButton onClick={handleOpen} sx={{ width: 40, height: 40 }} color="inherit">
                 <Iconify icon="ic:round-login" />
               </IconButton>
             </Tooltip>

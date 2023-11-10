@@ -124,8 +124,10 @@ const Navbar = () => {
               ))}
             </Menu>
           </Box>
-          <LoginModal isIconButton />
-          <AccountPopover />
+          <Box sx={{ mx: 0.5 }}>
+            <LoginModal isIconButton />
+            <AccountPopover />
+          </Box>
           <ThemeModeToggle />
         </Stack>
       </Toolbar>
