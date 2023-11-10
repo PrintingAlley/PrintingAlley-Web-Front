@@ -29,7 +29,7 @@ declare module '@mui/material/styles' {
 }
 
 const primaryFont = 'Pretendard, sans-serif';
-// const secondaryFont = 'CircularStd, sans-serif'; // Local Font
+// const secondaryFont = 'Godo, sans-serif';
 
 // ----------------------------------------------------------------------
 

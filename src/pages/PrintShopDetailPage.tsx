@@ -64,7 +64,7 @@ export default function PrintShopDetailPage() {
       {printShop ? (
         <div>
           <Helmet>
-            <title>{printShop.name} | 인쇄 골목</title>
+            <title>{printShop.name} | 인쇄골목</title>
           </Helmet>
 
           <NavigateBackButton />

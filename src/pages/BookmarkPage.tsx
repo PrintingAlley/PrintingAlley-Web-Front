@@ -21,7 +21,7 @@ export default function BookmarkPage() {
   return (
     <div>
       <Helmet>
-        <title>북마크 | 인쇄 골목</title>
+        <title>북마크 | 인쇄골목</title>
       </Helmet>
 
       <Title title="나의 북마크 목록" />

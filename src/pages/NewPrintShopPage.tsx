@@ -8,7 +8,7 @@ export default function NewPrintShopPage() {
   return (
     <div>
       <Helmet>
-        <title>인쇄사 등록 | 인쇄 골목</title>
+        <title>인쇄사 등록 | 인쇄골목</title>
       </Helmet>
 
       <NavigateBackButton />

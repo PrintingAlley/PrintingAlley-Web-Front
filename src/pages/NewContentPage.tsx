@@ -8,7 +8,7 @@ export default function NewContentPage() {
   return (
     <div>
       <Helmet>
-        <title>콘텐츠 작성 | 인쇄 골목</title>
+        <title>콘텐츠 작성 | 인쇄골목</title>
       </Helmet>
 
       <NavigateBackButton />

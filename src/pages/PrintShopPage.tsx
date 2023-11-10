@@ -36,7 +36,7 @@ export default function PrintShopPage() {
   return (
     <Stack spacing={3} flexGrow={1}>
       <Helmet>
-        <title>인쇄사 목록 | 인쇄 골목</title>
+        <title>인쇄사 목록 | 인쇄골목</title>
       </Helmet>
 
       <CenteredTitle title="인쇄사 목록" />

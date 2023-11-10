@@ -12,7 +12,7 @@ function Footer() {
         <Logo />
 
         <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', gap: 1 }}>
-          <span>정다운 남매들</span>|<span>인쇄 골목</span>
+          <span>정다운 남매들</span>|<span>인쇄골목</span>
         </Typography>
 
         <Stack direction="row" spacing={1}>

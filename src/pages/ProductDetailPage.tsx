@@ -128,7 +128,7 @@ export default function ProductDetailPage() {
       {product ? (
         <div>
           <Helmet>
-            <title>{product.name} | 인쇄 골목</title>
+            <title>{product.name} | 인쇄골목</title>
           </Helmet>
 
           <NavigateBackButton />

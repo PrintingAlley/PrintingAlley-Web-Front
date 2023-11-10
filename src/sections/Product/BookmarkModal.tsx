@@ -192,6 +192,7 @@ export default function BookmarkModal({ product, fetchProduct }: Props) {
                     <Avatar
                       alt="Logo"
                       src={bookmarkGroup.recentImage || '/assets/images/placeholder.svg'}
+                      variant="rounded"
                     />
                   </ListItemAvatar>
                   <ListItemText

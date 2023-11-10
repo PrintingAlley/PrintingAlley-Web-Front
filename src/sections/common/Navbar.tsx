@@ -9,7 +9,7 @@ import LoginModal from '../Login/LoginModal';
 
 const authenticatedNavbarItems = [
   {
-    label: '인쇄 골목',
+    label: '인쇄골목',
     path: '/',
   },
   {
@@ -32,7 +32,7 @@ const authenticatedNavbarItems = [
 
 const defaultNavbarItems = [
   {
-    label: '인쇄 골목',
+    label: '인쇄골목',
     path: '/',
   },
   {

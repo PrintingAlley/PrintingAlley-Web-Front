@@ -21,7 +21,7 @@ export default function ContentPage() {
   return (
     <div>
       <Helmet>
-        <title>콘텐츠 | 인쇄 골목</title>
+        <title>콘텐츠 | 인쇄골목</title>
       </Helmet>
 
       <Title title="인쇄가 어려운 당신에게" />

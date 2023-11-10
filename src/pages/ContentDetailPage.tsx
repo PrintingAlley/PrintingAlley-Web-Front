@@ -41,7 +41,7 @@ export default function ContentDetailPage() {
       {content ? (
         <div>
           <Helmet>
-            <title>{content.title} | 인쇄 골목</title>
+            <title>{content.title} | 인쇄골목</title>
           </Helmet>
 
           <ContentDetailHero content={content} />

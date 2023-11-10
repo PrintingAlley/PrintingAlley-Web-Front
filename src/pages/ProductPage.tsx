@@ -43,10 +43,13 @@ export default function ProductPage() {
   return (
     <Stack spacing={3} flexGrow={1}>
       <Helmet>
-        <title>인쇄 골목</title>
+        <title>인쇄골목</title>
       </Helmet>
 
-      <CenteredTitle title="인쇄 골목" />
+      <CenteredTitle
+        title="인쇄골목"
+        sx={{ fontFamily: 'Godo, sans-serif', color: 'primary.main', letterSpacing: 1 }}
+      />
 
       <SearchBar onSearch={setSearchText} resetSearch={resetSearch} />
 

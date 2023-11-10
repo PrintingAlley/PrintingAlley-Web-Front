@@ -93,7 +93,7 @@ export default function MyPage() {
   return (
     <>
       <Helmet>
-        <title>내 정보 | 인쇄 골목</title>
+        <title>내 정보 | 인쇄골목</title>
       </Helmet>
 
       <Stack spacing={2} my={8} sx={{ width: 1, alignItems: 'center' }}>

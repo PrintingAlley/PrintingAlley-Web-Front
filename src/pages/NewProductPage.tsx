@@ -11,7 +11,7 @@ export default function NewProductPage() {
   return (
     <div>
       <Helmet>
-        <title>상품 등록 | 인쇄 골목</title>
+        <title>상품 등록 | 인쇄골목</title>
       </Helmet>
 
       <NavigateBackButton />

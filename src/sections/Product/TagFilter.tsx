@@ -3,11 +3,11 @@ import {
   Chip,
   Box,
   Divider,
-  ButtonBase,
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Stack,
+  IconButton,
 } from '@mui/material';
 import { m } from 'framer-motion';
 import { Dispatch, SetStateAction, useEffect } from 'react';
@@ -56,7 +56,7 @@ export const TagFilter = ({
   const tagList = selectedTopLevelTag ? tags[selectedTopLevelTag.id] : [];
 
   return (
-    <Stack spacing={2} mb={1}>
+    <Stack spacing={3} mb={1}>
       <Box
         sx={{
           display: 'flex',
@@ -68,31 +68,30 @@ export const TagFilter = ({
         {topLevelTags.map((tag) => {
           const isSelected = selectedTopLevelTag?.id === tag.id;
           return (
-            <ButtonBase
-              key={tag.id}
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                cursor: 'pointer',
-                border: '1.5px solid',
-                borderColor: isSelected ? 'primary.light' : 'transparent',
-                borderRadius: 1,
-                backgroundColor: 'background.paper',
-                p: 0.5,
-              }}
-              onClick={() => {
-                toggleTopLevelTag(tag);
-              }}
-            >
-              <Box
-                component="img"
-                src={tag.image ?? ''}
-                alt={tag.name}
-                sx={{ width: 56, height: 56, WebkitUserDrag: 'none' }}
-              />
-              <Typography variant="caption">{tag.name}</Typography>
-            </ButtonBase>
+            <Stack key={tag.id} alignItems="center">
+              <IconButton
+                size="small"
+                onClick={() => {
+                  toggleTopLevelTag(tag);
+                }}
+              >
+                <Box
+                  component="img"
+                  src={tag.image ?? ''}
+                  alt={tag.name}
+                  sx={{ width: 56, height: 56, WebkitUserDrag: 'none' }}
+                />
+              </IconButton>
+              <Typography
+                variant="caption"
+                sx={{
+                  fontWeight: 'bold',
+                  color: isSelected ? 'primary.main' : 'text.secondary',
+                }}
+              >
+                {tag.name}
+              </Typography>
+            </Stack>
           );
         })}
       </Box>

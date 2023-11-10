@@ -8,11 +8,12 @@ export default function CenteredTitle({ title, sx }: { title: string; sx?: SxPro
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        my: 2,
+        mt: 4,
+        mb: 2,
         ...sx,
       }}
     >
-      <Typography variant="h3" textAlign="center">
+      <Typography variant="h3" textAlign="center" fontFamily="inherit">
         {title}
       </Typography>
     </Box>
