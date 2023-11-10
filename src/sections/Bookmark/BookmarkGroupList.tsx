@@ -318,7 +318,7 @@ export const BookmarkGroupList = ({
           ) : (
             <Typography variant="body1" sx={{ textAlign: 'center', my: 5 }}>
               북마크가 없습니다.{' '}
-              <Link component={RouterLink} to="/product" color="primary">
+              <Link component={RouterLink} to="/" color="primary">
                 상품 목록으로 이동하기
               </Link>
             </Typography>

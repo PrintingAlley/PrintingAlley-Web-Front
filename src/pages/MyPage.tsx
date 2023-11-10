@@ -15,7 +15,7 @@ import { UpdateUser } from 'src/types/user';
 
 export default function MyPage() {
   const navigate = useNavigate();
-  const { user, handleLogout, withdraw, isLoading, updateUser } = useAuth();
+  const { user, withdraw, isLoading, updateUser } = useAuth();
   const [editMode, setEditMode] = useState(false);
 
   const methods = useForm<UpdateUser>({
@@ -159,16 +159,11 @@ export default function MyPage() {
           </>
         )}
 
-        <Stack direction="row" spacing={1.5} alignItems="center">
-          {!editMode && (
-            <Button onClick={() => setEditMode(true)} variant="soft" color="primary">
-              프로필 수정
-            </Button>
-          )}
-          <Button onClick={handleLogout} variant="soft" color="warning">
-            로그아웃
+        {!editMode && (
+          <Button onClick={() => setEditMode(true)} variant="soft" color="primary">
+            프로필 수정
           </Button>
-        </Stack>
+        )}
 
         <Divider flexItem sx={{ my: 2, borderStyle: 'dashed' }} />
 
