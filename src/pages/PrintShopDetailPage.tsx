@@ -98,7 +98,6 @@ export default function PrintShopDetailPage() {
             type="print-shop"
             targetId={printShop.id}
             reviews={reviews}
-            currentUser={user}
             fetchReviews={fetchReviews}
           />
 

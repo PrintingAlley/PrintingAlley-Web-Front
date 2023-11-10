@@ -39,7 +39,10 @@ export default function PrintShopPage() {
         <title>인쇄사 목록 | 인쇄골목</title>
       </Helmet>
 
-      <CenteredTitle title="인쇄사 목록" />
+      <CenteredTitle
+        title="인쇄사 목록"
+        sx={{ fontFamily: 'Godo, sans-serif', color: 'primary.main', letterSpacing: 1 }}
+      />
 
       <SearchBar onSearch={setSearchText} resetSearch={resetSearch} />
 

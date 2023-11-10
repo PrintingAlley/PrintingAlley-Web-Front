@@ -14,6 +14,7 @@ import {
 import React from 'react';
 import { ProductReviewWithUser, UserInterface } from 'src/types/response.dto';
 import { fToNow } from 'src/utils/format-time';
+import useAuth from 'src/hooks/useAuth';
 import { AddReviewForm } from './AddReviewForm';
 import DeleteReviewButton from './DeleteReviewButton';
 import LoginModal from '../Login/LoginModal';
@@ -85,21 +86,20 @@ export function ReviewSection({
   type,
   targetId,
   reviews,
-  currentUser,
   fetchReviews,
 }: {
   type: 'product' | 'print-shop';
   targetId: number;
   reviews: ProductReviewWithUser[];
-  currentUser?: UserInterface;
   fetchReviews: () => void;
 }) {
+  const { user, isAuthenticated } = useAuth();
   return (
     <>
       <Typography variant="h6" gutterBottom>
         리뷰
       </Typography>
-      {currentUser ? (
+      {isAuthenticated ? (
         <AddReviewForm type={type} targetId={targetId} onAdd={fetchReviews} />
       ) : (
         <Box mb={1}>
@@ -117,7 +117,7 @@ export function ReviewSection({
               type={type}
               targetId={targetId}
               review={review}
-              currentUser={currentUser}
+              currentUser={user}
               fetchReviews={fetchReviews}
             />
           ))}

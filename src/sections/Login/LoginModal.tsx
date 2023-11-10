@@ -5,11 +5,13 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  MenuItem,
+  IconButton,
+  Tooltip,
   Typography,
   styled,
 } from '@mui/material';
 import { useState } from 'react';
+import Iconify from 'src/components/iconify';
 import useAuth from 'src/hooks/useAuth';
 
 const LoginButton = styled(Button)(({ theme }) => ({
@@ -52,8 +54,7 @@ interface Props {
   text?: string;
   color?: 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success' | 'inherit';
   startIcon?: React.ReactNode;
-  isMenuItem?: boolean;
-  onClick?: () => void;
+  isIconButton?: boolean;
 }
 
 export default function LoginModal({
@@ -61,18 +62,12 @@ export default function LoginModal({
   text = '로그인',
   color = 'inherit',
   startIcon,
-  isMenuItem = false,
-  onClick,
+  isIconButton = false,
 }: Props) {
   const { handleLoginRedirect, isAuthenticated, isLoading } = useAuth();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const onClickMenuItem = () => {
-    handleOpen();
-    onClick?.();
-  };
 
   if (isLoading) {
     return <Typography>Loading...</Typography>;
@@ -82,8 +77,12 @@ export default function LoginModal({
     <>
       {!isAuthenticated && (
         <>
-          {isMenuItem ? (
-            <MenuItem onClick={onClickMenuItem}>{text}</MenuItem>
+          {isIconButton ? (
+            <Tooltip title="로그인">
+              <IconButton onClick={handleOpen} sx={{ mx: 0.5 }}>
+                <Iconify icon="ic:round-login" />
+              </IconButton>
+            </Tooltip>
           ) : (
             <Button variant={variant} color={color} startIcon={startIcon} onClick={handleOpen}>
               {text}

@@ -1,36 +1,23 @@
-import { AppBar, Box, Button, IconButton, Menu, MenuItem, Toolbar, useTheme } from '@mui/material';
+import {
+  AppBar,
+  Box,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  Stack,
+  Toolbar,
+  useTheme,
+} from '@mui/material';
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Iconify from 'src/components/iconify/iconify';
-import useAuth from 'src/hooks/useAuth';
 import Logo from 'src/components/logo';
 import ThemeModeToggle from './ThemeModeToggle';
 import LoginModal from '../Login/LoginModal';
+import AccountPopover from './AccountPopover';
 
-const authenticatedNavbarItems = [
-  {
-    label: '인쇄골목',
-    path: '/',
-  },
-  {
-    label: '인쇄사 목록',
-    path: '/print-shop',
-  },
-  {
-    label: '콘텐츠',
-    path: '/content',
-  },
-  {
-    label: '북마크',
-    path: '/bookmark',
-  },
-  {
-    label: '내 정보',
-    path: '/my',
-  },
-];
-
-const defaultNavbarItems = [
+const navbarItems = [
   {
     label: '인쇄골목',
     path: '/',
@@ -46,14 +33,12 @@ const defaultNavbarItems = [
 ];
 
 const Navbar = () => {
-  const { isAuthenticated } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const theme = useTheme();
   const [position, setPosition] = useState(window.pageYOffset);
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
-  const navbarItems = isAuthenticated ? authenticatedNavbarItems : defaultNavbarItems;
   const isContentDetailPage =
     location.pathname.includes('/content/') && location.pathname !== '/content/new';
 
@@ -102,48 +87,47 @@ const Navbar = () => {
       <Toolbar>
         <Logo />
         <Box sx={{ flexGrow: 1 }} />
-        <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-          {navbarItems.map((item) => {
-            const isActive = location.pathname === item.path;
-            return (
-              <Button
-                key={item.label}
-                onClick={() => navigate(item.path)}
-                sx={{
-                  color: isActive ? 'primary.main' : 'inherit',
-                  fontWeight: isActive ? 700 : 600,
-                }}
-              >
-                {item.label}
-              </Button>
-            );
-          })}
-          <LoginModal />
-        </Box>
-        <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>
-          <IconButton size="large" onClick={handleOpenNavMenu} color="inherit">
-            <Iconify icon="ic:round-menu" />
-          </IconButton>
-          <Menu
-            anchorEl={anchorElNav}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            keepMounted
-            open={Boolean(anchorElNav)}
-            onClose={handleCloseNavMenu}
-            sx={{ display: { xs: 'block', sm: 'none' } }}
-          >
-            {navbarItems.map((page) => (
-              <MenuItem key={page.label} onClick={() => onClickMenuItem(page.path)}>
-                {page.label}
-              </MenuItem>
-            ))}
-            <LoginModal isMenuItem onClick={handleCloseNavMenu} />
-          </Menu>
-        </Box>
-        <ThemeModeToggle />
+        <Stack direction="row" alignItems="center">
+          <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
+            {navbarItems.map((item) => {
+              const isActive = location.pathname === item.path;
+              return (
+                <Button
+                  key={item.label}
+                  onClick={() => navigate(item.path)}
+                  sx={{ color: isActive ? 'primary.main' : 'inherit' }}
+                >
+                  {item.label}
+                </Button>
+              );
+            })}
+          </Box>
+          <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>
+            <IconButton size="large" onClick={handleOpenNavMenu} color="inherit">
+              <Iconify icon="ic:round-menu" />
+            </IconButton>
+            <Menu
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{ display: { xs: 'block', sm: 'none' } }}
+            >
+              {navbarItems.map((page) => (
+                <MenuItem key={page.label} onClick={() => onClickMenuItem(page.path)}>
+                  {page.label}
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+          <LoginModal isIconButton />
+          <AccountPopover />
+          <ThemeModeToggle />
+        </Stack>
       </Toolbar>
     </AppBar>
   );

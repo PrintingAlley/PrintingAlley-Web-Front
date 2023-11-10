@@ -178,7 +178,6 @@ export default function ProductDetailPage() {
             type="product"
             targetId={product.id}
             reviews={reviews}
-            currentUser={user}
             fetchReviews={fetchReviews}
           />
 
