@@ -1,3 +1,10 @@
+export enum Provider {
+  Google = 'google',
+  Naver = 'naver',
+  Kakao = 'kakao',
+  Apple = 'apple',
+}
+
 export enum UserType {
   GENERAL = 'GENERAL',
   PRINTSHOP_OWNER = 'PRINTSHOP_OWNER',
@@ -6,7 +13,7 @@ export enum UserType {
 
 export interface UserInterface {
   id: number;
-  provider: string;
+  provider: Provider;
   userType: UserType;
   name: string;
   profileImage: string | null;

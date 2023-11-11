@@ -12,7 +12,8 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import Iconify from 'src/components/iconify';
-import useAuth from 'src/hooks/useAuth';
+import useAuth, { getProviderName } from 'src/hooks/useAuth';
+import { Provider } from 'src/types/response.dto';
 
 const LoginButton = styled(Button)(({ theme }) => ({
   padding: theme.spacing(1.5, 3),
@@ -28,23 +29,19 @@ const LoginButton = styled(Button)(({ theme }) => ({
 
 const loginProviders = [
   {
-    name: 'naver',
-    label: '네이버',
+    provider: Provider.Naver,
     icon: '/icons/naver-logo.svg',
   },
   {
-    name: 'kakao',
-    label: '카카오',
+    provider: Provider.Kakao,
     icon: '/icons/kakao-logo.svg',
   },
   {
-    name: 'google',
-    label: '구글',
+    provider: Provider.Google,
     icon: '/icons/google-logo.svg',
   },
   {
-    name: 'apple',
-    label: '애플',
+    provider: Provider.Apple,
     icon: '/icons/apple-logo.svg',
   },
 ];
@@ -98,13 +95,15 @@ export default function LoginModal({
                   gap: 2,
                 }}
               >
-                {loginProviders.map((provider) => (
+                {loginProviders.map((item) => (
                   <LoginButton
-                    key={provider.name}
-                    startIcon={<Box component="img" src={provider.icon} alt={provider.name} />}
-                    onClick={() => handleLoginRedirect(provider.name)}
+                    key={item.provider}
+                    startIcon={<Box component="img" src={item.icon} alt={item.provider} />}
+                    onClick={() => handleLoginRedirect(item.provider)}
                   >
-                    <Typography sx={{ width: 192 }}>{provider.label} 로그인</Typography>
+                    <Typography sx={{ width: 192 }}>
+                      {getProviderName(item.provider)} 로그인
+                    </Typography>
                   </LoginButton>
                 ))}
               </Box>
