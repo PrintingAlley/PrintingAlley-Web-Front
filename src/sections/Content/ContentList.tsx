@@ -32,10 +32,7 @@ export const ContentList = ({ contents }: ContentListProps) => {
                 sx={{ borderRadius: 1 }}
                 ratio="4/3"
               />
-              <Typography
-                variant="subtitle1"
-                sx={{ mx: 1, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}
-              >
+              <Typography variant="subtitle1" noWrap>
                 {content.title}
               </Typography>
             </Box>

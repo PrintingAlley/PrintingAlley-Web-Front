@@ -13,6 +13,7 @@ import { varHover } from 'src/components/animate';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
 import useAuth from 'src/hooks/useAuth';
 import { useNavigate } from 'react-router';
+import { Tooltip } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -48,34 +49,36 @@ export default function AccountPopover() {
     <>
       {isAuthenticated && user && (
         <>
-          <IconButton
-            component={m.button}
-            whileTap="tap"
-            whileHover="hover"
-            variants={varHover(1.05)}
-            onClick={popover.onOpen}
-            sx={{
-              width: 40,
-              height: 40,
-              background: (theme) => alpha(theme.palette.grey[500], 0.08),
-              ...(popover.open && {
-                background: (theme) =>
-                  `linear-gradient(135deg, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`,
-              }),
-            }}
-          >
-            <Avatar
-              src={user.profileImage || '/assets/images/placeholder.svg'}
-              alt={user.name}
+          <Tooltip title="내 정보">
+            <IconButton
+              component={m.button}
+              whileTap="tap"
+              whileHover="hover"
+              variants={varHover(1.05)}
+              onClick={popover.onOpen}
               sx={{
-                width: 36,
-                height: 36,
-                border: (theme) => `solid 2px ${theme.palette.background.default}`,
+                width: 40,
+                height: 40,
+                background: (theme) => alpha(theme.palette.grey[500], 0.08),
+                ...(popover.open && {
+                  background: (theme) =>
+                    `linear-gradient(135deg, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`,
+                }),
               }}
             >
-              {user.name.charAt(0).toUpperCase()}
-            </Avatar>
-          </IconButton>
+              <Avatar
+                src={user.profileImage || '/assets/images/placeholder.svg'}
+                alt={user.name}
+                sx={{
+                  width: 36,
+                  height: 36,
+                  border: (theme) => `solid 2px ${theme.palette.background.default}`,
+                }}
+              >
+                {user.name.charAt(0).toUpperCase()}
+              </Avatar>
+            </IconButton>
+          </Tooltip>
 
           <CustomPopover open={popover.open} onClose={popover.onClose} sx={{ width: 200, p: 0 }}>
             <Box sx={{ p: 2, pb: 1.5 }}>

@@ -57,7 +57,7 @@ export const FilesUploadButton = ({
         <Iconify icon="ic:baseline-cloud-upload" />
         <Typography variant="h6">이미지를 업로드하세요.</Typography>
       </Box>
-      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+      <Typography variant="body2" sx={{ color: 'text.secondary', whiteSpace: 'pre-wrap' }}>
         {children}
       </Typography>
     </Stack>

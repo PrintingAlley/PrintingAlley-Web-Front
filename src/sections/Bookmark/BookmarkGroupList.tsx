@@ -222,15 +222,8 @@ export const BookmarkGroupList = ({
                   ratio="1/1"
                   onClick={() => onBookmarkGroupClick(bookmarkGroup.id)}
                 />
-                <Stack sx={{ px: 0.5 }}>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{
-                      overflow: 'hidden',
-                      whiteSpace: 'nowrap',
-                      textOverflow: 'ellipsis',
-                    }}
-                  >
+                <Stack>
+                  <Typography variant="subtitle1" noWrap>
                     {bookmarkGroup.name}{' '}
                     <Typography component="span" color="text.secondary" variant="subtitle1">
                       · {bookmarkGroup.bookmarkCount}개
@@ -297,15 +290,8 @@ export const BookmarkGroupList = ({
                     sx={{ borderRadius: 1, cursor: 'pointer' }}
                     onClick={() => goToProductPage(bookmark.product.id)}
                   />
-                  <Stack sx={{ px: 0.5 }}>
-                    <Typography
-                      variant="subtitle2"
-                      sx={{
-                        overflow: 'hidden',
-                        whiteSpace: 'nowrap',
-                        textOverflow: 'ellipsis',
-                      }}
-                    >
+                  <Stack>
+                    <Typography variant="subtitle2" noWrap>
                       {bookmark.product.name}
                     </Typography>
                     <Typography variant="caption" color="text.secondary">

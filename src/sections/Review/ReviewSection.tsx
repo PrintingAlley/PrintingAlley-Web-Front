@@ -55,7 +55,7 @@ function ReviewItem({
               <Typography variant="body2" gutterBottom>
                 {timeAgo}
               </Typography>
-              <Typography color="text.primary" sx={{ whiteSpace: 'pre-wrap' }}>
+              <Typography color="text.primary" sx={{ whiteSpace: 'pre-wrap' }} noWrap>
                 {review.content}
               </Typography>
               {review.images && (

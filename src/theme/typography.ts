@@ -94,6 +94,7 @@ export const typography = {
     fontSize: pxToRem(14),
   },
   caption: {
+    fontWeight: 500,
     lineHeight: 1.5,
     fontSize: pxToRem(12),
   },

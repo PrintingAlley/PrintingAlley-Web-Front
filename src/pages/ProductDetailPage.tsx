@@ -159,7 +159,7 @@ export default function ProductDetailPage() {
 
           <Divider sx={{ my: 2 }} />
 
-          <ProductDetailsCarousel images={product.images} />
+          <ProductDetailsCarousel images={[product.mainImage, ...product.images]} />
 
           <Divider sx={{ my: 2 }} />
 

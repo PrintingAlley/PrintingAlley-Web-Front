@@ -300,7 +300,9 @@ export const CreateProductForm = ({ topLevelTags, tagHierarchies }: CreateProduc
                 disabled={isSubmitting}
                 error={errors.images?.message}
               >
-                상품 이미지 선택 (여러개를 선택할 수 있습니다.)
+                여러 이미지를 선택할 수 있습니다.
+                {'\n'}
+                메인 이미지를 제외한 이미지들을 선택해주세요.
               </FilesUploadButton>
             </Paper>
           </Stack>
