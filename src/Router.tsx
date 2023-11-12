@@ -13,6 +13,7 @@ import PrintShopPage from './pages/PrintShopPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import ProductPage from './pages/ProductPage';
 import { UserType } from './types/response.dto';
+import MyReviewPage from './pages/MyReviewPage';
 
 function PrintShopOwnerRoutes() {
   return [];
@@ -31,6 +32,7 @@ function AuthenticatedRoutes() {
     <Route key="new-product" path="/product/new" element={<NewProductPage />} />,
     <Route key="bookmark" path="/bookmark" element={<BookmarkPage />} />,
     <Route key="my" path="/my" element={<MyPage />} />,
+    <Route key="my-review" path="/my/review" element={<MyReviewPage />} />,
   ];
 }
 

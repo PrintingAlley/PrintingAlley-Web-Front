@@ -19,12 +19,12 @@ import { Tooltip } from '@mui/material';
 
 const OPTIONS = [
   {
-    label: '메인 페이지',
-    linkTo: '/',
-  },
-  {
     label: '북마크',
     linkTo: '/bookmark',
+  },
+  {
+    label: '내 리뷰',
+    linkTo: '/my/review',
   },
   {
     label: '프로필 설정',
@@ -49,7 +49,7 @@ export default function AccountPopover() {
     <>
       {isAuthenticated && user && (
         <>
-          <Tooltip title="내 정보">
+          <Tooltip title="내 메뉴">
             <IconButton
               component={m.button}
               whileTap="tap"

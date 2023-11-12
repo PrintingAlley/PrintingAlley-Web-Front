@@ -135,7 +135,7 @@ export interface ProductDetail extends ProductInterface {
   bookmarkCount: number;
 }
 
-interface ProductReviewWithProduct extends ProductReviewInterface {
+export interface ProductReviewWithProduct extends ProductReviewInterface {
   product: ProductInterface;
 }
 
@@ -149,7 +149,7 @@ export interface PrintShopDetail extends PrintShopInterface {
   reviews: PrintShopReviewInterface[];
 }
 
-interface PrintShopReviewWithPrintShop extends PrintShopReviewInterface {
+export interface PrintShopReviewWithPrintShop extends PrintShopReviewInterface {
   printShop: PrintShopInterface;
 }
 

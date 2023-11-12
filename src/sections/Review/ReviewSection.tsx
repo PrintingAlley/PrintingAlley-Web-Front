@@ -12,7 +12,11 @@ import {
   Stack,
 } from '@mui/material';
 import React from 'react';
-import { ProductReviewWithUser, UserInterface } from 'src/types/response.dto';
+import {
+  PrintShopReviewWithUser,
+  ProductReviewWithUser,
+  UserInterface,
+} from 'src/types/response.dto';
 import { fToNow } from 'src/utils/format-time';
 import useAuth from 'src/hooks/useAuth';
 import { AddReviewForm } from './AddReviewForm';
@@ -29,7 +33,7 @@ function ReviewItem({
 }: {
   type: 'product' | 'print-shop';
   targetId: number;
-  review: ProductReviewWithUser;
+  review: PrintShopReviewWithUser | ProductReviewWithUser;
   currentUser?: UserInterface;
   fetchReviews: () => void;
 }) {
@@ -41,7 +45,7 @@ function ReviewItem({
     <React.Fragment key={review.id}>
       <ListItem sx={{ alignItems: 'flex-start', display: 'flex' }}>
         <ListItemAvatar>
-          <Avatar alt="Logo" src={review.user.profileImage || ''} />
+          <Avatar alt="Profile Image" src={review.user.profileImage || ''} />
         </ListItemAvatar>
         <ListItemText
           primary={
@@ -58,11 +62,11 @@ function ReviewItem({
               <Typography color="text.primary" sx={{ whiteSpace: 'pre-wrap' }} noWrap>
                 {review.content}
               </Typography>
-              {review.images && (
+              {review.images && review.images.length ? (
                 <Box sx={{ mt: 1, overflowX: 'auto' }}>
                   <ReviewImageLightbox images={review.images} />
                 </Box>
-              )}
+              ) : null}
             </>
           }
         />
@@ -90,7 +94,7 @@ export function ReviewSection({
 }: {
   type: 'product' | 'print-shop';
   targetId: number;
-  reviews: ProductReviewWithUser[];
+  reviews: PrintShopReviewWithUser[] | ProductReviewWithUser[];
   fetchReviews: () => void;
 }) {
   const { user, isAuthenticated } = useAuth();

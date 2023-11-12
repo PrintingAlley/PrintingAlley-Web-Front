@@ -7,6 +7,7 @@ import {
   Grid,
   Link,
   Stack,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import axios from 'src/utils/axios';
@@ -58,9 +59,11 @@ function ProductInformation({ product }: { product: ProductDetail }) {
         <Divider sx={{ my: 0.5 }} />
         <Typography>
           <b>제작 인쇄사</b>{' '}
-          <Link component={NavLink} to={`/print-shop/${product.printShop.id}`}>
-            {product.printShop.name}
-          </Link>
+          <Tooltip title="인쇄사 페이지로 이동">
+            <Link component={NavLink} to={`/print-shop/${product.printShop.id}`}>
+              {product.printShop.name}
+            </Link>
+          </Tooltip>
         </Typography>
         <Divider sx={{ my: 0.5 }} />
         <Typography>

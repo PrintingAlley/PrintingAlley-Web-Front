@@ -17,7 +17,14 @@ const Logo = forwardRef<HTMLDivElement, LogoProps>(
       <Box
         component="img"
         src="/logo/logo.svg"
-        sx={{ width: 40, height: 40, borderRadius: 1.5, cursor: 'pointer', ...sx }}
+        sx={{
+          width: 40,
+          height: 40,
+          borderRadius: 1.5,
+          cursor: 'pointer',
+          WebkitUserDrag: 'none',
+          ...sx,
+        }}
       />
     );
 
