@@ -9,7 +9,6 @@ import {
   Rating,
   ListItemSecondaryAction,
   Divider,
-  Stack,
 } from '@mui/material';
 import React from 'react';
 import {
@@ -127,9 +126,9 @@ export function ReviewSection({
           ))}
         </List>
       ) : (
-        <Stack justifyContent="center" alignItems="center" height={160}>
-          <Typography color="text.secondary">첫 번째 리뷰를 작성해보세요!</Typography>
-        </Stack>
+        <Typography color="text.secondary" sx={{ textAlign: 'center', my: 8 }}>
+          첫 번째 리뷰를 작성해보세요!
+        </Typography>
       )}
     </>
   );

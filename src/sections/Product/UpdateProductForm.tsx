@@ -296,7 +296,7 @@ export const UpdateProductForm = ({
                 disabled={isSubmitting}
                 error={errors.images?.message}
               >
-                상품 이미지 선택 (여러개를 선택할 수 있습니다.)
+                여러 이미지를 선택할 수 있습니다.
               </FilesUploadButton>
             </Paper>
           </Stack>

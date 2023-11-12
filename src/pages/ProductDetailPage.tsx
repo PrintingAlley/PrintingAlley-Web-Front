@@ -162,7 +162,13 @@ export default function ProductDetailPage() {
 
           <Divider sx={{ my: 2 }} />
 
-          <ProductDetailsCarousel images={[product.mainImage, ...product.images]} />
+          {product.images.length ? (
+            <ProductDetailsCarousel images={product.images} />
+          ) : (
+            <Typography color="text.secondary" sx={{ textAlign: 'center', my: 5 }}>
+              제품 이미지가 없습니다.
+            </Typography>
+          )}
 
           <Divider sx={{ my: 2 }} />
 
