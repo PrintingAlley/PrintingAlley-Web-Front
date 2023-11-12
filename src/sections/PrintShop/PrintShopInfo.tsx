@@ -11,8 +11,9 @@ const PrintShopInfo = ({ printShop }: Props) => (
     <Grid item xs={12} md={4}>
       <Avatar
         alt="Logo"
-        src={printShop.logoImage}
+        src={printShop.logoImage || '/assets/images/placeholder.svg'}
         sx={{ width: 1, height: 'auto', aspectRatio: 1, maxWidth: { xs: 150, md: 1 }, mx: 'auto' }}
+        variant="rounded"
       />
     </Grid>
     <Grid item xs={12} md={8}>

@@ -16,6 +16,7 @@ import {
   Card,
   CardHeader,
   Stack,
+  alpha,
 } from '@mui/material';
 import Iconify from 'src/components/iconify/iconify';
 import { useSnackbar } from 'notistack';
@@ -263,14 +264,29 @@ export const UpdateProductForm = ({
                     <Avatar
                       src={url}
                       alt="Image Preview"
-                      sx={{ width: 200, height: 'auto' }}
+                      sx={{
+                        width: 200,
+                        height: 'auto',
+                        border: '1px solid',
+                        borderColor: 'divider',
+                      }}
                       variant="rounded"
                     />
                     <IconButton
-                      sx={{ position: 'absolute', top: 8, right: 8, padding: 0 }}
+                      size="small"
                       onClick={() => removeImageFileAtIndex(index)}
+                      sx={{
+                        top: 8,
+                        right: 8,
+                        position: 'absolute',
+                        color: 'common.white',
+                        bgcolor: (theme) => alpha(theme.palette.grey[900], 0.48),
+                        '&:hover': {
+                          bgcolor: (theme) => alpha(theme.palette.grey[900], 0.72),
+                        },
+                      }}
                     >
-                      <Iconify icon="ic:baseline-close" />
+                      <Iconify icon="mingcute:close-line" width={14} />
                     </IconButton>
                   </Box>
                 ))}

@@ -39,7 +39,12 @@ export const PrintShopList = ({ printShops }: PrintShopListProps) => {
               }
             >
               <ListItemAvatar>
-                <Avatar alt="Logo" src={shop.logoImage} />
+                <Avatar
+                  alt="Logo"
+                  src={shop.logoImage || '/assets/images/placeholder.svg'}
+                  variant="rounded"
+                  sx={{ width: 48, height: 48 }}
+                />
               </ListItemAvatar>
               <ListItemText primary={shop.name} secondary={shop.address} />
             </ListItem>

@@ -45,7 +45,7 @@ function ReviewItem({
     <React.Fragment key={review.id}>
       <ListItem sx={{ alignItems: 'flex-start', display: 'flex' }}>
         <ListItemAvatar>
-          <Avatar alt="Profile Image" src={review.user.profileImage || ''} />
+          <Avatar alt="Logo" src={review.user.profileImage || ''} />
         </ListItemAvatar>
         <ListItemText
           primary={

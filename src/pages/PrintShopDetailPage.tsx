@@ -79,7 +79,7 @@ export default function PrintShopDetailPage() {
 
           <Avatar
             alt="Background"
-            src={printShop.backgroundImage}
+            src={printShop.backgroundImage || '/assets/images/placeholder.svg'}
             sx={{ width: '100%', height: 300 }}
             variant="rounded"
           />

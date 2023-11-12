@@ -67,16 +67,14 @@ export default function AccountPopover() {
               }}
             >
               <Avatar
-                src={user.profileImage || '/assets/images/placeholder.svg'}
+                src={user.profileImage || ''}
                 alt={user.name}
                 sx={{
                   width: 36,
                   height: 36,
                   border: (theme) => `solid 2px ${theme.palette.background.default}`,
                 }}
-              >
-                {user.name.charAt(0).toUpperCase()}
-              </Avatar>
+              />
             </IconButton>
           </Tooltip>
 

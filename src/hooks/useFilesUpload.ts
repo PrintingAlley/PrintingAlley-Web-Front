@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import axios from 'src/utils/axios';
 
-const useFilesUpload = (defaultUrls: string[] = []) => {
+const useFilesUpload = (initialDefaultUrls: string[] = []) => {
   const [fileData, setFileData] = useState<File[]>([]);
-  const [previewUrls, setPreviewUrls] = useState<string[]>(defaultUrls);
+  const [defaultUrls, setDefaultUrls] = useState<string[]>(initialDefaultUrls);
+  const [previewUrls, setPreviewUrls] = useState<string[]>(initialDefaultUrls);
   const [removedUrls, setRemovedUrls] = useState<string[]>([]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,6 +16,8 @@ const useFilesUpload = (defaultUrls: string[] = []) => {
       const newPreviewUrls = newFileList.map((file) => URL.createObjectURL(file));
       setPreviewUrls((prev) => [...prev, ...newPreviewUrls]);
     }
+
+    e.target.value = '';
   };
 
   const uploadFiles = async (): Promise<string[]> => {
@@ -40,7 +43,13 @@ const useFilesUpload = (defaultUrls: string[] = []) => {
     updatedPreviewUrls.splice(index, 1);
     setPreviewUrls(updatedPreviewUrls);
 
-    if (index >= defaultUrls.length) {
+    // defaultUrls 배열을 업데이트합니다.
+    if (index < defaultUrls.length) {
+      const updatedDefaultUrls = [...defaultUrls];
+      updatedDefaultUrls.splice(index, 1);
+      setDefaultUrls(updatedDefaultUrls);
+    } else {
+      // 새로 추가된 파일을 fileData 배열에서 제거합니다.
       const fileDataIndex = index - defaultUrls.length;
       const updatedFileData = [...fileData];
       updatedFileData.splice(fileDataIndex, 1);

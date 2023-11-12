@@ -48,7 +48,7 @@ const checkboxStyle = {
     mr: 0,
   },
   color: 'primary.contrastText',
-  mr: 0.1,
+  mr: '1px',
 };
 
 interface CheckboxProps {
