@@ -53,6 +53,10 @@ export default function PrintShopDetailPage() {
     navigate('/product/new');
   };
 
+  const navigateToAdminNewProductPage = () => {
+    navigate(`/admin/product/new/${id}`);
+  };
+
   useEffect(() => {
     fetchPrintShop();
     fetchReviews();
@@ -107,13 +111,23 @@ export default function PrintShopDetailPage() {
 
           {user?.id === printShop.ownerId && (
             <ButtonGroup color="inherit">
-              <Button
-                startIcon={<Iconify icon="ic:baseline-add" />}
-                variant="soft"
-                onClick={goToNewProductPage}
-              >
-                상품 등록
-              </Button>
+              {user.userType === 'ADMIN' ? (
+                <Button
+                  onClick={navigateToAdminNewProductPage}
+                  startIcon={<Iconify icon="ic:baseline-edit" />}
+                  variant="soft"
+                >
+                  상품 등록 (관리자)
+                </Button>
+              ) : (
+                <Button
+                  startIcon={<Iconify icon="ic:baseline-add" />}
+                  variant="soft"
+                  onClick={goToNewProductPage}
+                >
+                  상품 등록
+                </Button>
+              )}
               <UpdatePrintShopDialog printShop={printShop} onAdd={onAdd} />
               <DeletePrintShopButton printShop={printShop} onDelete={onDelete} />
             </ButtonGroup>

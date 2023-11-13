@@ -12,6 +12,7 @@ import { MAX_FILE_UPLOAD_SIZE } from 'src/config-global';
 import useAuth from 'src/hooks/useAuth';
 import AdminMenu from 'src/sections/Admin/AdminMenu';
 import PolicyLink from 'src/sections/common/PolicyLink';
+import { UserType } from 'src/types/response.dto';
 import { UpdateUser } from 'src/types/user';
 
 export default function MyPage() {
@@ -169,7 +170,7 @@ export default function MyPage() {
         <Divider flexItem sx={{ my: 2, borderStyle: 'dashed' }} />
 
         {user.printShops.length ? (
-          <Box>
+          <Stack spacing={1}>
             {user.printShops.map((printShop) => (
               <Button
                 key={printShop.id}
@@ -178,10 +179,20 @@ export default function MyPage() {
                 color="info"
                 startIcon={<Iconify icon="ic:baseline-print" />}
               >
-                내 인쇄사 관리하기
+                {user.userType === UserType.ADMIN ? `${printShop.name}` : '내 인쇄사'} 관리하기
               </Button>
             ))}
-          </Box>
+            {user.userType === UserType.ADMIN && (
+              <Button
+                onClick={() => navigate('/print-shop/new')}
+                variant="soft"
+                color="info"
+                startIcon={<Iconify icon="ic:baseline-add" />}
+              >
+                새로운 인쇄사 등록하기
+              </Button>
+            )}
+          </Stack>
         ) : (
           <Stack spacing={1} alignItems="center">
             <Avatar
@@ -209,7 +220,12 @@ export default function MyPage() {
 
         <PolicyLink withWithDraw />
 
-        {user.userType === 'ADMIN' && <AdminMenu />}
+        {user.userType === 'ADMIN' && (
+          <>
+            <Divider flexItem sx={{ my: 2, borderStyle: 'dashed' }} />
+            <AdminMenu />
+          </>
+        )}
       </Stack>
     </>
   );

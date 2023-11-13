@@ -13,7 +13,7 @@ export default function NewContentPage() {
 
       <NavigateBackButton />
 
-      <Title title="콘텐츠 작성" />
+      <Title title="콘텐츠 작성" sx={{ mt: 8 }} />
 
       <Box sx={{ height: 16 }} />
 

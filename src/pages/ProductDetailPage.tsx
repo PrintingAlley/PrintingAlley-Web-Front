@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Button,
   ButtonGroup,
   Chip,
   Divider,
@@ -120,6 +121,10 @@ export default function ProductDetailPage() {
     navigate('/', { replace: true });
   };
 
+  const navigateToAdminUpdateProductPage = () => {
+    navigate(`/admin/product/${product?.printShop.id}/${id}`);
+  };
+
   useEffect(() => {
     fetchProduct();
     fetchReviews();
@@ -196,12 +201,22 @@ export default function ProductDetailPage() {
 
           {user?.id === product.ownerId && (
             <ButtonGroup color="inherit">
-              <UpdateProductDialog
-                product={product}
-                topLevelTags={topLevelTags}
-                tagHierarchies={tagHierarchies}
-                onAdd={onAdd}
-              />
+              {user.userType === 'ADMIN' ? (
+                <Button
+                  onClick={navigateToAdminUpdateProductPage}
+                  startIcon={<Iconify icon="ic:baseline-edit" />}
+                  variant="soft"
+                >
+                  제품 수정 (관리자)
+                </Button>
+              ) : (
+                <UpdateProductDialog
+                  product={product}
+                  topLevelTags={topLevelTags}
+                  tagHierarchies={tagHierarchies}
+                  onAdd={onAdd}
+                />
+              )}
               <DeleteProductButton product={product} onDelete={onDelete} />
             </ButtonGroup>
           )}

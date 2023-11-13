@@ -14,6 +14,8 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import ProductPage from './pages/ProductPage';
 import { UserType } from './types/response.dto';
 import MyReviewPage from './pages/MyReviewPage';
+import AdminNewProductPage from './pages/Admin/AdminNewProductPage';
+import AdminUpdateProductPage from './pages/Admin/AdminUpdateProductPage';
 
 function PrintShopOwnerRoutes() {
   return [];
@@ -22,6 +24,16 @@ function PrintShopOwnerRoutes() {
 function AdminRoutes() {
   return [
     ...PrintShopOwnerRoutes(),
+    <Route
+      key="admin-new-product"
+      path="/admin/product/new/:printShopId"
+      element={<AdminNewProductPage />}
+    />,
+    <Route
+      key="admin-update-product"
+      path="/admin/product/:printShopId/:id"
+      element={<AdminUpdateProductPage />}
+    />,
     <Route key="new-content" path="/content/new" element={<NewContentPage />} />,
   ];
 }
