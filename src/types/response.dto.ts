@@ -67,6 +67,7 @@ export interface ProductInterface {
   name: string;
   size: string;
   paper: string;
+  printType: string;
   afterProcess: string;
   designer: string;
   introduction: string;

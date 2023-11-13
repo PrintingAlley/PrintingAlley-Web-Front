@@ -51,7 +51,6 @@ export const UpdateProductForm = ({
     name,
     size,
     paper,
-    afterProcess,
     designer,
     introduction,
     description,
@@ -69,7 +68,6 @@ export const UpdateProductForm = ({
       name,
       size,
       paper,
-      afterProcess,
       designer,
       introduction,
       description,
@@ -181,23 +179,6 @@ export const UpdateProductForm = ({
               placeholder="미색모조지 150g"
               error={Boolean(errors.paper)}
               helperText={errors.paper?.message}
-            />
-            <TextField
-              {...register('afterProcess', {
-                required: '후가공은 필수입니다.',
-                minLength: {
-                  value: 2,
-                  message: '후가공은 2글자 이상이어야 합니다.',
-                },
-                maxLength: {
-                  value: 50,
-                  message: '후가공은 50글자 이하여야 합니다.',
-                },
-              })}
-              label="후가공"
-              placeholder="도무송"
-              error={Boolean(errors.afterProcess)}
-              helperText={errors.afterProcess?.message}
             />
             <TextField
               {...register('designer', {

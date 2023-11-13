@@ -203,23 +203,6 @@ export const CreateProductForm = ({ topLevelTags, tagHierarchies }: CreateProduc
               helperText={errors.paper?.message}
             />
             <TextField
-              {...register('afterProcess', {
-                required: '후가공은 필수입니다.',
-                minLength: {
-                  value: 2,
-                  message: '후가공은 2글자 이상이어야 합니다.',
-                },
-                maxLength: {
-                  value: 50,
-                  message: '후가공은 50글자 이하여야 합니다.',
-                },
-              })}
-              label="후가공"
-              placeholder="도무송"
-              error={Boolean(errors.afterProcess)}
-              helperText={errors.afterProcess?.message}
-            />
-            <TextField
               {...register('designer', {
                 required: '디자이너 정보는 필수입니다.',
                 minLength: {

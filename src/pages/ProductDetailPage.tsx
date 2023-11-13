@@ -79,7 +79,7 @@ function ProductInformation({ product }: { product: ProductDetail }) {
         </Typography>
         <Divider sx={{ my: 0.5 }} />
         <Typography>
-          <b>인쇄 방식</b> {product.tags.map((tag) => tag.name).join(', ')}
+          <b>인쇄 방식</b> {product.printType}
         </Typography>
         <Divider sx={{ my: 0.5 }} />
         <Typography>
