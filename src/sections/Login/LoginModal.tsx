@@ -14,6 +14,7 @@ import { useState } from 'react';
 import Iconify from 'src/components/iconify';
 import useAuth, { getProviderName } from 'src/hooks/useAuth';
 import { Provider } from 'src/types/response.dto';
+import PolicyLink from '../common/PolicyLink';
 
 const LoginButton = styled(Button)(({ theme }) => ({
   padding: theme.spacing(1.5, 3),
@@ -106,6 +107,7 @@ export default function LoginModal({
                     </Typography>
                   </LoginButton>
                 ))}
+                <PolicyLink />
               </Box>
             </DialogContent>
             <DialogActions>

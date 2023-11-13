@@ -11,11 +11,12 @@ import Iconify from 'src/components/iconify';
 import { MAX_FILE_UPLOAD_SIZE } from 'src/config-global';
 import useAuth from 'src/hooks/useAuth';
 import AdminMenu from 'src/sections/Admin/AdminMenu';
+import PolicyLink from 'src/sections/common/PolicyLink';
 import { UpdateUser } from 'src/types/user';
 
 export default function MyPage() {
   const navigate = useNavigate();
-  const { user, withdraw, isLoading, updateUser } = useAuth();
+  const { user, isLoading, updateUser } = useAuth();
   const [editMode, setEditMode] = useState(false);
 
   const methods = useForm<UpdateUser>({
@@ -96,7 +97,7 @@ export default function MyPage() {
         <title>내 정보 | 인쇄골목</title>
       </Helmet>
 
-      <Stack spacing={2} my={8} sx={{ width: 1, alignItems: 'center' }}>
+      <Stack spacing={2} mt={8} sx={{ width: 1, alignItems: 'center' }}>
         {editMode ? (
           <Box sx={{ width: 400, maxWidth: 1 }}>
             <Typography variant="h4" gutterBottom sx={{ mx: 1 }}>
@@ -206,14 +207,7 @@ export default function MyPage() {
 
         <Divider flexItem sx={{ my: 2, borderStyle: 'dashed' }} />
 
-        <Stack direction="row" spacing={1} alignItems="center">
-          <Button onClick={withdraw} variant="soft" color="error">
-            회원탈퇴
-          </Button>
-          <Typography variant="caption" color="text.secondary" sx={{ whiteSpace: 'pre-wrap' }}>
-            회원탈퇴 시, 모든 정보가 삭제되며{'\n'}복구할 수 없습니다.
-          </Typography>
-        </Stack>
+        <PolicyLink withWithDraw />
 
         {user.userType === 'ADMIN' && <AdminMenu />}
       </Stack>
