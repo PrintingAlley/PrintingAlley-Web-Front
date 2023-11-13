@@ -101,7 +101,6 @@ export const AdminCreateProductForm = ({
   }, [topTagByCurrentCategory, setValue]);
 
   const handleFormSubmit = async (data: AdminCreateProduct) => {
-    console.log(data.printShopId);
     const mainImageUrl = await uploadMainFile();
     const imageUrls = await uploadImageFiles();
 
