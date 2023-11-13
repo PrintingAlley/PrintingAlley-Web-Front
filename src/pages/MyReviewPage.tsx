@@ -16,8 +16,10 @@ import axios from 'src/utils/axios';
 
 export default function MyReviewPage() {
   const [currentTab, setCurrentTab] = useState<'print-shop' | 'product'>('print-shop');
-  const [printShopReviews, setPrintShopReviews] = useState<PrintShopReviewWithPrintShop[]>([]);
-  const [productReviews, setProductReviews] = useState<ProductReviewWithProduct[]>([]);
+  const [printShopReviews, setPrintShopReviews] = useState<PrintShopReviewWithPrintShop[] | null>(
+    null
+  );
+  const [productReviews, setProductReviews] = useState<ProductReviewWithProduct[] | null>(null);
   const fetchPrintShopReviews = () => {
     axios.get<GetUserPrintShopReviewsResponse>(`/user/print-shop-review`).then((response) => {
       setPrintShopReviews(response.data.printShopReviews);
@@ -53,9 +55,20 @@ export default function MyReviewPage() {
       </ToggleButtonGroup>
 
       {currentTab === 'print-shop' ? (
-        <MyPrintShopReviewSection reviews={printShopReviews} fetchReviews={fetchPrintShopReviews} />
+        <>
+          {printShopReviews && (
+            <MyPrintShopReviewSection
+              reviews={printShopReviews}
+              fetchReviews={fetchPrintShopReviews}
+            />
+          )}
+        </>
       ) : (
-        <MyProductReviewSection reviews={productReviews} fetchReviews={fetchPrintShopReviews} />
+        <>
+          {productReviews && (
+            <MyProductReviewSection reviews={productReviews} fetchReviews={fetchPrintShopReviews} />
+          )}
+        </>
       )}
     </div>
   );

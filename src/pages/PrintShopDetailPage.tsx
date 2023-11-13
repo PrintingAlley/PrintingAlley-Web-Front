@@ -27,7 +27,7 @@ export default function PrintShopDetailPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [printShop, setPrintShop] = useState<PrintShopDetail | null>(null);
-  const [reviews, setReviews] = useState<PrintShopReviewWithUser[]>([]);
+  const [reviews, setReviews] = useState<PrintShopReviewWithUser[] | null>(null);
 
   const fetchPrintShop = () => {
     axios.get<GetPrintShopResponse>(`print-shop/${id}`).then((response) => {
@@ -94,12 +94,14 @@ export default function PrintShopDetailPage() {
 
           <Divider sx={{ my: 2 }} />
 
-          <ReviewSection
-            type="print-shop"
-            targetId={printShop.id}
-            reviews={reviews}
-            fetchReviews={fetchReviews}
-          />
+          {reviews && (
+            <ReviewSection
+              type="print-shop"
+              targetId={printShop.id}
+              reviews={reviews}
+              fetchReviews={fetchReviews}
+            />
+          )}
 
           <Box sx={{ height: 64 }} />
 

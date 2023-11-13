@@ -98,7 +98,7 @@ export default function ProductDetailPage() {
   const navigate = useNavigate();
   const { topLevelTags, tagHierarchies } = useTag();
   const [product, setProduct] = useState<ProductDetail | null>(null);
-  const [reviews, setReviews] = useState<ProductReviewWithUser[]>([]);
+  const [reviews, setReviews] = useState<ProductReviewWithUser[] | null>(null);
 
   const fetchProduct = () => {
     axios.get<GetProductResponse>(`/product/${id}`).then((response) => {
@@ -183,12 +183,14 @@ export default function ProductDetailPage() {
 
           <Divider sx={{ my: 2 }} />
 
-          <ReviewSection
-            type="product"
-            targetId={product.id}
-            reviews={reviews}
-            fetchReviews={fetchReviews}
-          />
+          {reviews && (
+            <ReviewSection
+              type="product"
+              targetId={product.id}
+              reviews={reviews}
+              fetchReviews={fetchReviews}
+            />
+          )}
 
           <Box sx={{ height: 64 }} />
 
