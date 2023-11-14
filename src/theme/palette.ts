@@ -40,6 +40,7 @@ const PRIMARY = {
 
 const SECONDARY = {
   main: '#F9CD2F',
+  dark: '#E3BB2B',
   contrastText: '#000000',
 };
 

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Divider } from '@mui/material';
 import Iconify from 'src/components/iconify/iconify';
 import { PrintShopDetail } from 'src/types/response.dto';
+import { useTag } from 'src/hooks/useTag';
 import { UpdatePrintShopForm } from './UpdatePrintShopForm';
 
 interface UpdatePrintShopDialogProps {
@@ -10,6 +11,7 @@ interface UpdatePrintShopDialogProps {
 }
 
 export const UpdatePrintShopDialog = ({ printShop, onAdd }: UpdatePrintShopDialogProps) => {
+  const { topLevelTags, tagHierarchies } = useTag();
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -34,7 +36,12 @@ export const UpdatePrintShopDialog = ({ printShop, onAdd }: UpdatePrintShopDialo
         <DialogTitle variant="h4">인쇄사 수정</DialogTitle>
         <Divider sx={{ borderStyle: 'dashed' }} />
         <DialogContent>
-          <UpdatePrintShopForm printShop={printShop} onAddSuccess={handleAddSuccess} />
+          <UpdatePrintShopForm
+            printShop={printShop}
+            topLevelTags={topLevelTags}
+            tagHierarchies={tagHierarchies}
+            onAddSuccess={handleAddSuccess}
+          />
         </DialogContent>
         <Divider sx={{ borderStyle: 'dashed' }} />
         <DialogActions>

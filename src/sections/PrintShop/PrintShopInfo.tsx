@@ -24,6 +24,10 @@ const PrintShopInfo = ({ printShop }: Props) => (
       </Stack>
     </Grid>
     <Grid item xs={12} md={8}>
+      <Typography variant="subtitle1" color="secondary.dark">
+        {printShop.type}
+      </Typography>
+      <Divider sx={{ my: 0.5 }} />
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
         <Iconify icon="carbon:location" color="text.secondary" />
         <Link
@@ -62,11 +66,24 @@ const PrintShopInfo = ({ printShop }: Props) => (
       </Box>
       <Divider sx={{ my: 0.5 }} />
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <Iconify icon="carbon:user" color="text.secondary" />
-        <Typography fontWeight="medium">{printShop.representative}</Typography>
+        <Iconify icon="carbon:time" color="text.secondary" />
+        <Typography>{printShop.businessHours}</Typography>
       </Box>
       <Divider sx={{ my: 0.5 }} />
-      <Typography variant="body2">{printShop.introduction}</Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <Iconify icon="carbon:chat" color="text.secondary" />
+        <Typography>{printShop.introduction}</Typography>
+      </Box>
+      <Divider sx={{ my: 0.5 }} />
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <Iconify icon="carbon:printer" color="text.secondary" />
+        <Typography>{printShop.printType}</Typography>
+      </Box>
+      <Divider sx={{ my: 0.5 }} />
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <Iconify icon="carbon:cut" color="text.secondary" />
+        <Typography>{printShop.afterProcess}</Typography>
+      </Box>
     </Grid>
   </Grid>
 );

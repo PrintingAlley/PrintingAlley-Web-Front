@@ -1,22 +1,17 @@
 import { useState } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Divider } from '@mui/material';
 import Iconify from 'src/components/iconify/iconify';
-import { ProductDetail, TagInterface } from 'src/types/response.dto';
+import { ProductDetail } from 'src/types/response.dto';
+import { useTag } from 'src/hooks/useTag';
 import { UpdateProductForm } from './UpdateProductForm';
 
 interface UpdateProductDialogProps {
   product: ProductDetail;
-  topLevelTags: TagInterface[];
-  tagHierarchies: Record<number, TagInterface[]>;
   onAdd: () => void;
 }
 
-export const UpdateProductDialog = ({
-  product,
-  topLevelTags,
-  tagHierarchies,
-  onAdd,
-}: UpdateProductDialogProps) => {
+export const UpdateProductDialog = ({ product, onAdd }: UpdateProductDialogProps) => {
+  const { topLevelTags, tagHierarchies } = useTag();
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {

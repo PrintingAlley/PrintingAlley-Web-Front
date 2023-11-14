@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import {
   TextField,
   Box,
@@ -11,6 +11,13 @@ import {
   Card,
   CardHeader,
   Stack,
+  Chip,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+  FormHelperText,
 } from '@mui/material';
 import { CreatePrintShop } from 'src/types/print-shop';
 import Iconify from 'src/components/iconify/iconify';
@@ -21,16 +28,24 @@ import useFileUpload from 'src/hooks/useFileUpload';
 import useLatLng from 'src/hooks/useLatLng';
 import { useNavigate } from 'react-router';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { flattenTags } from 'src/utils/tags';
+import { TagInterface } from 'src/types/response.dto';
 import { FileUploadButton } from '../common/FileUploadButton';
 
 const postCodeStyle = {
   height: '450px',
 };
 
-export const CreatePrintShopForm = () => {
+interface CreatePrintShopFormProps {
+  topLevelTags: TagInterface[];
+  tagHierarchies: Record<number, TagInterface[]>;
+}
+
+export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrintShopFormProps) => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const {
+    control,
     handleSubmit,
     register,
     setValue,
@@ -38,7 +53,11 @@ export const CreatePrintShopForm = () => {
     formState: { errors, isSubmitting },
   } = useForm<CreatePrintShop>({
     mode: 'onChange',
-    defaultValues: { latitude: '0', longitude: '0' },
+    defaultValues: {
+      type: '인쇄사',
+      latitude: '0',
+      longitude: '0',
+    },
   });
 
   const {
@@ -86,6 +105,8 @@ export const CreatePrintShopForm = () => {
     setFocus('name');
   }, [setFocus]);
 
+  const sampleTag = topLevelTags[0];
+
   return (
     <Box component="form" onSubmit={handleSubmit(handleFormSubmit)}>
       <Stack spacing={3}>
@@ -109,23 +130,21 @@ export const CreatePrintShopForm = () => {
               error={Boolean(errors.name)}
               helperText={errors.name?.message}
             />
-            <TextField
-              {...register('representative', {
-                required: '대표자는 필수입니다.',
-                minLength: {
-                  value: 2,
-                  message: '대표자는 2글자 이상이어야 합니다.',
-                },
-                maxLength: {
-                  value: 20,
-                  message: '대표자는 20글자 이하여야 합니다.',
-                },
-              })}
-              label="대표자"
-              placeholder="인쇄사의 대표자 이름을 입력하세요"
-              error={Boolean(errors.representative)}
-              helperText={errors.representative?.message}
-            />
+            <FormControl error={Boolean(errors.type)}>
+              <InputLabel id="type-label">인쇄사 유형</InputLabel>
+              <Controller
+                name="type"
+                control={control}
+                rules={{ required: '인쇄사 유형은 필수입니다.' }}
+                render={({ field }) => (
+                  <Select labelId="type-label" label="인쇄사 유형" {...field}>
+                    <MenuItem value="인쇄사">인쇄사</MenuItem>
+                    <MenuItem value="인쇄 기획사">인쇄 기획사</MenuItem>
+                  </Select>
+                )}
+              />
+              {errors.type && <FormHelperText>{errors.type.message}</FormHelperText>}
+            </FormControl>
             <TextField
               {...register('phone', { required: '전화번호는 필수입니다.' })}
               label="전화번호"
@@ -140,6 +159,14 @@ export const CreatePrintShopForm = () => {
               placeholder="인쇄사의 이메일을 입력하세요"
               error={Boolean(errors.email)}
               helperText={errors.email?.message}
+            />
+            <TextField
+              {...register('businessHours', { required: '영업시간은 필수입니다.' })}
+              label="영업시간"
+              placeholder="예: 월-금: 09:00-18:00, 토: 10:00-14:00"
+              error={Boolean(errors.businessHours)}
+              helperText={errors.businessHours?.message || '요일별 영업시간을 입력하세요'}
+              fullWidth
             />
             <TextField
               {...register('homepage')}
@@ -161,12 +188,10 @@ export const CreatePrintShopForm = () => {
                   message: '소개글은 2000글자 이하여야 합니다.',
                 },
               })}
-              label="소개글"
-              placeholder="인쇄사에 대한 소개글을 입력하세요"
+              label="한 줄 소개글"
+              placeholder="인쇄사에 대한 한 줄 소개글을 입력하세요"
               error={Boolean(errors.introduction)}
               helperText={errors.introduction?.message}
-              multiline
-              rows={4}
             />
           </Stack>
         </Card>
@@ -287,6 +312,59 @@ export const CreatePrintShopForm = () => {
                 fullWidth
               />
             </Stack>
+          </Stack>
+        </Card>
+
+        <Card>
+          <CardHeader title="인쇄사에서 제공하는 인쇄 방식" />
+          <Stack spacing={3} sx={{ p: 3 }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+              }}
+            >
+              {sampleTag && (
+                <FormControl key={sampleTag.id} fullWidth error={Boolean(errors.tagIds)}>
+                  <InputLabel>인쇄 방식</InputLabel>
+                  <Controller
+                    name="tagIds"
+                    control={control}
+                    defaultValue={[]}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        label="인쇄 방식"
+                        multiple
+                        renderValue={(selected) => (
+                          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                            {(selected as number[]).map((value) => {
+                              const item = flattenTags(tagHierarchies[sampleTag.id] || []).find(
+                                (tag) => tag.id === value
+                              );
+                              if (!item) {
+                                return null;
+                              }
+                              return <Chip key={value} label={item.name} />;
+                            })}
+                          </Box>
+                        )}
+                      >
+                        {flattenTags(tagHierarchies[sampleTag.id] || [])
+                          .filter((tag) => !tag.children.length)
+                          .map((tag) => (
+                            <MenuItem key={tag.id} value={tag.id}>
+                              {tag.name}
+                            </MenuItem>
+                          ))}
+                      </Select>
+                    )}
+                  />
+                  {errors.tagIds && <Typography color="error">{errors.tagIds.message}</Typography>}
+                </FormControl>
+              )}
+            </Box>
           </Stack>
         </Card>
 

@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Divider } from '@mui/material';
+import { Box, Button, ButtonGroup, Divider, Typography } from '@mui/material';
 import axios from 'src/utils/axios';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
@@ -80,8 +80,11 @@ export default function PrintShopDetailPage() {
 
           <PrintShopInfo printShop={printShop} />
 
-          <Box sx={{ height: 40 }} />
+          <Divider sx={{ my: 2 }} />
 
+          <Typography variant="h6" gutterBottom>
+            인쇄사 사진
+          </Typography>
           <LightboxForSingleImage
             src={printShop.backgroundImage}
             sx={{

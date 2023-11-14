@@ -14,7 +14,6 @@ import axios from 'src/utils/axios';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import SkeletonSection from 'src/sections/common/SkeletonSection';
-import { useTag } from 'src/hooks/useTag';
 import CenteredTitle from 'src/sections/common/CenteredTitle';
 import {
   GetProductResponse,
@@ -60,7 +59,7 @@ function ProductInformation({ product }: { product: ProductDetail }) {
         md={8}
         sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
       >
-        <Typography variant="subtitle1" color="textSecondary">
+        <Typography variant="subtitle1" color="text.secondary">
           {product.category.name}
         </Typography>
         <Divider sx={{ my: 0.5 }} />
@@ -103,7 +102,6 @@ export default function ProductDetailPage() {
   const { id } = useParams();
   const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const { topLevelTags, tagHierarchies } = useTag();
   const [product, setProduct] = useState<ProductDetail | null>(null);
   const [reviews, setReviews] = useState<ProductReviewWithUser[] | null>(null);
 
@@ -153,7 +151,7 @@ export default function ProductDetailPage() {
 
           <ProductInformation product={product} />
 
-          <Box sx={{ height: 16 }} />
+          <Divider sx={{ my: 2 }} />
 
           <Stack alignItems="center" justifyContent="center">
             {isAuthenticated ? (
@@ -216,12 +214,7 @@ export default function ProductDetailPage() {
                   제품 수정 (관리자)
                 </Button>
               ) : (
-                <UpdateProductDialog
-                  product={product}
-                  topLevelTags={topLevelTags}
-                  tagHierarchies={tagHierarchies}
-                  onAdd={onAdd}
-                />
+                <UpdateProductDialog product={product} onAdd={onAdd} />
               )}
               <DeleteProductButton product={product} onDelete={onDelete} />
             </ButtonGroup>

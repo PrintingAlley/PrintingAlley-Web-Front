@@ -67,8 +67,6 @@ export interface ProductInterface {
   name: string;
   size: string;
   paper: string;
-  printType: string;
-  afterProcess: string;
   designer: string;
   introduction: string;
   description: string;
@@ -81,16 +79,17 @@ export interface ProductInterface {
 export interface PrintShopInterface {
   id: number;
   name: string;
+  type: string;
   address: string;
   phone: string;
   email: string;
   homepage: string;
-  representative: string;
   introduction: string;
   logoImage: string;
   backgroundImage: string;
   latitude: string;
   longitude: string;
+  businessHours: string;
   createdAt: string;
   updateAt: string;
 }
@@ -127,6 +126,8 @@ export interface ProductWithTags extends ProductInterface {
 }
 
 export interface ProductDetail extends ProductInterface {
+  printType: string;
+  afterProcess: string;
   ownerId: number;
   tags: TagInterface[];
   category: CategoryInterface;
@@ -145,7 +146,10 @@ export interface ProductReviewWithUser extends ProductReviewInterface {
 }
 
 export interface PrintShopDetail extends PrintShopInterface {
+  printType: string;
+  afterProcess: string;
   ownerId: number;
+  tags: TagInterface[];
   products: ProductInterface[];
   reviews: PrintShopReviewInterface[];
 }

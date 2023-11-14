@@ -3,8 +3,11 @@ import { Box } from '@mui/material';
 import Title from 'src/sections/common/Title';
 import NavigateBackButton from 'src/sections/common/NavigateBackButton';
 import { Helmet } from 'react-helmet-async';
+import { useTag } from 'src/hooks/useTag';
 
 export default function NewPrintShopPage() {
+  const { topLevelTags, tagHierarchies } = useTag();
+
   return (
     <div>
       <Helmet>
@@ -17,7 +20,7 @@ export default function NewPrintShopPage() {
 
       <Box sx={{ height: 16 }} />
 
-      <CreatePrintShopForm />
+      <CreatePrintShopForm topLevelTags={topLevelTags} tagHierarchies={tagHierarchies} />
     </div>
   );
 }
