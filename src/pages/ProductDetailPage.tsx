@@ -41,17 +41,18 @@ function ProductInformation({ product }: { product: ProductDetail }) {
   return (
     <Grid container spacing={{ xs: 5, md: 3 }}>
       <Grid item xs={12} md={4}>
-        <LightboxForSingleImage
-          src={product.mainImage}
-          sx={{
-            width: 1,
-            height: 'auto',
-            aspectRatio: 1,
-            maxWidth: { xs: 200, md: 1 },
-            mx: 'auto',
-            borderRadius: 1.5,
-          }}
-        />
+        <Stack alignItems="center">
+          <LightboxForSingleImage
+            src={product.mainImage}
+            sx={{
+              width: 1,
+              height: 'auto',
+              aspectRatio: 1,
+              maxWidth: { xs: 200, md: 1 },
+              borderRadius: 1.5,
+            }}
+          />
+        </Stack>
       </Grid>
       <Grid
         item

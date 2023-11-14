@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, Link, Typography } from '@mui/material';
+import { Box, Divider, Grid, Link, Stack, Typography } from '@mui/material';
 import Iconify from 'src/components/iconify';
 import { PrintShopDetail } from 'src/types/response.dto';
 import LightboxForSingleImage from '../common/LightboxForSingleImage';
@@ -10,17 +10,18 @@ interface Props {
 const PrintShopInfo = ({ printShop }: Props) => (
   <Grid container spacing={{ xs: 5, md: 3 }}>
     <Grid item xs={12} md={4}>
-      <LightboxForSingleImage
-        src={printShop.logoImage}
-        sx={{
-          width: 1,
-          height: 'auto',
-          aspectRatio: 1,
-          maxWidth: { xs: 150, md: 1 },
-          mx: 'auto',
-          borderRadius: 1.5,
-        }}
-      />
+      <Stack alignItems="center">
+        <LightboxForSingleImage
+          src={printShop.logoImage}
+          sx={{
+            width: 1,
+            height: 'auto',
+            aspectRatio: 1,
+            maxWidth: { xs: 150, md: 1 },
+            borderRadius: 1.5,
+          }}
+        />
+      </Stack>
     </Grid>
     <Grid item xs={12} md={8}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
