@@ -1,6 +1,7 @@
-import { Avatar, Box, Divider, Grid, Link, Typography } from '@mui/material';
+import { Box, Divider, Grid, Link, Typography } from '@mui/material';
 import Iconify from 'src/components/iconify';
 import { PrintShopDetail } from 'src/types/response.dto';
+import LightboxForSingleImage from '../common/LightboxForSingleImage';
 
 interface Props {
   printShop: PrintShopDetail;
@@ -9,11 +10,16 @@ interface Props {
 const PrintShopInfo = ({ printShop }: Props) => (
   <Grid container spacing={{ xs: 5, md: 3 }}>
     <Grid item xs={12} md={4}>
-      <Avatar
-        alt="Logo"
-        src={printShop.logoImage || '/assets/images/placeholder.svg'}
-        sx={{ width: 1, height: 'auto', aspectRatio: 1, maxWidth: { xs: 150, md: 1 }, mx: 'auto' }}
-        variant="rounded"
+      <LightboxForSingleImage
+        src={printShop.logoImage}
+        sx={{
+          width: 1,
+          height: 'auto',
+          aspectRatio: 1,
+          maxWidth: { xs: 150, md: 1 },
+          mx: 'auto',
+          borderRadius: 1.5,
+        }}
       />
     </Grid>
     <Grid item xs={12} md={8}>

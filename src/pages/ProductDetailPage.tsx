@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Button,
   ButtonGroup,
@@ -36,16 +35,22 @@ import LoginModal from 'src/sections/Login/LoginModal';
 import Iconify from 'src/components/iconify';
 import KakaoShareButton from 'src/sections/common/KakaoShareButton';
 import { Helmet } from 'react-helmet-async';
+import LightboxForSingleImage from 'src/sections/common/LightboxForSingleImage';
 
 function ProductInformation({ product }: { product: ProductDetail }) {
   return (
     <Grid container spacing={{ xs: 5, md: 3 }}>
       <Grid item xs={12} md={4}>
-        <Avatar
-          alt="Logo"
+        <LightboxForSingleImage
           src={product.mainImage}
-          sx={{ width: 1, height: 'auto', maxWidth: { xs: 200, md: 1 }, mx: 'auto' }}
-          variant="rounded"
+          sx={{
+            width: 1,
+            height: 'auto',
+            aspectRatio: 1,
+            maxWidth: { xs: 200, md: 1 },
+            mx: 'auto',
+            borderRadius: 1.5,
+          }}
         />
       </Grid>
       <Grid

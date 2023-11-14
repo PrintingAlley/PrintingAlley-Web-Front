@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, ButtonGroup, Divider } from '@mui/material';
+import { Box, Button, ButtonGroup, Divider } from '@mui/material';
 import axios from 'src/utils/axios';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
@@ -21,6 +21,7 @@ import PrintShopLocation from 'src/sections/PrintShop/PrintShopLocation';
 import Iconify from 'src/components/iconify';
 import KakaoShareButton from 'src/sections/common/KakaoShareButton';
 import { Helmet } from 'react-helmet-async';
+import LightboxForSingleImage from 'src/sections/common/LightboxForSingleImage';
 
 export default function PrintShopDetailPage() {
   const { id } = useParams();
@@ -81,11 +82,13 @@ export default function PrintShopDetailPage() {
 
           <Box sx={{ height: 40 }} />
 
-          <Avatar
-            alt="Background"
-            src={printShop.backgroundImage || '/assets/images/placeholder.svg'}
-            sx={{ width: '100%', height: 300 }}
-            variant="rounded"
+          <LightboxForSingleImage
+            src={printShop.backgroundImage}
+            sx={{
+              width: '100%',
+              height: 300,
+              borderRadius: 1.5,
+            }}
           />
 
           <Divider sx={{ my: 2 }} />
