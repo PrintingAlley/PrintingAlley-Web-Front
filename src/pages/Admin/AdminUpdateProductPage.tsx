@@ -22,7 +22,7 @@ export default function AdminUpdateProductPage() {
   };
 
   const navigateToProductDetail = () => {
-    navigate(`/product/${id}`);
+    navigate(`/product/${id}`, { replace: true });
   };
 
   useEffect(() => {
