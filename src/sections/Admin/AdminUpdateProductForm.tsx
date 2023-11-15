@@ -21,7 +21,6 @@ import {
 import Iconify from 'src/components/iconify/iconify';
 import { useSnackbar } from 'notistack';
 import axios from 'src/utils/axios';
-import { flattenTags } from 'src/utils/tags';
 import useFileUpload from 'src/hooks/useFileUpload';
 import LoadingButton from '@mui/lab/LoadingButton';
 import useFilesUpload from 'src/hooks/useFilesUpload';
@@ -30,6 +29,7 @@ import { useCategory } from 'src/hooks/useCategory';
 import RHFEditor from 'src/components/hook-form/rhf-editor';
 import FormProvider from 'src/components/hook-form/form-provider';
 import { AdminCreateProduct } from 'src/types/admin.product';
+import { flattenArray } from 'src/utils/flatten-array';
 import { FileUploadButton } from '../common/FileUploadButton';
 import { FilesUploadButton } from '../common/FilesUploadButton';
 import { findTopTagByCategoryId } from './AdminCreateProductForm';
@@ -76,7 +76,7 @@ export const AdminUpdateProductForm = ({
       mainImage,
       images,
       categoryId: category.id,
-      tagIds: flattenTags(tags).map((tag) => tag.id),
+      tagIds: flattenArray(tags).map((tag) => tag.id),
       printShopId,
     },
   });
@@ -343,7 +343,7 @@ export const AdminUpdateProductForm = ({
                         renderValue={(selected) => (
                           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                             {(selected as number[]).map((value) => {
-                              const item = flattenTags(
+                              const item = flattenArray(
                                 tagHierarchies[topTagByCurrentCategory.id] || []
                               ).find((tag) => tag.id === value);
                               if (!item) {
@@ -354,7 +354,7 @@ export const AdminUpdateProductForm = ({
                           </Box>
                         )}
                       >
-                        {flattenTags(tagHierarchies[topTagByCurrentCategory.id] || [])
+                        {flattenArray(tagHierarchies[topTagByCurrentCategory.id] || [])
                           .filter((tag) => !tag.children.length)
                           .map((tag) => (
                             <MenuItem key={tag.id} value={tag.id}>

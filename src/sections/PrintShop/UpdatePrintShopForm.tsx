@@ -27,8 +27,8 @@ import useFileUpload from 'src/hooks/useFileUpload';
 import useLatLng from 'src/hooks/useLatLng';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { PrintShopDetail, TagInterface } from 'src/types/response.dto';
-import { flattenTags } from 'src/utils/tags';
 import { printShopTypes } from 'src/constants/print-shop-type';
+import { flattenArray } from 'src/utils/flatten-array';
 import { FileUploadButton } from '../common/FileUploadButton';
 
 const postCodeStyle = {
@@ -86,7 +86,7 @@ export const UpdatePrintShopForm = ({
       longitude,
       introduction,
       businessHours,
-      tagIds: flattenTags(tags).map((tag) => tag.id),
+      tagIds: flattenArray(tags).map((tag) => tag.id),
     },
   });
 
@@ -369,7 +369,7 @@ export const UpdatePrintShopForm = ({
                         renderValue={(selected) => (
                           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                             {(selected as number[]).map((value) => {
-                              const item = flattenTags(tagHierarchies[sampleTag.id] || []).find(
+                              const item = flattenArray(tagHierarchies[sampleTag.id] || []).find(
                                 (tag) => tag.id === value
                               );
                               if (!item) {
@@ -380,7 +380,7 @@ export const UpdatePrintShopForm = ({
                           </Box>
                         )}
                       >
-                        {flattenTags(tagHierarchies[sampleTag.id] || [])
+                        {flattenArray(tagHierarchies[sampleTag.id] || [])
                           .filter((tag) => !tag.children.length)
                           .map((tag) => (
                             <MenuItem key={tag.id} value={tag.id}>

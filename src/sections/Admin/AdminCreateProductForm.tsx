@@ -23,7 +23,6 @@ import {
 import Iconify from 'src/components/iconify/iconify';
 import { useSnackbar } from 'notistack';
 import axios from 'src/utils/axios';
-import { flattenTags } from 'src/utils/tags';
 import useFileUpload from 'src/hooks/useFileUpload';
 import { useNavigate } from 'react-router';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -33,6 +32,7 @@ import { useCategory } from 'src/hooks/useCategory';
 import RHFEditor from 'src/components/hook-form/rhf-editor';
 import FormProvider from 'src/components/hook-form/form-provider';
 import { AdminCreateProduct } from 'src/types/admin.product';
+import { flattenArray } from 'src/utils/flatten-array';
 import { FileUploadButton } from '../common/FileUploadButton';
 import { FilesUploadButton } from '../common/FilesUploadButton';
 
@@ -372,7 +372,7 @@ export const AdminCreateProductForm = ({
                         renderValue={(selected) => (
                           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                             {(selected as number[]).map((value) => {
-                              const item = flattenTags(
+                              const item = flattenArray(
                                 tagHierarchies[topTagByCurrentCategory.id] || []
                               ).find((tag) => tag.id === value);
                               if (!item) {
@@ -383,7 +383,7 @@ export const AdminCreateProductForm = ({
                           </Box>
                         )}
                       >
-                        {flattenTags(tagHierarchies[topTagByCurrentCategory.id] || [])
+                        {flattenArray(tagHierarchies[topTagByCurrentCategory.id] || [])
                           .filter((tag) => !tag.children.length)
                           .map((tag) => (
                             <MenuItem key={tag.id} value={tag.id}>

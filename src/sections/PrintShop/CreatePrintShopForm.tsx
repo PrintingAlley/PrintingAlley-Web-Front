@@ -28,9 +28,9 @@ import useFileUpload from 'src/hooks/useFileUpload';
 import useLatLng from 'src/hooks/useLatLng';
 import { useNavigate } from 'react-router';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { flattenTags } from 'src/utils/tags';
 import { TagInterface } from 'src/types/response.dto';
 import { printShopTypes } from 'src/constants/print-shop-type';
+import { flattenArray } from 'src/utils/flatten-array';
 import { FileUploadButton } from '../common/FileUploadButton';
 
 const postCodeStyle = {
@@ -344,7 +344,7 @@ export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrin
                         renderValue={(selected) => (
                           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                             {(selected as number[]).map((value) => {
-                              const item = flattenTags(tagHierarchies[sampleTag.id] || []).find(
+                              const item = flattenArray(tagHierarchies[sampleTag.id] || []).find(
                                 (tag) => tag.id === value
                               );
                               if (!item) {
@@ -355,7 +355,7 @@ export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrin
                           </Box>
                         )}
                       >
-                        {flattenTags(tagHierarchies[sampleTag.id] || [])
+                        {flattenArray(tagHierarchies[sampleTag.id] || [])
                           .filter((tag) => !tag.children.length)
                           .map((tag) => (
                             <MenuItem key={tag.id} value={tag.id}>
