@@ -28,6 +28,7 @@ import useLatLng from 'src/hooks/useLatLng';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { PrintShopDetail, TagInterface } from 'src/types/response.dto';
 import { flattenTags } from 'src/utils/tags';
+import { printShopTypes } from 'src/constants/print-shop-type';
 import { FileUploadButton } from '../common/FileUploadButton';
 
 const postCodeStyle = {
@@ -163,8 +164,11 @@ export const UpdatePrintShopForm = ({
                 rules={{ required: '인쇄사 유형은 필수입니다.' }}
                 render={({ field }) => (
                   <Select labelId="type-label" label="인쇄사 유형" {...field}>
-                    <MenuItem value="인쇄사">인쇄사</MenuItem>
-                    <MenuItem value="인쇄 기획사">인쇄 기획사</MenuItem>
+                    {printShopTypes.map((printShopType) => (
+                      <MenuItem key={printShopType} value={printShopType}>
+                        {printShopType}
+                      </MenuItem>
+                    ))}
                   </Select>
                 )}
               />

@@ -30,6 +30,7 @@ import { useNavigate } from 'react-router';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { flattenTags } from 'src/utils/tags';
 import { TagInterface } from 'src/types/response.dto';
+import { printShopTypes } from 'src/constants/print-shop-type';
 import { FileUploadButton } from '../common/FileUploadButton';
 
 const postCodeStyle = {
@@ -54,7 +55,7 @@ export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrin
   } = useForm<CreatePrintShop>({
     mode: 'onChange',
     defaultValues: {
-      type: '인쇄사',
+      type: printShopTypes[0],
       latitude: '0',
       longitude: '0',
     },
@@ -138,8 +139,11 @@ export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrin
                 rules={{ required: '인쇄사 유형은 필수입니다.' }}
                 render={({ field }) => (
                   <Select labelId="type-label" label="인쇄사 유형" {...field}>
-                    <MenuItem value="인쇄사">인쇄사</MenuItem>
-                    <MenuItem value="인쇄 기획사">인쇄 기획사</MenuItem>
+                    {printShopTypes.map((printShopType) => (
+                      <MenuItem key={printShopType} value={printShopType}>
+                        {printShopType}
+                      </MenuItem>
+                    ))}
                   </Select>
                 )}
               />
