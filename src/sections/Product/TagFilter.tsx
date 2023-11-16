@@ -99,21 +99,23 @@ export const TagFilter = ({
       <Accordion
         variant="outlined"
         sx={{
-          borderRadius: 1,
-          '&.MuiAccordion-root:before': {
-            display: 'none',
-          },
+          '&.MuiAccordion-root': { borderRadius: 3 },
+          '&.MuiAccordion-root:before': { display: 'none' },
         }}
         disableGutters
       >
         <AccordionSummary expandIcon={<Iconify icon="ic:round-expand-more" />}>
           <Stack spacing={1}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 0.5,
+                color: selectedTags.length ? 'primary.main' : 'text.disabled',
+              }}
+            >
               <Typography variant="subtitle1">필터</Typography>
-              <Iconify
-                icon="ic:round-filter-alt"
-                color={selectedTags.length ? 'primary.light' : 'text.disabled'}
-              />
+              <Iconify icon="ic:baseline-filter-list" />
             </Box>
             {tagList.length ? (
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, overflow: 'auto' }}>
