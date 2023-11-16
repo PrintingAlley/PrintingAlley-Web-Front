@@ -3,17 +3,19 @@ import Iconify from 'src/components/iconify';
 import { PrintShopDetail } from 'src/types/response.dto';
 import LightboxForSingleImage from '../common/LightboxForSingleImage';
 
-interface Props {
+interface PrintShopInfoProps {
   printShop: PrintShopDetail;
+  actions: React.ReactNode;
 }
 
-const PrintShopInfo = ({ printShop }: Props) => (
+const PrintShopInfo = ({ printShop, actions }: PrintShopInfoProps) => (
   <Grid container spacing={{ xs: 5, md: 3 }}>
     <Grid item xs={12} md={4}>
       <Stack alignItems="center">
         <LightboxForSingleImage
           src={printShop.logoImage}
           sx={{
+            mt: { xs: 0, md: 5 },
             width: 1,
             height: 'auto',
             aspectRatio: 1,
@@ -24,6 +26,7 @@ const PrintShopInfo = ({ printShop }: Props) => (
       </Stack>
     </Grid>
     <Grid item xs={12} md={8} sx={{ svg: { minWidth: 20 } }}>
+      <Stack alignItems="flex-end">{actions}</Stack>
       <Typography variant="subtitle1" color="secondary.dark">
         {printShop.type}
       </Typography>

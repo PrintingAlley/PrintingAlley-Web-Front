@@ -123,15 +123,11 @@ export default function BookmarkModal({ product, fetchProduct }: Props) {
 
   return (
     <>
-      <Button
-        color="primary"
-        onClick={handleOpen}
-        startIcon={
+      <Tooltip title={product.isBookmarked ? '북마크 관리' : '북마크 추가하기'}>
+        <IconButton color="primary" onClick={handleOpen}>
           <Iconify icon={product.isBookmarked ? 'mdi:bookmark' : 'mdi:bookmark-outline'} />
-        }
-      >
-        {product.isBookmarked ? '다른 그룹에 북마크 추가하기' : '북마크 추가하기'}
-      </Button>
+        </IconButton>
+      </Tooltip>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle
           sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}

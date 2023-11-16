@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { PrintShopDetail, ProductDetail } from 'src/types/response.dto';
 import Iconify from 'src/components/iconify';
-import { Box, IconButton, Tooltip } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
 import { KAKAO_KEY } from 'src/config-global';
 
 interface ShareButtonProps {
@@ -41,6 +41,7 @@ const KakaoShareButton: React.FC<ShareButtonProps> = ({ productDetail, printShop
         social: {
           likeCount: productDetail.bookmarkCount,
           commentCount: productDetail.reviews.length,
+          viewCount: productDetail.viewCount,
         },
         buttons: [
           {
@@ -68,6 +69,7 @@ const KakaoShareButton: React.FC<ShareButtonProps> = ({ productDetail, printShop
         address: printShopDetail.address,
         social: {
           commentCount: printShopDetail.reviews.length,
+          viewCount: printShopDetail.viewCount,
         },
         buttons: [
           {
@@ -84,13 +86,11 @@ const KakaoShareButton: React.FC<ShareButtonProps> = ({ productDetail, printShop
   }, [productDetail, printShopDetail]);
 
   return (
-    <Box sx={{ position: 'relative' }}>
-      <Tooltip title="카카오톡으로 공유하기">
-        <IconButton onClick={sendKakaoMessage} sx={{ position: 'absolute', right: 0, top: 4 }}>
-          <Iconify icon="ri:kakao-talk-fill" />
-        </IconButton>
-      </Tooltip>
-    </Box>
+    <Tooltip title="카카오톡으로 공유하기">
+      <IconButton color="secondary" onClick={sendKakaoMessage}>
+        <Iconify icon="mdi:share-variant" />
+      </IconButton>
+    </Tooltip>
   );
 };
 

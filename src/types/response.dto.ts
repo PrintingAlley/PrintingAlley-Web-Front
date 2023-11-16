@@ -72,6 +72,7 @@ export interface ProductInterface {
   description: string;
   mainImage: string;
   images: string[];
+  viewCount: number;
   createdAt: string;
   updateAt: string;
 }
@@ -90,6 +91,7 @@ export interface PrintShopInterface {
   latitude: string;
   longitude: string;
   businessHours: string;
+  viewCount: number;
   createdAt: string;
   updateAt: string;
 }

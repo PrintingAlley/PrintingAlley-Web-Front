@@ -1,6 +1,6 @@
 import { Box, Button, ButtonGroup, Divider, Typography } from '@mui/material';
 import axios from 'src/utils/axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import SkeletonSection from 'src/sections/common/SkeletonSection';
 import { UpdatePrintShopDialog } from 'src/sections/PrintShop/UpdatePrintShopDialog';
@@ -19,16 +19,24 @@ import PrintShopInfo from 'src/sections/PrintShop/PrintShopInfo';
 import PrintShopProducts from 'src/sections/PrintShop/PrintShopProducts';
 import PrintShopLocation from 'src/sections/PrintShop/PrintShopLocation';
 import Iconify from 'src/components/iconify';
-import KakaoShareButton from 'src/sections/common/KakaoShareButton';
 import { Helmet } from 'react-helmet-async';
 import LightboxForSingleImage from 'src/sections/common/LightboxForSingleImage';
+import { increasePrintShopViewCount } from 'src/apis/view-count';
+import PrintShopActions from 'src/sections/PrintShop/PrintShopActions';
 
 export default function PrintShopDetailPage() {
   const { id } = useParams();
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [printShop, setPrintShop] = useState<PrintShopDetail | null>(null);
   const [reviews, setReviews] = useState<PrintShopReviewWithUser[] | null>(null);
+  const reviewSectionRef = useRef<HTMLDivElement>(null);
+
+  const scrollToReviewSection = () => {
+    if (reviewSectionRef.current) {
+      reviewSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   const fetchPrintShop = () => {
     axios.get<GetPrintShopResponse>(`print-shop/${id}`).then((response) => {
@@ -59,8 +67,10 @@ export default function PrintShopDetailPage() {
   };
 
   useEffect(() => {
+    if (!id) return;
     fetchPrintShop();
     fetchReviews();
+    increasePrintShopViewCount(Number(id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -74,11 +84,20 @@ export default function PrintShopDetailPage() {
 
           <NavigateBackButton />
 
-          <KakaoShareButton printShopDetail={printShop} />
+          <CenteredTitle title={printShop.name} sx={{ mt: 8, mb: { xs: 5, md: 3 } }} />
 
-          <CenteredTitle title={printShop.name} sx={{ mt: 8, mb: 5 }} />
-
-          <PrintShopInfo printShop={printShop} />
+          <PrintShopInfo
+            printShop={printShop}
+            actions={
+              <PrintShopActions
+                printShop={printShop}
+                reviews={reviews}
+                isAuthenticated={isAuthenticated}
+                onReviewScroll={scrollToReviewSection}
+                fetchPrintShop={fetchPrintShop}
+              />
+            }
+          />
 
           <Divider sx={{ my: 2 }} />
 
@@ -104,14 +123,16 @@ export default function PrintShopDetailPage() {
 
           <Divider sx={{ my: 2 }} />
 
-          {reviews && (
-            <ReviewSection
-              type="print-shop"
-              targetId={printShop.id}
-              reviews={reviews}
-              fetchReviews={fetchReviews}
-            />
-          )}
+          <Box ref={reviewSectionRef}>
+            {reviews && (
+              <ReviewSection
+                type="print-shop"
+                targetId={printShop.id}
+                reviews={reviews}
+                fetchReviews={fetchReviews}
+              />
+            )}
+          </Box>
 
           <Box sx={{ height: 64 }} />
 

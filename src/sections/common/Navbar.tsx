@@ -23,7 +23,7 @@ const navbarItems = [
     path: '/',
   },
   {
-    label: '인쇄사 목록',
+    label: '인쇄사 찾기',
     path: '/print-shop',
   },
   {
@@ -125,7 +125,7 @@ const Navbar = () => {
             </Menu>
           </Box>
           <Box sx={{ mx: 0.5 }}>
-            <LoginModal isIconButton />
+            <LoginModal iconButton />
             <AccountPopover />
           </Box>
           <ThemeModeToggle />

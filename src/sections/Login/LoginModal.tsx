@@ -48,11 +48,12 @@ const loginProviders = [
 ];
 
 interface Props {
-  variant?: 'contained' | 'outlined' | 'text';
+  variant?: 'contained' | 'outlined' | 'text' | 'soft';
   text?: string;
   color?: 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success' | 'inherit';
   startIcon?: React.ReactNode;
-  isIconButton?: boolean;
+  iconButton?: boolean;
+  bookmarkIcon?: boolean;
 }
 
 export default function LoginModal({
@@ -60,7 +61,8 @@ export default function LoginModal({
   text = '로그인',
   color = 'inherit',
   startIcon,
-  isIconButton = false,
+  iconButton = false,
+  bookmarkIcon = false,
 }: Props) {
   const { handleLoginRedirect, isAuthenticated, isLoading } = useAuth();
   const [open, setOpen] = useState(false);
@@ -75,12 +77,22 @@ export default function LoginModal({
     <>
       {!isAuthenticated && (
         <>
-          {isIconButton ? (
-            <Tooltip title="로그인">
-              <IconButton onClick={handleOpen} sx={{ width: 40, height: 40 }} color="inherit">
-                <Iconify icon="ic:round-login" />
-              </IconButton>
-            </Tooltip>
+          {iconButton ? (
+            <>
+              {bookmarkIcon ? (
+                <Tooltip title="로그인하여 북마크에 추가하기">
+                  <IconButton color="primary" onClick={handleOpen}>
+                    <Iconify icon="mdi:bookmark-outline" />
+                  </IconButton>
+                </Tooltip>
+              ) : (
+                <Tooltip title="로그인">
+                  <IconButton onClick={handleOpen} sx={{ width: 40, height: 40 }} color="inherit">
+                    <Iconify icon="ic:round-login" />
+                  </IconButton>
+                </Tooltip>
+              )}
+            </>
           ) : (
             <Button variant={variant} color={color} startIcon={startIcon} onClick={handleOpen}>
               {text}

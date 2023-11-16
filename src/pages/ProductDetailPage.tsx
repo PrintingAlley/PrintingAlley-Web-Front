@@ -1,17 +1,6 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Chip,
-  Divider,
-  Grid,
-  Link,
-  Stack,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { Box, Button, ButtonGroup, Chip, Divider, Typography } from '@mui/material';
 import axios from 'src/utils/axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import SkeletonSection from 'src/sections/common/SkeletonSection';
 import CenteredTitle from 'src/sections/common/CenteredTitle';
@@ -23,80 +12,16 @@ import {
 } from 'src/types/response.dto';
 import ProductDetailsCarousel from 'src/sections/Product/ProductDetailsCarousel';
 import useAuth from 'src/hooks/useAuth';
-import { NavLink } from 'react-router-dom';
 import { DeleteProductButton } from 'src/sections/Product/DeleteProductButton';
 import { UpdateProductDialog } from 'src/sections/Product/UpdateProductDialog';
 import NavigateBackButton from 'src/sections/common/NavigateBackButton';
 import { ReviewSection } from 'src/sections/Review/ReviewSection';
 import Markdown from 'src/components/markdown';
-import BookmarkModal from 'src/sections/Product/BookmarkModal';
-import LoginModal from 'src/sections/Login/LoginModal';
 import Iconify from 'src/components/iconify';
-import KakaoShareButton from 'src/sections/common/KakaoShareButton';
 import { Helmet } from 'react-helmet-async';
-import LightboxForSingleImage from 'src/sections/common/LightboxForSingleImage';
-
-function ProductInformation({ product }: { product: ProductDetail }) {
-  return (
-    <Grid container spacing={{ xs: 5, md: 3 }}>
-      <Grid item xs={12} md={4}>
-        <Stack alignItems="center">
-          <LightboxForSingleImage
-            src={product.mainImage}
-            sx={{
-              width: 1,
-              height: 'auto',
-              aspectRatio: 1,
-              maxWidth: { xs: 200, md: 1 },
-              borderRadius: 1.5,
-            }}
-          />
-        </Stack>
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        md={8}
-        sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
-      >
-        <Typography variant="subtitle1" color="text.secondary">
-          {product.category.name}
-        </Typography>
-        <Divider sx={{ my: 0.5 }} />
-        <Typography>
-          <b>제작 인쇄사</b>{' '}
-          <Tooltip title="인쇄사 페이지로 이동">
-            <Link component={NavLink} to={`/print-shop/${product.printShop.id}`}>
-              {product.printShop.name}
-            </Link>
-          </Tooltip>
-        </Typography>
-        <Divider sx={{ my: 0.5 }} />
-        <Typography>
-          <b>디자인</b> {product.designer}
-        </Typography>
-        <Divider sx={{ my: 0.5 }} />
-        <Typography>
-          <b>제품 크기</b> {product.size}
-        </Typography>
-        <Divider sx={{ my: 0.5 }} />
-        <Typography>
-          <b>종이</b> {product.paper}
-        </Typography>
-        <Divider sx={{ my: 0.5 }} />
-        <Typography>
-          <b>인쇄 방식</b> {product.printType}
-        </Typography>
-        <Divider sx={{ my: 0.5 }} />
-        <Typography>
-          <b>후가공</b> {product.afterProcess}
-        </Typography>
-        <Divider sx={{ my: 0.5 }} />
-        <Typography>{product.introduction}</Typography>
-      </Grid>
-    </Grid>
-  );
-}
+import { increaseProductViewCount } from 'src/apis/view-count';
+import ProductInfo from 'src/sections/Product/ProductInfo';
+import ProductActions from 'src/sections/Product/ProductActions';
 
 export default function ProductDetailPage() {
   const { id } = useParams();
@@ -104,6 +29,13 @@ export default function ProductDetailPage() {
   const navigate = useNavigate();
   const [product, setProduct] = useState<ProductDetail | null>(null);
   const [reviews, setReviews] = useState<ProductReviewWithUser[] | null>(null);
+  const reviewSectionRef = useRef<HTMLDivElement>(null);
+
+  const scrollToReviewSection = () => {
+    if (reviewSectionRef.current) {
+      reviewSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   const fetchProduct = () => {
     axios.get<GetProductResponse>(`/product/${id}`).then((response) => {
@@ -130,8 +62,10 @@ export default function ProductDetailPage() {
   };
 
   useEffect(() => {
+    if (!id) return;
     fetchProduct();
     fetchReviews();
+    increaseProductViewCount(Number(id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -145,25 +79,20 @@ export default function ProductDetailPage() {
 
           <NavigateBackButton />
 
-          <KakaoShareButton productDetail={product} />
+          <CenteredTitle title={product.name} sx={{ mt: 8, mb: { xs: 5, md: 3 } }} />
 
-          <CenteredTitle title={product.name} sx={{ mt: 8, mb: 5 }} />
-
-          <ProductInformation product={product} />
-
-          <Divider sx={{ my: 2 }} />
-
-          <Stack alignItems="center" justifyContent="center">
-            {isAuthenticated ? (
-              <BookmarkModal product={product} fetchProduct={fetchProduct} />
-            ) : (
-              <LoginModal
-                text="로그인하여 북마크에 추가하기"
-                color="primary"
-                startIcon={<Iconify icon="mdi:bookmark-outline" />}
+          <ProductInfo
+            product={product}
+            actions={
+              <ProductActions
+                product={product}
+                reviews={reviews}
+                isAuthenticated={isAuthenticated}
+                onReviewScroll={scrollToReviewSection}
+                fetchProduct={fetchProduct}
               />
-            )}
-          </Stack>
+            }
+          />
 
           <Divider sx={{ my: 2 }} />
 
@@ -192,14 +121,16 @@ export default function ProductDetailPage() {
 
           <Divider sx={{ my: 2 }} />
 
-          {reviews && (
-            <ReviewSection
-              type="product"
-              targetId={product.id}
-              reviews={reviews}
-              fetchReviews={fetchReviews}
-            />
-          )}
+          <Box ref={reviewSectionRef}>
+            {reviews && (
+              <ReviewSection
+                type="product"
+                targetId={product.id}
+                reviews={reviews}
+                fetchReviews={fetchReviews}
+              />
+            )}
+          </Box>
 
           <Box sx={{ height: 64 }} />
 
