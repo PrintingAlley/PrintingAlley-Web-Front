@@ -29,23 +29,26 @@ import PageContainer from './sections/common/PageContainer';
 import ScrollToTop from './sections/common/ScrollToTop';
 import Router from './Router';
 import Footer from './sections/common/Footer';
+import { LocalizationProvider } from './locales';
 
 // ----------------------------------------------------------------------
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <MotionLazy>
-        <SnackbarProvider>
-          <ProgressBar />
-          <Navbar />
-          <ScrollToTop />
-          <PageContainer>
-            <Router />
-          </PageContainer>
-          <Footer />
-        </SnackbarProvider>
-      </MotionLazy>
-    </ThemeProvider>
+    <LocalizationProvider>
+      <ThemeProvider>
+        <MotionLazy>
+          <SnackbarProvider>
+            <ProgressBar />
+            <Navbar />
+            <ScrollToTop />
+            <PageContainer>
+              <Router />
+            </PageContainer>
+            <Footer />
+          </SnackbarProvider>
+        </MotionLazy>
+      </ThemeProvider>
+    </LocalizationProvider>
   );
 }

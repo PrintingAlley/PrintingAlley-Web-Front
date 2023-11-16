@@ -30,6 +30,7 @@ import { PrintShopDetail, TagInterface } from 'src/types/response.dto';
 import { printShopTypes } from 'src/constants/print-shop-type';
 import { flattenArray } from 'src/utils/flatten-array';
 import { FileUploadButton } from '../common/FileUploadButton';
+import BusinessHoursForm from '../common/BusinessHoursForm';
 
 const postCodeStyle = {
   height: '450px',
@@ -65,6 +66,7 @@ export const UpdatePrintShopForm = ({
   } = printShop;
   const { enqueueSnackbar } = useSnackbar();
   const {
+    watch,
     control,
     handleSubmit,
     register,
@@ -89,6 +91,11 @@ export const UpdatePrintShopForm = ({
       tagIds: flattenArray(tags).map((tag) => tag.id),
     },
   });
+
+  const watchBusinessHours = watch('businessHours');
+  const onSubmitBusinessHours = (data: string) => {
+    setValue('businessHours', data);
+  };
 
   const {
     handleFileChange: handleLogoFileChange,
@@ -189,14 +196,17 @@ export const UpdatePrintShopForm = ({
               error={Boolean(errors.email)}
               helperText={errors.email?.message}
             />
-            <TextField
-              {...register('businessHours', { required: '영업시간은 필수입니다.' })}
-              label="영업시간"
-              placeholder="예: 월-금: 09:00-18:00, 토: 10:00-14:00"
-              error={Boolean(errors.businessHours)}
-              helperText={errors.businessHours?.message || '요일별 영업시간을 입력하세요'}
-              fullWidth
-            />
+            <Stack direction="row" spacing={1.5} alignItems="center">
+              <TextField
+                value={watchBusinessHours}
+                placeholder="오른쪽 버튼을 눌러 영업 시간을 설정해주세요"
+                error={Boolean(errors.businessHours)}
+                helperText={errors.businessHours?.message}
+                fullWidth
+                InputProps={{ readOnly: true }}
+              />
+              <BusinessHoursForm onSubmit={onSubmitBusinessHours} />
+            </Stack>
             <TextField
               {...register('homepage')}
               type="url"
@@ -399,7 +409,6 @@ export const UpdatePrintShopForm = ({
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <LoadingButton
-            sx={{ gridColumn: '1 / span 2' }}
             type="submit"
             size="large"
             startIcon={<Iconify icon="ic:baseline-edit" />}
