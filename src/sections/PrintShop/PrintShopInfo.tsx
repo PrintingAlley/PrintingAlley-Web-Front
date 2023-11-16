@@ -23,7 +23,7 @@ const PrintShopInfo = ({ printShop }: Props) => (
         />
       </Stack>
     </Grid>
-    <Grid item xs={12} md={8}>
+    <Grid item xs={12} md={8} sx={{ svg: { minWidth: 20 } }}>
       <Typography variant="subtitle1" color="secondary.dark">
         {printShop.type}
       </Typography>
@@ -52,18 +52,17 @@ const PrintShopInfo = ({ printShop }: Props) => (
           {printShop.email}
         </Link>
       </Box>
-      <Divider sx={{ my: 0.5 }} />
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <Iconify icon="carbon:link" color="text.secondary" />
-        <Link
-          color="primary"
-          href={printShop.homepage}
-          target="_blank"
-          sx={{ textOverflow: 'ellipsis', overflow: 'hidden', width: 1 }}
-        >
-          {printShop.homepage}
-        </Link>
-      </Box>
+      {printShop.homepage && (
+        <>
+          <Divider sx={{ my: 0.5 }} />
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Iconify icon="carbon:link" color="text.secondary" />
+            <Link color="primary" href={printShop.homepage} target="_blank" noWrap>
+              {printShop.homepage}
+            </Link>
+          </Box>
+        </>
+      )}
       <Divider sx={{ my: 0.5 }} />
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
         <Iconify icon="carbon:time" color="text.secondary" />
@@ -74,16 +73,24 @@ const PrintShopInfo = ({ printShop }: Props) => (
         <Iconify icon="carbon:chat" color="text.secondary" />
         <Typography>{printShop.introduction}</Typography>
       </Box>
-      <Divider sx={{ my: 0.5 }} />
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <Iconify icon="carbon:printer" color="text.secondary" />
-        <Typography>{printShop.printType}</Typography>
-      </Box>
-      <Divider sx={{ my: 0.5 }} />
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <Iconify icon="carbon:cut" color="text.secondary" />
-        <Typography>{printShop.afterProcess}</Typography>
-      </Box>
+      {printShop.printType && (
+        <>
+          <Divider sx={{ my: 0.5 }} />
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Iconify icon="carbon:printer" color="text.secondary" />
+            <Typography>{printShop.printType}</Typography>
+          </Box>
+        </>
+      )}
+      {printShop.afterProcess && (
+        <>
+          <Divider sx={{ my: 0.5 }} />
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Iconify icon="carbon:cut" color="text.secondary" />
+            <Typography>{printShop.afterProcess}</Typography>
+          </Box>
+        </>
+      )}
     </Grid>
   </Grid>
 );
