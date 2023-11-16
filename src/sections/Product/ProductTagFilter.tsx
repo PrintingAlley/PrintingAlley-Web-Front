@@ -15,7 +15,7 @@ import { varFade } from 'src/components/animate';
 import Iconify from 'src/components/iconify';
 import { TagInterface } from 'src/types/response.dto';
 
-interface TagFilterProps {
+interface ProductTagFilterProps {
   selectedTopLevelTag: TagInterface | null;
   setSelectedTopLevelTag: Dispatch<SetStateAction<TagInterface | null>>;
   selectedTags: TagInterface[];
@@ -24,14 +24,14 @@ interface TagFilterProps {
   tags: Record<number, TagInterface[]>;
 }
 
-export const TagFilter = ({
+export const ProductTagFilter = ({
   selectedTopLevelTag,
   setSelectedTopLevelTag,
   selectedTags,
   setSelectedTags,
   topLevelTags,
   tags,
-}: TagFilterProps) => {
+}: ProductTagFilterProps) => {
   const handleTagClick = (tag: TagInterface) => {
     if (selectedTags.includes(tag)) {
       setSelectedTags((prev) => prev.filter((id) => id !== tag));
@@ -117,8 +117,8 @@ export const TagFilter = ({
               <Typography variant="subtitle1">필터</Typography>
               <Iconify icon="ic:baseline-filter-list" />
             </Box>
-            {tagList.length ? (
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, overflow: 'auto' }}>
+            {selectedTags.length ? (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                 {selectedTags.map((tag) => (
                   <Chip
                     key={tag.id}

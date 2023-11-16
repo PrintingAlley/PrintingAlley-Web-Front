@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { Box, Pagination, Stack } from '@mui/material';
 import axios from 'src/utils/axios';
 import { useTag } from 'src/hooks/useTag';
-import { TagFilter } from 'src/sections/Product/TagFilter';
 import { SearchBar } from 'src/sections/common/SearchBar';
 import CenteredTitle from 'src/sections/common/CenteredTitle';
 import { GetProductsResponse, ProductWithTags, TagInterface } from 'src/types/response.dto';
 import { ProductList } from 'src/sections/Product/ProductList';
 import { Helmet } from 'react-helmet-async';
+import { ProductTagFilter } from 'src/sections/Product/ProductTagFilter';
 
 export default function ProductPage() {
   const { topLevelTags, tagHierarchies } = useTag();
@@ -53,7 +53,7 @@ export default function ProductPage() {
 
       <SearchBar onSearch={setSearchText} resetSearch={resetSearch} />
 
-      <TagFilter
+      <ProductTagFilter
         selectedTopLevelTag={selectedTopLevelTag}
         setSelectedTopLevelTag={setSelectedTopLevelTag}
         selectedTags={selectedTags}

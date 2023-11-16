@@ -1,17 +1,10 @@
 import { Box, Button, ButtonGroup, Divider, Typography } from '@mui/material';
-import axios from 'src/utils/axios';
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import SkeletonSection from 'src/sections/common/SkeletonSection';
 import { UpdatePrintShopDialog } from 'src/sections/PrintShop/UpdatePrintShopDialog';
 import { DeletePrintShopButton } from 'src/sections/PrintShop/DeletePrintShopButton';
 import CenteredTitle from 'src/sections/common/CenteredTitle';
-import {
-  GetPrintShopResponse,
-  GetPrintShopReviewsResponse,
-  PrintShopDetail,
-  PrintShopReviewWithUser,
-} from 'src/types/response.dto';
 import useAuth from 'src/hooks/useAuth';
 import NavigateBackButton from 'src/sections/common/NavigateBackButton';
 import { ReviewSection } from 'src/sections/Review/ReviewSection';
@@ -21,33 +14,21 @@ import PrintShopLocation from 'src/sections/PrintShop/PrintShopLocation';
 import Iconify from 'src/components/iconify';
 import { Helmet } from 'react-helmet-async';
 import LightboxForSingleImage from 'src/sections/common/LightboxForSingleImage';
-import { increasePrintShopViewCount } from 'src/apis/view-count';
 import PrintShopActions from 'src/sections/PrintShop/PrintShopActions';
+import usePrintShopData from 'src/hooks/usePrintShopData';
 
 export default function PrintShopDetailPage() {
   const { id } = useParams();
   const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const [printShop, setPrintShop] = useState<PrintShopDetail | null>(null);
-  const [reviews, setReviews] = useState<PrintShopReviewWithUser[] | null>(null);
   const reviewSectionRef = useRef<HTMLDivElement>(null);
+
+  const { printShop, reviews, fetchPrintShop, fetchReviews } = usePrintShopData(id);
 
   const scrollToReviewSection = () => {
     if (reviewSectionRef.current) {
       reviewSectionRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  };
-
-  const fetchPrintShop = () => {
-    axios.get<GetPrintShopResponse>(`print-shop/${id}`).then((response) => {
-      setPrintShop(response.data.printShop);
-    });
-  };
-
-  const fetchReviews = () => {
-    axios.get<GetPrintShopReviewsResponse>(`/print-shop/${id}/review`).then((response) => {
-      setReviews(response.data.printShopReviews);
-    });
   };
 
   const onAdd = () => {
@@ -65,14 +46,6 @@ export default function PrintShopDetailPage() {
   const navigateToAdminNewProductPage = () => {
     navigate(`/admin/product/new/${id}`);
   };
-
-  useEffect(() => {
-    if (!id) return;
-    fetchPrintShop();
-    fetchReviews();
-    increasePrintShopViewCount(Number(id));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
 
   return (
     <>
