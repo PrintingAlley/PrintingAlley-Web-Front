@@ -56,21 +56,21 @@ export const ProductTagFilter = ({
   const tagList = selectedTopLevelTag ? tags[selectedTopLevelTag.id] : [];
 
   return (
-    <Stack spacing={3} mb={1}>
+    <Stack spacing={3} my={1}>
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'center',
-          gap: 2,
+          gap: 3.5,
           flexWrap: 'wrap',
         }}
       >
         {topLevelTags.map((tag) => {
           const isSelected = selectedTopLevelTag?.id === tag.id;
           return (
-            <Stack key={tag.id} alignItems="center">
+            <Stack key={tag.id} alignItems="center" gap={0.5}>
               <IconButton
-                size="small"
+                sx={{ p: 0 }}
                 onClick={() => {
                   toggleTopLevelTag(tag);
                 }}

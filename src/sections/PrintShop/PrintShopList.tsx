@@ -25,10 +25,10 @@ export const PrintShopList = ({ printShops }: PrintShopListProps) => {
   return (
     <>
       {printShops.length ? (
-        <List>
+        <List disablePadding>
           {printShops.map((shop) => (
             <ListItem key={shop.id} disablePadding>
-              <ListItemButton onClick={() => goToPrintShopPage(shop)}>
+              <ListItemButton onClick={() => goToPrintShopPage(shop)} disableGutters>
                 <ListItemAvatar>
                   <Avatar
                     alt="Logo"

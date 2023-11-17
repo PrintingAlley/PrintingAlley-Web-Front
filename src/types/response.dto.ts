@@ -86,8 +86,8 @@ export interface PrintShopInterface {
   email: string;
   homepage: string;
   introduction: string;
-  logoImage: string;
-  backgroundImage: string;
+  logoImage: string | null;
+  backgroundImage: string | null;
   latitude: string;
   longitude: string;
   businessHours: string;

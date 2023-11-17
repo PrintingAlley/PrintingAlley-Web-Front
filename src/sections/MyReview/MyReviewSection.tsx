@@ -21,6 +21,7 @@ import {
 } from 'src/types/response.dto';
 import { fToNow } from 'src/utils/format-time';
 import { useNavigate } from 'react-router';
+import { PLACEHOLDER_IMAGE_PATH } from 'src/constants/image-path';
 import DeleteReviewButton from '../Review/DeleteReviewButton';
 import ReviewImageLightbox from '../Review/ReviewImageLightbox';
 
@@ -49,9 +50,9 @@ function ReviewItem({
           <Avatar
             alt="Logo"
             src={
-              type === 'print-shop'
+              (type === 'print-shop'
                 ? (target as PrintShopInterface).logoImage
-                : (target as ProductInterface).mainImage
+                : (target as ProductInterface).mainImage) || PLACEHOLDER_IMAGE_PATH
             }
             variant="rounded"
           />
