@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import useAuth from './hooks/useAuth';
 import BookmarkPage from './pages/BookmarkPage';
 import ContentDetailPage from './pages/ContentDetailPage';
@@ -19,6 +19,7 @@ import AdminUpdateProductPage from './pages/Admin/AdminUpdateProductPage';
 import ProtectedRoute from './sections/Auth/ProtectedRoute';
 import AdminProtectedRoute from './sections/Auth/AdminProtectedRoute';
 import { UserType } from './types/response.dto';
+import NotFoundPage from './pages/NotFoundPage';
 
 function createProtectedRoute(path: string, Component: React.ComponentType) {
   return (
@@ -75,7 +76,7 @@ export default function Router() {
         createAdminRoute('/content/new', NewContentPage),
       ]}
 
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }

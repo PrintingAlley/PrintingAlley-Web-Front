@@ -7,14 +7,26 @@ import {
   PrintShopReviewWithUser,
 } from 'src/types/response.dto';
 import { increasePrintShopViewCount } from 'src/apis/view-count';
+import { useNavigate } from 'react-router';
 
 const usePrintShopData = (printShopId: string | undefined) => {
+  const navigate = useNavigate();
   const [printShop, setPrintShop] = useState<PrintShopDetail | null>(null);
   const [reviews, setReviews] = useState<PrintShopReviewWithUser[] | null>(null);
 
   const fetchPrintShop = async () => {
-    const response = await axios.get<GetPrintShopResponse>(`/print-shop/${printShopId}`);
-    setPrintShop(response.data.printShop);
+    axios
+      .get<GetPrintShopResponse>(`/print-shop/${printShopId}`)
+      .then((res) => {
+        setPrintShop(res.data.printShop);
+        fetchReviews();
+        increaseViewCount();
+        return res;
+      })
+      .catch((err) => {
+        navigate('/404');
+        return err;
+      });
   };
 
   const fetchReviews = async () => {
@@ -31,8 +43,6 @@ const usePrintShopData = (printShopId: string | undefined) => {
   useEffect(() => {
     if (!printShopId) return;
     fetchPrintShop();
-    fetchReviews();
-    increaseViewCount();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [printShopId]);
 

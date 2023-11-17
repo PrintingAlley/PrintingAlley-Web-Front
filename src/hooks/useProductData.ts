@@ -7,15 +7,26 @@ import {
   ProductReviewWithUser,
 } from 'src/types/response.dto';
 import { increaseProductViewCount } from 'src/apis/view-count';
+import { useNavigate } from 'react-router';
 
 const useProductData = (productId: string | undefined) => {
+  const navigate = useNavigate();
   const [product, setProduct] = useState<ProductDetail | null>(null);
   const [reviews, setReviews] = useState<ProductReviewWithUser[] | null>(null);
 
-  const fetchProduct = async () => {
-    const response = await axios.get<GetProductResponse>(`/product/${productId}`);
-    setProduct(response.data.product);
-  };
+  const fetchProduct = async () =>
+    axios
+      .get<GetProductResponse>(`/product/${productId}`)
+      .then((res) => {
+        setProduct(res.data.product);
+        fetchReviews();
+        increaseViewCount();
+        return res;
+      })
+      .catch((err) => {
+        navigate('/404');
+        return err;
+      });
 
   const fetchReviews = async () => {
     const response = await axios.get<GetProductReviewsResponse>(`/product/${productId}/review`);
@@ -29,8 +40,6 @@ const useProductData = (productId: string | undefined) => {
   useEffect(() => {
     if (!productId) return;
     fetchProduct();
-    fetchReviews();
-    increaseViewCount();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId]);
 
