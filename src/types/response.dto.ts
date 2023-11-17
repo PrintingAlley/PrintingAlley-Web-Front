@@ -154,6 +154,7 @@ export interface PrintShopWithTags extends PrintShopInterface {
 export interface PrintShopDetail extends PrintShopInterface {
   printType: string;
   afterProcess: string;
+  afterProcessBinding: string;
   ownerId: number;
   tags: TagInterface[];
   products: ProductInterface[];

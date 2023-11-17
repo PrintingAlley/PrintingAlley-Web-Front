@@ -95,6 +95,15 @@ const PrintShopInfo = ({ printShop, actions }: PrintShopInfoProps) => (
           </Box>
         </>
       )}
+      {printShop.afterProcessBinding && (
+        <>
+          <Divider sx={{ my: 0.5 }} />
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Iconify icon="carbon:book" color="text.secondary" />
+            <Typography>{printShop.afterProcessBinding}</Typography>
+          </Box>
+        </>
+      )}
     </Grid>
   </Grid>
 );
