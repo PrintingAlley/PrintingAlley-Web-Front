@@ -1,11 +1,10 @@
 import { Stack, IconButton, Typography, Tooltip } from '@mui/material';
 import Iconify from 'src/components/iconify';
 import KakaoShareButton from 'src/sections/common/KakaoShareButton';
-import { PrintShopDetail, PrintShopReviewWithUser } from 'src/types/response.dto';
+import { PrintShopDetail } from 'src/types/response.dto';
 
 interface PrintShopActionsProps {
   printShop: PrintShopDetail;
-  reviews: PrintShopReviewWithUser[] | null;
   isAuthenticated: boolean;
   onReviewScroll: () => void;
   fetchPrintShop: () => void;
@@ -13,7 +12,6 @@ interface PrintShopActionsProps {
 
 const PrintShopActions = ({
   printShop,
-  reviews,
   isAuthenticated,
   onReviewScroll,
   fetchPrintShop,
@@ -51,7 +49,7 @@ const PrintShopActions = ({
         </IconButton>
       </Tooltip>
       <Typography variant="subtitle2" color="text.secondary">
-        {reviews?.length}
+        {printShop.reviews.length}
       </Typography>
     </Stack>
     <Stack direction="row" alignItems="center">

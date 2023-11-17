@@ -22,7 +22,7 @@ export default function ProductDetailPage() {
   const navigate = useNavigate();
   const reviewSectionRef = useRef<HTMLDivElement>(null);
 
-  const { product, reviews, fetchProduct, fetchReviews } = useProductData(id);
+  const { product, reviews, fetchProduct } = useProductData(id);
 
   const scrollToReviewSection = () => {
     if (reviewSectionRef.current) {
@@ -59,7 +59,6 @@ export default function ProductDetailPage() {
             actions={
               <ProductActions
                 product={product}
-                reviews={reviews}
                 isAuthenticated={isAuthenticated}
                 onReviewScroll={scrollToReviewSection}
                 fetchProduct={fetchProduct}
@@ -100,7 +99,7 @@ export default function ProductDetailPage() {
                 type="product"
                 targetId={product.id}
                 reviews={reviews}
-                fetchReviews={fetchReviews}
+                fetchReviews={fetchProduct}
               />
             )}
           </Box>

@@ -3,11 +3,10 @@ import Iconify from 'src/components/iconify';
 import BookmarkModal from 'src/sections/Product/BookmarkModal';
 import LoginModal from 'src/sections/Login/LoginModal';
 import KakaoShareButton from 'src/sections/common/KakaoShareButton';
-import { ProductDetail, ProductReviewWithUser } from 'src/types/response.dto';
+import { ProductDetail } from 'src/types/response.dto';
 
 interface ProductActionsProps {
   product: ProductDetail;
-  reviews: ProductReviewWithUser[] | null;
   isAuthenticated: boolean;
   onReviewScroll: () => void;
   fetchProduct: () => void;
@@ -15,7 +14,6 @@ interface ProductActionsProps {
 
 const ProductActions = ({
   product,
-  reviews,
   isAuthenticated,
   onReviewScroll,
   fetchProduct,
@@ -52,7 +50,7 @@ const ProductActions = ({
         </IconButton>
       </Tooltip>
       <Typography variant="subtitle2" color="text.secondary">
-        {reviews?.length}
+        {product.reviews.length}
       </Typography>
     </Stack>
     <Stack direction="row" alignItems="center">

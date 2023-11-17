@@ -46,7 +46,7 @@ const usePrintShopData = (printShopId: string | undefined) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [printShopId]);
 
-  return { printShop, reviews, fetchPrintShop, fetchReviews };
+  return { printShop, reviews, fetchPrintShop };
 };
 
 export default usePrintShopData;

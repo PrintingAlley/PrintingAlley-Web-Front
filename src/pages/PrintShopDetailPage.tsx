@@ -23,7 +23,7 @@ export default function PrintShopDetailPage() {
   const navigate = useNavigate();
   const reviewSectionRef = useRef<HTMLDivElement>(null);
 
-  const { printShop, reviews, fetchPrintShop, fetchReviews } = usePrintShopData(id);
+  const { printShop, reviews, fetchPrintShop } = usePrintShopData(id);
 
   const scrollToReviewSection = () => {
     if (reviewSectionRef.current) {
@@ -64,7 +64,6 @@ export default function PrintShopDetailPage() {
             actions={
               <PrintShopActions
                 printShop={printShop}
-                reviews={reviews}
                 isAuthenticated={isAuthenticated}
                 onReviewScroll={scrollToReviewSection}
                 fetchPrintShop={fetchPrintShop}
@@ -105,7 +104,7 @@ export default function PrintShopDetailPage() {
                 type="print-shop"
                 targetId={printShop.id}
                 reviews={reviews}
-                fetchReviews={fetchReviews}
+                fetchReviews={fetchPrintShop}
               />
             )}
           </Box>

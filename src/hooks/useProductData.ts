@@ -43,7 +43,7 @@ const useProductData = (productId: string | undefined) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId]);
 
-  return { product, reviews, fetchProduct, fetchReviews };
+  return { product, reviews, fetchProduct };
 };
 
 export default useProductData;
