@@ -28,7 +28,10 @@ export const PrintShopList = ({ printShops }: PrintShopListProps) => {
         <List disablePadding>
           {printShops.map((shop) => (
             <ListItem key={shop.id} disablePadding>
-              <ListItemButton onClick={() => goToPrintShopPage(shop)} disableGutters>
+              <ListItemButton
+                onClick={() => goToPrintShopPage(shop)}
+                sx={{ p: 1, borderRadius: 1 }}
+              >
                 <ListItemAvatar>
                   <Avatar
                     alt="Logo"

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import useAuth from './hooks/useAuth';
 import BookmarkPage from './pages/BookmarkPage';
 import ContentDetailPage from './pages/ContentDetailPage';
@@ -76,7 +76,8 @@ export default function Router() {
         createAdminRoute('/content/new', NewContentPage),
       ]}
 
-      <Route path="*" element={<NotFoundPage />} />
+      <Route path="/404" element={<NotFoundPage />} />
+      <Route path="*" element={<Navigate to="/404" />} />
     </Routes>
   );
 }
