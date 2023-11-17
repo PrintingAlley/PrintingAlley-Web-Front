@@ -120,8 +120,12 @@ function BusinessHoursForm({ onSubmit }: BusinessHoursFormProps) {
         isSameTime(businessHoursData.weekdays.close, businessHoursData.weekends.close) &&
         businessHoursData.weekdays.isClosed === businessHoursData.weekends.isClosed
       ) {
-        if (businessHoursData.weekdays.isClosed) {
-          return '매일 휴무';
+        if (
+          businessHoursData.weekdays.isClosed ||
+          !businessHoursData.weekdays.open ||
+          !businessHoursData.weekdays.close
+        ) {
+          return '';
         }
         return `매일 ${formatTime(businessHoursData.weekdays.open)} - ${formatTime(
           businessHoursData.weekdays.close

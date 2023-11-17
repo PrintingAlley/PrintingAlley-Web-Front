@@ -1,6 +1,7 @@
 import { Box, Divider, Grid, Link, Stack, Typography } from '@mui/material';
 import Iconify from 'src/components/iconify';
 import { PrintShopDetail } from 'src/types/response.dto';
+import { PLACEHOLDER_IMAGE_PATH } from 'src/constants/image-path';
 import LightboxForSingleImage from '../common/LightboxForSingleImage';
 
 interface PrintShopInfoProps {
@@ -13,7 +14,7 @@ const PrintShopInfo = ({ printShop, actions }: PrintShopInfoProps) => (
     <Grid item xs={12} md={4}>
       <Stack alignItems="center">
         <LightboxForSingleImage
-          src={printShop.logoImage}
+          src={printShop.logoImage || PLACEHOLDER_IMAGE_PATH}
           sx={{
             mt: { xs: 0, md: 5 },
             width: 1,

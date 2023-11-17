@@ -4,12 +4,11 @@ import {
   ListItemAvatar,
   Avatar,
   ListItemText,
-  IconButton,
-  Tooltip,
+  ListItemButton,
 } from '@mui/material';
 import { useNavigate } from 'react-router';
-import Iconify from 'src/components/iconify/iconify';
 import { PrintShopInterface } from 'src/types/response.dto';
+import { PLACEHOLDER_IMAGE_PATH } from 'src/constants/image-path';
 import NoResult from '../common/NoResult';
 
 interface PrintShopListProps {
@@ -28,25 +27,18 @@ export const PrintShopList = ({ printShops }: PrintShopListProps) => {
       {printShops.length ? (
         <List>
           {printShops.map((shop) => (
-            <ListItem
-              key={shop.id}
-              secondaryAction={
-                <Tooltip title="인쇄사 페이지로 이동">
-                  <IconButton onClick={() => goToPrintShopPage(shop)}>
-                    <Iconify icon="ic:round-keyboard-arrow-right" />
-                  </IconButton>
-                </Tooltip>
-              }
-            >
-              <ListItemAvatar>
-                <Avatar
-                  alt="Logo"
-                  src={shop.logoImage || '/assets/images/placeholder.svg'}
-                  variant="rounded"
-                  sx={{ width: 48, height: 48 }}
-                />
-              </ListItemAvatar>
-              <ListItemText primary={shop.name} secondary={shop.address} />
+            <ListItem key={shop.id} disablePadding>
+              <ListItemButton onClick={() => goToPrintShopPage(shop)}>
+                <ListItemAvatar>
+                  <Avatar
+                    alt="Logo"
+                    src={shop.logoImage || PLACEHOLDER_IMAGE_PATH}
+                    variant="rounded"
+                    sx={{ width: 48, height: 48 }}
+                  />
+                </ListItemAvatar>
+                <ListItemText primary={shop.name} secondary={shop.address} />
+              </ListItemButton>
             </ListItem>
           ))}
         </List>

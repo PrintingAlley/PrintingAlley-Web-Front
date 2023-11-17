@@ -22,6 +22,7 @@ import Iconify from 'src/components/iconify';
 import { fDate } from 'src/utils/format-time';
 import { useNavigate } from 'react-router';
 import { useSnackbar } from 'notistack';
+import { PLACEHOLDER_IMAGE_PATH } from 'src/constants/image-path';
 import CreateBookmarkDialog from './CreateBookmarkDialog';
 import UpdateBookmarkDialog from './UpdateBookmarkDialog';
 
@@ -216,7 +217,7 @@ export const BookmarkGroupList = ({
                   onChange={() => handleSelectGroup(bookmarkGroup.id)}
                 />
                 <Image
-                  src={bookmarkGroup.recentImage || '/assets/images/placeholder.svg'}
+                  src={bookmarkGroup.recentImage || PLACEHOLDER_IMAGE_PATH}
                   alt={bookmarkGroup.name}
                   sx={{ borderRadius: 1, cursor: 'pointer' }}
                   ratio="1/1"

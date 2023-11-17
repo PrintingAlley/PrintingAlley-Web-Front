@@ -72,19 +72,22 @@ export default function PrintShopDetailPage() {
             }
           />
 
-          <Divider sx={{ my: 2 }} />
-
-          <Typography variant="h6" gutterBottom>
-            인쇄사 사진
-          </Typography>
-          <LightboxForSingleImage
-            src={printShop.backgroundImage}
-            sx={{
-              width: '100%',
-              height: 300,
-              borderRadius: 1.5,
-            }}
-          />
+          {printShop.backgroundImage && (
+            <>
+              <Divider sx={{ my: 2 }} />
+              <Typography variant="h6" gutterBottom>
+                인쇄사 사진
+              </Typography>
+              <LightboxForSingleImage
+                src={printShop.backgroundImage}
+                sx={{
+                  width: '100%',
+                  height: 300,
+                  borderRadius: 1.5,
+                }}
+              />
+            </>
+          )}
 
           <Divider sx={{ my: 2 }} />
 
