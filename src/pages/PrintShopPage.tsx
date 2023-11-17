@@ -8,6 +8,8 @@ import { GetPrintShopsResponse, PrintShopWithTags, TagInterface } from 'src/type
 import { Helmet } from 'react-helmet-async';
 import { useTag } from 'src/hooks/useTag';
 import { PrintShopTagFilter } from 'src/sections/PrintShop/PrintShopTagFilter';
+import { PRINT_SHOP_PAGE_SIZE } from 'src/constants/commons';
+import SortBar from 'src/sections/common/SortBar';
 
 export default function PrintShopPage() {
   const { topLevelTags, tagHierarchies } = useTag();
@@ -17,12 +19,20 @@ export default function PrintShopPage() {
   const [printShops, setPrintShops] = useState<PrintShopWithTags[] | null>(null);
   const [totalPrintShops, setTotalPrintShops] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const size = 10;
+  const [sortBy, setSortBy] = useState<string>('name');
+  const [sortOrder, setSortOrder] = useState<'ASC' | 'DESC'>('ASC');
 
   const fetchPrintShops = (page = 1, search = '', tags = [] as TagInterface[]) => {
     axios
       .get<GetPrintShopsResponse>('/print-shop', {
-        params: { page, size, searchText: search, tagIds: tags.map((tag) => tag.id) },
+        params: {
+          page,
+          size: PRINT_SHOP_PAGE_SIZE,
+          searchText: search,
+          tagIds: tags.map((tag) => tag.id),
+          sortBy,
+          sortOrder,
+        },
       })
       .then((response) => {
         setPrintShops(response.data.printShops);
@@ -37,7 +47,8 @@ export default function PrintShopPage() {
 
   useEffect(() => {
     fetchPrintShops(currentPage, searchText, selectedTags);
-  }, [currentPage, searchText, selectedTags]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, searchText, selectedTags, sortBy, sortOrder]);
 
   useEffect(() => {
     if (topLevelTags.length > 0) setSelectedTopLevelTag(topLevelTags[0]);
@@ -63,12 +74,19 @@ export default function PrintShopPage() {
         tags={tagHierarchies}
       />
 
+      <SortBar
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+        sortOrder={sortOrder}
+        setSortOrder={setSortOrder}
+      />
+
       {printShops && <PrintShopList printShops={printShops} />}
 
       <Box sx={{ flexGrow: 1 }} />
 
       <Pagination
-        count={Math.ceil(totalPrintShops / size)}
+        count={Math.ceil(totalPrintShops / PRINT_SHOP_PAGE_SIZE)}
         page={currentPage}
         onChange={(_event, value) => setCurrentPage(value)}
         variant="outlined"

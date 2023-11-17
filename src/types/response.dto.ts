@@ -125,6 +125,8 @@ export interface ContentInterface {
 
 export interface ProductWithTags extends ProductInterface {
   tags: TagInterface[];
+  bookmarkCount: number;
+  reviewCount: number;
 }
 
 export interface ProductDetail extends ProductInterface {
@@ -149,6 +151,9 @@ export interface ProductReviewWithUser extends ProductReviewInterface {
 
 export interface PrintShopWithTags extends PrintShopInterface {
   tags: TagInterface[];
+  // TODO: 인쇄사에 북마크가 적용되면 주석 해제
+  // bookmarkCount: number;
+  reviewCount: number;
 }
 
 export interface PrintShopDetail extends PrintShopInterface {

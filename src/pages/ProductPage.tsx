@@ -8,6 +8,8 @@ import { GetProductsResponse, ProductWithTags, TagInterface } from 'src/types/re
 import { ProductList } from 'src/sections/Product/ProductList';
 import { Helmet } from 'react-helmet-async';
 import { ProductTagFilter } from 'src/sections/Product/ProductTagFilter';
+import { PRODUCT_PAGE_SIZE } from 'src/constants/commons';
+import SortBar from 'src/sections/common/SortBar';
 
 export default function ProductPage() {
   const { topLevelTags, tagHierarchies } = useTag();
@@ -17,12 +19,20 @@ export default function ProductPage() {
   const [products, setProducts] = useState<ProductWithTags[] | null>(null);
   const [totalProducts, setTotalProducts] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const size = 10;
+  const [sortBy, setSortBy] = useState<string>('name');
+  const [sortOrder, setSortOrder] = useState<'ASC' | 'DESC'>('ASC');
 
   const fetchProducts = (page = 1, search = '', tags = [] as TagInterface[]) => {
     axios
       .get<GetProductsResponse>('/product', {
-        params: { page, size, searchText: search, tagIds: tags.map((tag) => tag.id) },
+        params: {
+          page,
+          size: PRODUCT_PAGE_SIZE,
+          searchText: search,
+          tagIds: tags.map((tag) => tag.id),
+          sortBy,
+          sortOrder,
+        },
       })
       .then((response) => {
         setProducts(response.data.products);
@@ -38,7 +48,8 @@ export default function ProductPage() {
 
   useEffect(() => {
     fetchProducts(currentPage, searchText, selectedTags);
-  }, [currentPage, searchText, selectedTags]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, searchText, selectedTags, sortBy, sortOrder]);
 
   return (
     <Stack spacing={3} flexGrow={1}>
@@ -62,12 +73,19 @@ export default function ProductPage() {
         tags={tagHierarchies}
       />
 
+      <SortBar
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+        sortOrder={sortOrder}
+        setSortOrder={setSortOrder}
+      />
+
       {products && <ProductList products={products} />}
 
       <Box sx={{ flexGrow: 1 }} />
 
       <Pagination
-        count={Math.ceil(totalProducts / size)}
+        count={Math.ceil(totalProducts / PRODUCT_PAGE_SIZE)}
         page={currentPage}
         onChange={(_event, value) => setCurrentPage(value)}
         variant="outlined"
