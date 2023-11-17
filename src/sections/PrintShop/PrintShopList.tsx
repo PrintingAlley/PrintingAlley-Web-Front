@@ -7,18 +7,18 @@ import {
   ListItemButton,
 } from '@mui/material';
 import { useNavigate } from 'react-router';
-import { PrintShopInterface } from 'src/types/response.dto';
+import { PrintShopWithTags } from 'src/types/response.dto';
 import { PLACEHOLDER_IMAGE_PATH } from 'src/constants/image-path';
 import NoResult from '../common/NoResult';
 
 interface PrintShopListProps {
-  printShops: PrintShopInterface[];
+  printShops: PrintShopWithTags[];
 }
 
 export const PrintShopList = ({ printShops }: PrintShopListProps) => {
   const navigate = useNavigate();
 
-  const goToPrintShopPage = (shop: PrintShopInterface) => {
+  const goToPrintShopPage = (shop: PrintShopWithTags) => {
     navigate(`/print-shop/${shop.id}`);
   };
 

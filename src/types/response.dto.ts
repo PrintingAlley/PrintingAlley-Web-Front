@@ -147,6 +147,10 @@ export interface ProductReviewWithUser extends ProductReviewInterface {
   user: UserInterface;
 }
 
+export interface PrintShopWithTags extends PrintShopInterface {
+  tags: TagInterface[];
+}
+
 export interface PrintShopDetail extends PrintShopInterface {
   printType: string;
   afterProcess: string;
@@ -207,7 +211,7 @@ export interface GetProductReviewsResponse {
 
 // GET /print-shop
 export interface GetPrintShopsResponse {
-  printShops: PrintShopInterface[];
+  printShops: PrintShopWithTags[];
   totalCount: number;
 }
 

@@ -4,7 +4,7 @@ import axios from 'src/utils/axios';
 import { PrintShopList } from 'src/sections/PrintShop/PrintShopList';
 import { SearchBar } from 'src/sections/common/SearchBar';
 import CenteredTitle from 'src/sections/common/CenteredTitle';
-import { GetPrintShopsResponse, PrintShopInterface, TagInterface } from 'src/types/response.dto';
+import { GetPrintShopsResponse, PrintShopWithTags, TagInterface } from 'src/types/response.dto';
 import { Helmet } from 'react-helmet-async';
 import { useTag } from 'src/hooks/useTag';
 import { PrintShopTagFilter } from 'src/sections/PrintShop/PrintShopTagFilter';
@@ -14,7 +14,7 @@ export default function PrintShopPage() {
   const [searchText, setSearchText] = useState<string>('');
   const [selectedTopLevelTag, setSelectedTopLevelTag] = useState<TagInterface | null>(null);
   const [selectedTags, setSelectedTags] = useState<TagInterface[]>([]);
-  const [printShops, setPrintShops] = useState<PrintShopInterface[] | null>(null);
+  const [printShops, setPrintShops] = useState<PrintShopWithTags[] | null>(null);
   const [totalPrintShops, setTotalPrintShops] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const size = 10;
