@@ -51,14 +51,22 @@ const ProductInfo = ({ product, actions }: ProductInfoProps) => (
       <Typography>
         <b>종이</b> {product.paper}
       </Typography>
-      <Divider sx={{ my: 0.5 }} />
-      <Typography>
-        <b>인쇄 방식</b> {product.printType}
-      </Typography>
-      <Divider sx={{ my: 0.5 }} />
-      <Typography>
-        <b>후가공</b> {product.afterProcess}
-      </Typography>
+      {product.printType && (
+        <>
+          <Divider sx={{ my: 0.5 }} />
+          <Typography>
+            <b>인쇄 방식</b> {product.printType}
+          </Typography>
+        </>
+      )}
+      {product.afterProcess && (
+        <>
+          <Divider sx={{ my: 0.5 }} />
+          <Typography>
+            <b>후가공</b> {product.afterProcess}
+          </Typography>
+        </>
+      )}
       <Divider sx={{ my: 0.5 }} />
       <Typography>{product.introduction}</Typography>
     </Grid>

@@ -76,6 +76,7 @@ export default function Router() {
         createAdminRoute('/content/new', NewContentPage),
       ]}
 
+      <Route path="/login" element={<Navigate to="/" />} />
       <Route path="/404" element={<NotFoundPage />} />
       <Route path="*" element={<Navigate to="/404" />} />
     </Routes>
