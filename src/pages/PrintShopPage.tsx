@@ -7,9 +7,10 @@ import CenteredTitle from 'src/sections/common/CenteredTitle';
 import { GetPrintShopsResponse, PrintShopWithTags, TagInterface } from 'src/types/response.dto';
 import { Helmet } from 'react-helmet-async';
 import { useTag } from 'src/hooks/useTag';
-import { PrintShopTagFilter } from 'src/sections/PrintShop/PrintShopTagFilter';
 import { PRINT_SHOP_PAGE_SIZE } from 'src/constants/commons';
 import SortBar from 'src/sections/common/SortBar';
+import PrintShopTagFilterDrawer from 'src/sections/PrintShop/PrintShopTagFilterDrawer';
+import FilterList from 'src/sections/common/FilterList';
 
 export default function PrintShopPage() {
   const { topLevelTags, tagHierarchies } = useTag();
@@ -67,19 +68,29 @@ export default function PrintShopPage() {
 
       <SearchBar onSearch={setSearchText} resetSearch={resetSearch} />
 
-      <PrintShopTagFilter
-        selectedTopLevelTag={selectedTopLevelTag}
-        selectedTags={selectedTags}
-        setSelectedTags={setSelectedTags}
-        tags={tagHierarchies}
-      />
+      <Stack spacing={2}>
+        <Stack direction="row" alignItems="center" justifyContent="space-between">
+          <PrintShopTagFilterDrawer
+            selectedTopLevelTag={selectedTopLevelTag}
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+            tags={tagHierarchies}
+          />
 
-      <SortBar
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-        sortOrder={sortOrder}
-        setSortOrder={setSortOrder}
-      />
+          <SortBar
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+            sortOrder={sortOrder}
+            setSortOrder={setSortOrder}
+          />
+        </Stack>
+
+        <FilterList
+          selectedTopLevelTag={selectedTopLevelTag}
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags}
+        />
+      </Stack>
 
       {printShops && <PrintShopList printShops={printShops} />}
 

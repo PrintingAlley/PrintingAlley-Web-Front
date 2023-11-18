@@ -7,9 +7,11 @@ import CenteredTitle from 'src/sections/common/CenteredTitle';
 import { GetProductsResponse, ProductWithTags, TagInterface } from 'src/types/response.dto';
 import { ProductList } from 'src/sections/Product/ProductList';
 import { Helmet } from 'react-helmet-async';
-import { ProductTagFilter } from 'src/sections/Product/ProductTagFilter';
+import { ProductCategory } from 'src/sections/Product/ProductCategory';
 import { PRODUCT_PAGE_SIZE } from 'src/constants/commons';
 import SortBar from 'src/sections/common/SortBar';
+import ProductTagFilterDrawer from 'src/sections/Product/ProductTagFilterDrawer';
+import FilterList from 'src/sections/common/FilterList';
 
 export default function ProductPage() {
   const { topLevelTags, tagHierarchies } = useTag();
@@ -64,21 +66,36 @@ export default function ProductPage() {
 
       <SearchBar onSearch={setSearchText} resetSearch={resetSearch} />
 
-      <ProductTagFilter
+      <ProductCategory
         selectedTopLevelTag={selectedTopLevelTag}
         setSelectedTopLevelTag={setSelectedTopLevelTag}
-        selectedTags={selectedTags}
         setSelectedTags={setSelectedTags}
         topLevelTags={topLevelTags}
-        tags={tagHierarchies}
       />
 
-      <SortBar
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-        sortOrder={sortOrder}
-        setSortOrder={setSortOrder}
-      />
+      <Stack spacing={2} mb={1}>
+        <Stack direction="row" alignItems="center" justifyContent="space-between">
+          <ProductTagFilterDrawer
+            selectedTopLevelTag={selectedTopLevelTag}
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+            tags={tagHierarchies}
+          />
+
+          <SortBar
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+            sortOrder={sortOrder}
+            setSortOrder={setSortOrder}
+          />
+        </Stack>
+
+        <FilterList
+          selectedTopLevelTag={selectedTopLevelTag}
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags}
+        />
+      </Stack>
 
       {products && <ProductList products={products} />}
 

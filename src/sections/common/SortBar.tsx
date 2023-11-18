@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, MenuItem, Box, SelectChangeEvent } from '@mui/material';
+import { Select, MenuItem, SelectChangeEvent, Stack } from '@mui/material';
 
 const sortOptions = [
   { value: 'name', label: '이름' },
@@ -31,7 +31,7 @@ const SortBar = ({ sortBy, setSortBy, sortOrder, setSortOrder }: SortBarProps) =
   };
 
   return (
-    <Box display="flex" justifyContent="flex-end" alignItems="center" gap={1}>
+    <Stack direction="row" gap={1}>
       <Select value={sortBy} onChange={handleSortByChange} size="small" sx={{ borderRadius: 3 }}>
         {sortOptions.map((option) => (
           <MenuItem key={option.value} value={option.value}>
@@ -51,7 +51,7 @@ const SortBar = ({ sortBy, setSortBy, sortOrder, setSortOrder }: SortBarProps) =
           </MenuItem>
         ))}
       </Select>
-    </Box>
+    </Stack>
   );
 };
 
