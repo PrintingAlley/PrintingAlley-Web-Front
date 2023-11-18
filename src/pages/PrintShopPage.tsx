@@ -11,17 +11,26 @@ import { PRINT_SHOP_PAGE_SIZE } from 'src/constants/commons';
 import SortBar from 'src/sections/common/SortBar';
 import FilterList from 'src/sections/Filter/FilterList';
 import TagFilterDrawer from 'src/sections/Filter/TagFilterDrawer';
+import { useRecoilState } from 'recoil';
+import {
+  searchTextState,
+  selectedTopLevelTagState,
+  selectedTagsState,
+  sortByState,
+  sortOrderState,
+  currentPageState,
+} from 'src/state/printShopState';
 
 export default function PrintShopPage() {
   const { topLevelTags, tagHierarchies } = useTag();
-  const [searchText, setSearchText] = useState<string>('');
-  const [selectedTopLevelTag, setSelectedTopLevelTag] = useState<TagInterface | null>(null);
-  const [selectedTags, setSelectedTags] = useState<TagInterface[]>([]);
+  const [searchText, setSearchText] = useRecoilState(searchTextState);
+  const [selectedTopLevelTag, setSelectedTopLevelTag] = useRecoilState(selectedTopLevelTagState);
+  const [selectedTags, setSelectedTags] = useRecoilState(selectedTagsState);
+  const [sortBy, setSortBy] = useRecoilState(sortByState);
+  const [sortOrder, setSortOrder] = useRecoilState(sortOrderState);
+  const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
   const [printShops, setPrintShops] = useState<PrintShopWithTags[] | null>(null);
   const [totalPrintShops, setTotalPrintShops] = useState<number>(0);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [sortBy, setSortBy] = useState<string>('name');
-  const [sortOrder, setSortOrder] = useState<'ASC' | 'DESC'>('ASC');
 
   const fetchPrintShops = (page = 1, search = '', tags = [] as TagInterface[]) => {
     axios
@@ -44,6 +53,8 @@ export default function PrintShopPage() {
   const resetSearch = () => {
     setSearchText('');
     setSelectedTags([]);
+    setSortBy('name');
+    setSortOrder('ASC');
   };
 
   useEffect(() => {
@@ -53,6 +64,7 @@ export default function PrintShopPage() {
 
   useEffect(() => {
     if (topLevelTags.length > 0) setSelectedTopLevelTag(topLevelTags[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topLevelTags]);
 
   return (

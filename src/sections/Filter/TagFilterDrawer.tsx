@@ -110,7 +110,7 @@ export default function TagFilterDrawer({
 
         <Scrollbar>
           <Stack sx={{ p: 2, pr: 1 }}>
-            {tagList.length ? (
+            {tagList && tagList.length ? (
               tagList.map((tag, index) => (
                 <Box key={tag.id}>
                   {tag.children.length > 0 ? (

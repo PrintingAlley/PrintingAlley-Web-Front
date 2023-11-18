@@ -12,17 +12,26 @@ import { PRODUCT_PAGE_SIZE } from 'src/constants/commons';
 import SortBar from 'src/sections/common/SortBar';
 import FilterList from 'src/sections/Filter/FilterList';
 import TagFilterDrawer from 'src/sections/Filter/TagFilterDrawer';
+import { useRecoilState } from 'recoil';
+import {
+  currentPageState,
+  searchTextState,
+  selectedTagsState,
+  selectedTopLevelTagState,
+  sortByState,
+  sortOrderState,
+} from 'src/state/productState';
 
 export default function ProductPage() {
   const { topLevelTags, tagHierarchies } = useTag();
-  const [searchText, setSearchText] = useState<string>('');
-  const [selectedTopLevelTag, setSelectedTopLevelTag] = useState<TagInterface | null>(null);
-  const [selectedTags, setSelectedTags] = useState<TagInterface[]>([]);
+  const [searchText, setSearchText] = useRecoilState(searchTextState);
+  const [selectedTopLevelTag, setSelectedTopLevelTag] = useRecoilState(selectedTopLevelTagState);
+  const [selectedTags, setSelectedTags] = useRecoilState(selectedTagsState);
+  const [sortBy, setSortBy] = useRecoilState(sortByState);
+  const [sortOrder, setSortOrder] = useRecoilState(sortOrderState);
+  const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
   const [products, setProducts] = useState<ProductWithTags[] | null>(null);
   const [totalProducts, setTotalProducts] = useState<number>(0);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [sortBy, setSortBy] = useState<string>('name');
-  const [sortOrder, setSortOrder] = useState<'ASC' | 'DESC'>('ASC');
 
   const fetchProducts = (page = 1, search = '', tags = [] as TagInterface[]) => {
     axios
@@ -46,6 +55,8 @@ export default function ProductPage() {
     setSearchText('');
     setSelectedTopLevelTag(null);
     setSelectedTags([]);
+    setSortBy('name');
+    setSortOrder('ASC');
   };
 
   useEffect(() => {
