@@ -24,7 +24,7 @@ export default function FilterList({
   };
 
   return (
-    <Box sx={{ display: selectedTags.length ? 'flex' : 'none', flexWrap: 'wrap', gap: 1, pl: 0.5 }}>
+    <Box sx={{ display: selectedTags.length ? 'flex' : 'none', flexWrap: 'wrap', gap: 1, px: 0.5 }}>
       {selectedTags.map((tag) => (
         <Chip
           key={tag.id}

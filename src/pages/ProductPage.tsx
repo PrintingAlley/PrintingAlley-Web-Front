@@ -10,8 +10,8 @@ import { Helmet } from 'react-helmet-async';
 import { ProductCategory } from 'src/sections/Product/ProductCategory';
 import { PRODUCT_PAGE_SIZE } from 'src/constants/commons';
 import SortBar from 'src/sections/common/SortBar';
-import ProductTagFilterDrawer from 'src/sections/Product/ProductTagFilterDrawer';
-import FilterList from 'src/sections/common/FilterList';
+import FilterList from 'src/sections/Filter/FilterList';
+import TagFilterDrawer from 'src/sections/Filter/TagFilterDrawer';
 
 export default function ProductPage() {
   const { topLevelTags, tagHierarchies } = useTag();
@@ -75,7 +75,8 @@ export default function ProductPage() {
 
       <Stack spacing={2} mb={1}>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <ProductTagFilterDrawer
+          <TagFilterDrawer
+            type="product"
             selectedTopLevelTag={selectedTopLevelTag}
             selectedTags={selectedTags}
             setSelectedTags={setSelectedTags}

@@ -35,7 +35,7 @@ export const ProductCategory = ({
         justifyContent: 'center',
         gap: 3.5,
         flexWrap: 'wrap',
-        mt: 1,
+        mt: 1.5,
       }}
     >
       {topLevelTags.map((tag) => {

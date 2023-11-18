@@ -9,8 +9,8 @@ import { Helmet } from 'react-helmet-async';
 import { useTag } from 'src/hooks/useTag';
 import { PRINT_SHOP_PAGE_SIZE } from 'src/constants/commons';
 import SortBar from 'src/sections/common/SortBar';
-import PrintShopTagFilterDrawer from 'src/sections/PrintShop/PrintShopTagFilterDrawer';
-import FilterList from 'src/sections/common/FilterList';
+import FilterList from 'src/sections/Filter/FilterList';
+import TagFilterDrawer from 'src/sections/Filter/TagFilterDrawer';
 
 export default function PrintShopPage() {
   const { topLevelTags, tagHierarchies } = useTag();
@@ -70,7 +70,8 @@ export default function PrintShopPage() {
 
       <Stack spacing={2}>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <PrintShopTagFilterDrawer
+          <TagFilterDrawer
+            type="print-shop"
             selectedTopLevelTag={selectedTopLevelTag}
             selectedTags={selectedTags}
             setSelectedTags={setSelectedTags}

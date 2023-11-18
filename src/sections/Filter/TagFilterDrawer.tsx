@@ -17,19 +17,21 @@ import { TagInterface } from 'src/types/response.dto';
 
 // ----------------------------------------------------------------------
 
-interface PrintShopTagFilterDrawerProps {
+interface TagFilterDrawerProps {
+  type: 'product' | 'print-shop';
   selectedTopLevelTag: TagInterface | null;
   selectedTags: TagInterface[];
   setSelectedTags: Dispatch<SetStateAction<TagInterface[]>>;
   tags: Record<number, TagInterface[]>;
 }
 
-export default function PrintShopTagFilterDrawer({
+export default function TagFilterDrawer({
+  type,
   selectedTopLevelTag,
   selectedTags,
   setSelectedTags,
   tags,
-}: PrintShopTagFilterDrawerProps) {
+}: TagFilterDrawerProps) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const onOpen = () => setOpen(true);
@@ -43,8 +45,13 @@ export default function PrintShopTagFilterDrawer({
     }
   };
 
+  const canReset = selectedTags.length > (type === 'product' ? 1 : 0);
   const resetSelectedTags = () => {
-    setSelectedTags([]);
+    if (type === 'product') {
+      setSelectedTags(selectedTopLevelTag ? [selectedTopLevelTag] : []);
+    } else {
+      setSelectedTags([]);
+    }
   };
 
   const tagList = selectedTopLevelTag ? tags[selectedTopLevelTag.id] : [];
@@ -63,7 +70,7 @@ export default function PrintShopTagFilterDrawer({
 
       <Tooltip title="초기화">
         <IconButton onClick={resetSelectedTags}>
-          <Badge color="error" variant="dot" invisible={selectedTags.length === 0}>
+          <Badge color="error" variant="dot" invisible={!canReset}>
             <Iconify icon="solar:restart-bold" />
           </Badge>
         </IconButton>
@@ -171,7 +178,7 @@ export default function PrintShopTagFilterDrawer({
                 </Box>
               ))
             ) : (
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="subtitle2" color="text.secondary" sx={{ p: 0.5 }}>
                 카테고리를 선택하면 필터가 표시됩니다.
               </Typography>
             )}
