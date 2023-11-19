@@ -21,6 +21,7 @@ export default function ScrollToTopButton() {
 
   return (
     <IconButton
+      size="large"
       onClick={scrollToTop}
       sx={{
         position: 'fixed',
