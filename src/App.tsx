@@ -27,6 +27,7 @@ import { MotionLazy } from './components/animate/motion-lazy';
 import Navbar from './sections/common/Navbar';
 import PageContainer from './sections/common/PageContainer';
 import ScrollToTop from './sections/common/ScrollToTop';
+import ScrollToTopButton from './sections/common/ScrollToTopButton';
 import Router from './Router';
 import Footer from './sections/common/Footer';
 import { LocalizationProvider } from './locales';
@@ -46,6 +47,7 @@ export default function App() {
               <Router />
             </PageContainer>
             <Footer />
+            <ScrollToTopButton />
           </SnackbarProvider>
         </MotionLazy>
       </ThemeProvider>
