@@ -6,16 +6,21 @@ import { TagInterface } from 'src/types/response.dto';
 
 interface FilterListProps {
   selectedTopLevelTag: TagInterface | null;
+  setSelectedTopLevelTag: Dispatch<SetStateAction<TagInterface | null>>;
   selectedTags: TagInterface[];
   setSelectedTags: Dispatch<SetStateAction<TagInterface[]>>;
 }
 
 export default function FilterList({
   selectedTopLevelTag,
+  setSelectedTopLevelTag,
   selectedTags,
   setSelectedTags,
 }: FilterListProps) {
   const handleTagClick = (tag: TagInterface) => {
+    if (selectedTopLevelTag?.id === tag.id) {
+      setSelectedTopLevelTag(null);
+    }
     if (selectedTags.includes(tag)) {
       setSelectedTags((prev) => prev.filter((id) => id !== tag));
     } else {
@@ -32,7 +37,7 @@ export default function FilterList({
           {...varFade().in}
           color="primary"
           label={tag.name}
-          onDelete={tag === selectedTopLevelTag ? undefined : () => handleTagClick(tag)}
+          onDelete={() => handleTagClick(tag)}
         />
       ))}
     </Box>

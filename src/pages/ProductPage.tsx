@@ -104,6 +104,7 @@ export default function ProductPage() {
 
         <FilterList
           selectedTopLevelTag={selectedTopLevelTag}
+          setSelectedTopLevelTag={setSelectedTopLevelTag}
           selectedTags={selectedTags}
           setSelectedTags={setSelectedTags}
         />

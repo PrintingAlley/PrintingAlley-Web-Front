@@ -100,6 +100,7 @@ export default function PrintShopPage() {
 
         <FilterList
           selectedTopLevelTag={selectedTopLevelTag}
+          setSelectedTopLevelTag={setSelectedTopLevelTag}
           selectedTags={selectedTags}
           setSelectedTags={setSelectedTags}
         />
