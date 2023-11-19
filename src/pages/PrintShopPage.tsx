@@ -7,7 +7,7 @@ import CenteredTitle from 'src/sections/common/CenteredTitle';
 import { GetPrintShopsResponse, PrintShopWithTags, TagInterface } from 'src/types/response.dto';
 import { Helmet } from 'react-helmet-async';
 import { useTag } from 'src/hooks/useTag';
-import { PRINT_SHOP_PAGE_SIZE } from 'src/constants/commons';
+import { DEFAULT_SORT_BY, DEFAULT_SORT_ORDER, PRINT_SHOP_PAGE_SIZE } from 'src/constants/commons';
 import SortBar from 'src/sections/common/SortBar';
 import FilterList from 'src/sections/Filter/FilterList';
 import TagFilterDrawer from 'src/sections/Filter/TagFilterDrawer';
@@ -53,8 +53,8 @@ export default function PrintShopPage() {
   const resetSearch = () => {
     setSearchText('');
     setSelectedTags([]);
-    setSortBy('name');
-    setSortOrder('ASC');
+    setSortBy(DEFAULT_SORT_BY);
+    setSortOrder(DEFAULT_SORT_ORDER);
   };
 
   useEffect(() => {
@@ -78,7 +78,7 @@ export default function PrintShopPage() {
         sx={{ fontFamily: 'Godo, sans-serif', color: 'primary.main', letterSpacing: 1 }}
       />
 
-      <SearchBar onSearch={setSearchText} resetSearch={resetSearch} />
+      <SearchBar searchText={searchText} onSearch={setSearchText} resetSearch={resetSearch} />
 
       <Stack spacing={2}>
         <Stack direction="row" alignItems="center" justifyContent="space-between">

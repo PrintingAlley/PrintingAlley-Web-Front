@@ -8,7 +8,7 @@ import { GetProductsResponse, ProductWithTags, TagInterface } from 'src/types/re
 import { ProductList } from 'src/sections/Product/ProductList';
 import { Helmet } from 'react-helmet-async';
 import { ProductCategory } from 'src/sections/Product/ProductCategory';
-import { PRODUCT_PAGE_SIZE } from 'src/constants/commons';
+import { DEFAULT_SORT_BY, DEFAULT_SORT_ORDER, PRODUCT_PAGE_SIZE } from 'src/constants/commons';
 import SortBar from 'src/sections/common/SortBar';
 import FilterList from 'src/sections/Filter/FilterList';
 import TagFilterDrawer from 'src/sections/Filter/TagFilterDrawer';
@@ -55,8 +55,8 @@ export default function ProductPage() {
     setSearchText('');
     setSelectedTopLevelTag(null);
     setSelectedTags([]);
-    setSortBy('name');
-    setSortOrder('ASC');
+    setSortBy(DEFAULT_SORT_BY);
+    setSortOrder(DEFAULT_SORT_ORDER);
   };
 
   useEffect(() => {
@@ -75,7 +75,7 @@ export default function ProductPage() {
         sx={{ fontFamily: 'Godo, sans-serif', color: 'primary.main', letterSpacing: 1 }}
       />
 
-      <SearchBar onSearch={setSearchText} resetSearch={resetSearch} />
+      <SearchBar searchText={searchText} onSearch={setSearchText} resetSearch={resetSearch} />
 
       <ProductCategory
         selectedTopLevelTag={selectedTopLevelTag}
@@ -92,6 +92,8 @@ export default function ProductPage() {
             selectedTags={selectedTags}
             setSelectedTags={setSelectedTags}
             tags={tagHierarchies}
+            topLevelTags={topLevelTags}
+            setSelectedTopLevelTag={setSelectedTopLevelTag}
           />
 
           <SortBar

@@ -23,6 +23,8 @@ interface TagFilterDrawerProps {
   selectedTags: TagInterface[];
   setSelectedTags: Dispatch<SetStateAction<TagInterface[]>>;
   tags: Record<number, TagInterface[]>;
+  topLevelTags?: TagInterface[];
+  setSelectedTopLevelTag?: Dispatch<SetStateAction<TagInterface | null>>;
 }
 
 export default function TagFilterDrawer({
@@ -31,6 +33,8 @@ export default function TagFilterDrawer({
   selectedTags,
   setSelectedTags,
   tags,
+  topLevelTags,
+  setSelectedTopLevelTag,
 }: TagFilterDrawerProps) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -38,19 +42,28 @@ export default function TagFilterDrawer({
   const onClose = () => setOpen(false);
 
   const handleTagClick = (tag: TagInterface) => {
-    if (selectedTags.includes(tag)) {
-      setSelectedTags((prev) => prev.filter((id) => id !== tag));
+    if (selectedTags.some((t) => t.id === tag.id)) {
+      setSelectedTags((prev) => prev.filter((t) => t.id !== tag.id));
     } else {
       setSelectedTags((prev) => [...prev, tag]);
     }
   };
 
-  const canReset = selectedTags.length > (type === 'product' ? 1 : 0);
+  const toggleTopLevelTag = (tag: TagInterface) => {
+    if (type === 'product' && setSelectedTopLevelTag) {
+      if (selectedTopLevelTag?.id === tag.id) {
+        setSelectedTopLevelTag(null);
+      } else {
+        setSelectedTopLevelTag(tag);
+      }
+    }
+  };
+
+  const canReset = selectedTags.length > 0;
   const resetSelectedTags = () => {
-    if (type === 'product') {
-      setSelectedTags(selectedTopLevelTag ? [selectedTopLevelTag] : []);
-    } else {
-      setSelectedTags([]);
+    setSelectedTags([]);
+    if (type === 'product' && setSelectedTopLevelTag) {
+      setSelectedTopLevelTag(null);
     }
   };
 
@@ -109,7 +122,27 @@ export default function TagFilterDrawer({
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         <Scrollbar>
-          <Stack sx={{ p: 2, pr: 1 }}>
+          <Stack sx={{ p: 2 }}>
+            {type === 'product' && topLevelTags && (
+              <>
+                <Typography variant="subtitle1" gutterBottom>
+                  카테고리
+                </Typography>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                  {topLevelTags.map((tag) => (
+                    <Chip
+                      key={tag.id}
+                      color="primary"
+                      variant={selectedTopLevelTag?.id === tag.id ? 'filled' : 'outlined'}
+                      onClick={() => toggleTopLevelTag(tag)}
+                      label={tag.name}
+                    />
+                  ))}
+                </Box>
+                <Divider sx={{ my: 2 }} />
+              </>
+            )}
+
             {tagList && tagList.length ? (
               tagList.map((tag, index) => (
                 <Box key={tag.id}>
@@ -146,7 +179,9 @@ export default function TagFilterDrawer({
                                     color="primary"
                                     key={grandChild.id}
                                     variant={
-                                      selectedTags.includes(grandChild) ? 'filled' : 'outlined'
+                                      selectedTags.some((t) => t.id === grandChild.id)
+                                        ? 'filled'
+                                        : 'outlined'
                                     }
                                     onClick={() => handleTagClick(grandChild)}
                                     label={grandChild.name}
@@ -158,7 +193,9 @@ export default function TagFilterDrawer({
                             <Chip
                               color="secondary"
                               key={child.id}
-                              variant={selectedTags.includes(child) ? 'filled' : 'outlined'}
+                              variant={
+                                selectedTags.some((t) => t.id === child.id) ? 'filled' : 'outlined'
+                              }
                               onClick={() => handleTagClick(child)}
                               label={child.name}
                             />

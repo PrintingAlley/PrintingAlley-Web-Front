@@ -3,12 +3,13 @@ import { useState } from 'react';
 import Iconify from 'src/components/iconify';
 
 interface SearchBarProps {
+  searchText: string;
   onSearch: (query: string) => void;
   resetSearch: () => void;
 }
 
-export const SearchBar = ({ onSearch, resetSearch }: SearchBarProps) => {
-  const [searchQuery, setSearchQuery] = useState('');
+export const SearchBar = ({ searchText, onSearch, resetSearch }: SearchBarProps) => {
+  const [searchQuery, setSearchQuery] = useState(searchText);
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

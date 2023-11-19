@@ -1,5 +1,7 @@
 import { Typography, Box, Stack, IconButton } from '@mui/material';
 import { Dispatch, SetStateAction, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { prevTopLevelTagState } from 'src/state/productState';
 import { TagInterface } from 'src/types/response.dto';
 
 interface ProductCategoryProps {
@@ -15,6 +17,7 @@ export const ProductCategory = ({
   setSelectedTags,
   topLevelTags,
 }: ProductCategoryProps) => {
+  const [prevTopLevelTag, setPrevTopLevelTag] = useRecoilState(prevTopLevelTagState);
   const toggleTopLevelTag = (tag: TagInterface) => {
     if (selectedTopLevelTag?.id === tag.id) {
       setSelectedTopLevelTag(null);
@@ -24,7 +27,12 @@ export const ProductCategory = ({
   };
 
   useEffect(() => {
-    setSelectedTags(selectedTopLevelTag ? [selectedTopLevelTag] : []);
+    if (selectedTopLevelTag && selectedTopLevelTag.id !== prevTopLevelTag?.id) {
+      setSelectedTags([selectedTopLevelTag]);
+    } else if (!selectedTopLevelTag && prevTopLevelTag) {
+      setSelectedTags([]);
+    }
+    setPrevTopLevelTag(selectedTopLevelTag);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTopLevelTag]);
 
@@ -42,12 +50,7 @@ export const ProductCategory = ({
         const isSelected = selectedTopLevelTag?.id === tag.id;
         return (
           <Stack key={tag.id} alignItems="center" gap={0.5}>
-            <IconButton
-              sx={{ p: 0 }}
-              onClick={() => {
-                toggleTopLevelTag(tag);
-              }}
-            >
+            <IconButton sx={{ p: 0 }} onClick={() => toggleTopLevelTag(tag)}>
               <Box
                 component="img"
                 src={tag.image ?? ''}
