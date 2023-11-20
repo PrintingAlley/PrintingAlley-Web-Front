@@ -1,5 +1,7 @@
 import { Fab } from '@mui/material';
+import { m } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { varHover } from 'src/components/animate';
 import Iconify from 'src/components/iconify';
 
 export default function ScrollToTopButton() {
@@ -28,15 +30,18 @@ export default function ScrollToTopButton() {
 
   return (
     <Fab
+      component={m.button}
+      whileTap="tap"
+      whileHover="hover"
+      variants={varHover()}
+      color="primary"
       size="medium"
       onClick={scrollToTop}
-      color="primary"
       sx={{
+        display: isVisible ? 'flex' : 'none',
         position: 'fixed',
         bottom: 24,
         right: 24,
-        opacity: isVisible ? 1 : 0,
-        transition: (theme) => theme.transitions.create('opacity'),
       }}
     >
       <Iconify icon="ic:round-arrow-upward" />
