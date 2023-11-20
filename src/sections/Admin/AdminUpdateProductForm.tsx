@@ -139,8 +139,8 @@ export const AdminUpdateProductForm = ({
                   message: '상품명은 2글자 이상이어야 합니다.',
                 },
                 maxLength: {
-                  value: 50,
-                  message: '상품명은 50글자 이하여야 합니다.',
+                  value: 100,
+                  message: '상품명은 100글자 이하여야 합니다.',
                 },
               })}
               label="상품명"
@@ -168,14 +168,13 @@ export const AdminUpdateProductForm = ({
             />
             <TextField
               {...register('paper', {
-                required: '종이 종류는 필수입니다.',
                 minLength: {
                   value: 2,
                   message: '종이 종류는 2글자 이상이어야 합니다.',
                 },
                 maxLength: {
-                  value: 50,
-                  message: '종이 종류는 50글자 이하여야 합니다.',
+                  value: 500,
+                  message: '종이 종류는 500글자 이하여야 합니다.',
                 },
               })}
               label="종이 종류"
@@ -185,7 +184,6 @@ export const AdminUpdateProductForm = ({
             />
             <TextField
               {...register('designer', {
-                required: '디자이너 정보는 필수입니다.',
                 minLength: {
                   value: 2,
                   message: '디자이너 정보는 2글자 이상이어야 합니다.',
@@ -291,7 +289,6 @@ export const AdminUpdateProductForm = ({
           <Stack spacing={3} sx={{ p: 3 }}>
             <TextField
               {...register('introduction', {
-                required: '소개글은 필수입니다.',
                 minLength: {
                   value: 2,
                   message: '소개글은 2글자 이상이어야 합니다.',
