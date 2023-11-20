@@ -72,6 +72,7 @@ export function chip(theme: Theme) {
           color: theme.palette[color].lighter,
           backgroundColor: theme.palette[color].dark,
         },
+        border: `solid 1px ${theme.palette[color].main}`,
         // SOFT
         ...(softVariant && {
           color: theme.palette[color][lightMode ? 'dark' : 'light'],
