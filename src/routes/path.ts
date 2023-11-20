@@ -2,6 +2,7 @@ export const paths = {
   root: '/',
   comingSoon: '/coming-soon',
   about: '/about-us',
+  aboutApp: '/about-app',
   contact: '/contact-us',
   faqs: '/faqs',
   page404: '/404',

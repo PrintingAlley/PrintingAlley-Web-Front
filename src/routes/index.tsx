@@ -1,25 +1,25 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import useAuth from './hooks/useAuth';
-import BookmarkPage from './pages/BookmarkPage';
-import ContentDetailPage from './pages/ContentDetailPage';
-import ContentPage from './pages/ContentPage';
-import ContentWebViewPage from './pages/ContentWebViewPage';
-import MyPage from './pages/MyPage';
-import NewContentPage from './pages/NewContentPage';
-import NewPrintShopPage from './pages/NewPrintShopPage';
-import NewProductPage from './pages/NewProductPage';
-import PrintShopDetailPage from './pages/PrintShopDetailPage';
-import PrintShopPage from './pages/PrintShopPage';
-import ProductDetailPage from './pages/ProductDetailPage';
-import ProductPage from './pages/ProductPage';
-import MyReviewPage from './pages/MyReviewPage';
-import AdminNewProductPage from './pages/Admin/AdminNewProductPage';
-import AdminUpdateProductPage from './pages/Admin/AdminUpdateProductPage';
-import ProtectedRoute from './sections/Auth/ProtectedRoute';
-import AdminProtectedRoute from './sections/Auth/AdminProtectedRoute';
-import { UserType } from './types/response.dto';
-import NotFoundPage from './pages/NotFoundPage';
+import useAuth from 'src/hooks/useAuth';
+import AdminNewProductPage from 'src/pages/Admin/AdminNewProductPage';
+import AdminUpdateProductPage from 'src/pages/Admin/AdminUpdateProductPage';
+import BookmarkPage from 'src/pages/BookmarkPage';
+import ContentDetailPage from 'src/pages/ContentDetailPage';
+import ContentPage from 'src/pages/ContentPage';
+import ContentWebViewPage from 'src/pages/ContentWebViewPage';
+import MyPage from 'src/pages/MyPage';
+import MyReviewPage from 'src/pages/MyReviewPage';
+import NewContentPage from 'src/pages/NewContentPage';
+import NewPrintShopPage from 'src/pages/NewPrintShopPage';
+import NewProductPage from 'src/pages/NewProductPage';
+import NotFoundPage from 'src/pages/NotFoundPage';
+import PrintShopDetailPage from 'src/pages/PrintShopDetailPage';
+import PrintShopPage from 'src/pages/PrintShopPage';
+import ProductDetailPage from 'src/pages/ProductDetailPage';
+import ProductPage from 'src/pages/ProductPage';
+import AdminProtectedRoute from 'src/sections/Auth/AdminProtectedRoute';
+import ProtectedRoute from 'src/sections/Auth/ProtectedRoute';
+import { UserType } from 'src/types/response.dto';
 
 function createProtectedRoute(path: string, Component: React.ComponentType) {
   return (
