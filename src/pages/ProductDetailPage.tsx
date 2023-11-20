@@ -67,18 +67,21 @@ export default function ProductDetailPage() {
             }
           />
 
-          <Divider sx={{ my: 2 }} />
+          {product.description && (
+            <>
+              <Divider sx={{ my: 2 }} />
+              <Markdown sx={{ py: 2 }}>{product.description}</Markdown>
+            </>
+          )}
 
-          <Markdown sx={{ py: 2 }}>{product.description}</Markdown>
-
-          <Divider sx={{ my: 2 }} />
-
-          {product.images.length ? (
-            <ProductDetailsCarousel images={product.images} />
-          ) : (
-            <Typography color="text.secondary" sx={{ textAlign: 'center', my: 5 }}>
-              제품 이미지가 없습니다.
-            </Typography>
+          {product.images.length && (
+            <>
+              <Divider sx={{ my: 2 }} />
+              <Typography variant="h6" gutterBottom>
+                작품 사진
+              </Typography>
+              <ProductDetailsCarousel images={product.images} />
+            </>
           )}
 
           <Divider sx={{ my: 2 }} />

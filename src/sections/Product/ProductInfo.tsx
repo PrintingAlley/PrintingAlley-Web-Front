@@ -40,18 +40,26 @@ const ProductInfo = ({ product, actions }: ProductInfoProps) => (
           </Link>
         </Tooltip>
       </Typography>
-      <Divider sx={{ my: 0.5 }} />
-      <Typography>
-        <b>디자인</b> {product.designer}
-      </Typography>
+      {product.designer && (
+        <>
+          <Divider sx={{ my: 0.5 }} />
+          <Typography>
+            <b>디자인</b> {product.designer}
+          </Typography>
+        </>
+      )}
       <Divider sx={{ my: 0.5 }} />
       <Typography>
         <b>제품 크기</b> {product.size}
       </Typography>
-      <Divider sx={{ my: 0.5 }} />
-      <Typography>
-        <b>종이</b> {product.paper}
-      </Typography>
+      {product.paper && (
+        <>
+          <Divider sx={{ my: 0.5 }} />
+          <Typography>
+            <b>종이</b> {product.paper}
+          </Typography>
+        </>
+      )}
       {product.printType && (
         <>
           <Divider sx={{ my: 0.5 }} />
@@ -68,8 +76,12 @@ const ProductInfo = ({ product, actions }: ProductInfoProps) => (
           </Typography>
         </>
       )}
-      <Divider sx={{ my: 0.5 }} />
-      <Typography>{product.introduction}</Typography>
+      {product.introduction && (
+        <>
+          <Divider sx={{ my: 0.5 }} />
+          <Typography>{product.introduction}</Typography>
+        </>
+      )}
     </Grid>
   </Grid>
 );
