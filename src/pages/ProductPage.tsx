@@ -24,6 +24,7 @@ import {
 
 export default function ProductPage() {
   const { topLevelTags, tagHierarchies } = useTag();
+  const [isFirstMount, setIsFirstMount] = useState(true);
   const [searchText, setSearchText] = useRecoilState(searchTextState);
   const [selectedTopLevelTag, setSelectedTopLevelTag] = useRecoilState(selectedTopLevelTagState);
   const [selectedTags, setSelectedTags] = useRecoilState(selectedTagsState);
@@ -63,6 +64,17 @@ export default function ProductPage() {
     fetchProducts(currentPage, searchText, selectedTags);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, searchText, selectedTags, sortBy, sortOrder]);
+
+  useEffect(() => {
+    setIsFirstMount(false);
+  }, []);
+
+  useEffect(() => {
+    if (!isFirstMount) {
+      setCurrentPage(1);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchText, selectedTags, sortBy, sortOrder]);
 
   return (
     <Stack spacing={3} flexGrow={1}>

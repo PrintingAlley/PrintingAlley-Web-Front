@@ -23,6 +23,7 @@ import {
 
 export default function PrintShopPage() {
   const { topLevelTags, tagHierarchies } = useTag();
+  const [isFirstMount, setIsFirstMount] = useState(true);
   const [searchText, setSearchText] = useRecoilState(searchTextState);
   const [selectedTopLevelTag, setSelectedTopLevelTag] = useRecoilState(selectedTopLevelTagState);
   const [selectedTags, setSelectedTags] = useRecoilState(selectedTagsState);
@@ -66,6 +67,17 @@ export default function PrintShopPage() {
     if (topLevelTags.length > 0) setSelectedTopLevelTag(topLevelTags[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topLevelTags]);
+
+  useEffect(() => {
+    setIsFirstMount(false);
+  }, []);
+
+  useEffect(() => {
+    if (!isFirstMount) {
+      setCurrentPage(1);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchText, selectedTags, sortBy, sortOrder]);
 
   return (
     <Stack spacing={3} flexGrow={1}>
