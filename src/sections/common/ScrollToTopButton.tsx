@@ -1,4 +1,4 @@
-import { IconButton } from '@mui/material';
+import { Fab } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Iconify from 'src/components/iconify';
 
@@ -27,25 +27,19 @@ export default function ScrollToTopButton() {
   }, []);
 
   return (
-    <IconButton
-      size="large"
+    <Fab
+      size="medium"
       onClick={scrollToTop}
+      color="primary"
       sx={{
         position: 'fixed',
         bottom: 24,
         right: 24,
-        zIndex: 1000,
-        color: 'common.white',
         opacity: isVisible ? 1 : 0,
         transition: (theme) => theme.transitions.create('opacity'),
-        backgroundColor: 'primary.main',
-        '&:hover': {
-          backgroundColor: 'primary.dark',
-        },
-        boxShadow: (theme) => theme.shadows[4],
       }}
     >
       <Iconify icon="ic:round-arrow-upward" />
-    </IconButton>
+    </Fab>
   );
 }
