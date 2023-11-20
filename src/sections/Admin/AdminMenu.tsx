@@ -1,5 +1,6 @@
 import { Typography, Button, Box } from '@mui/material';
 import { useNavigate } from 'react-router';
+import { paths } from 'src/routes/path';
 
 export default function AdminMenu() {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ export default function AdminMenu() {
         어드민 메뉴
       </Typography>
       <Box>
-        <Button onClick={() => navigate('/content/new')} variant="soft" color="info">
+        <Button onClick={() => navigate(paths.content.new)} variant="soft" color="info">
           콘텐츠 작성 페이지
         </Button>
       </Box>

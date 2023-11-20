@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import { ProductInterface, ProductWithTags } from 'src/types/response.dto';
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
+import { paths } from 'src/routes/path';
 import NoResult from '../common/NoResult';
 
 interface ProductItemProps {
@@ -76,7 +77,7 @@ const ProductItem = ({ product, onClick }: ProductItemProps) => {
 export const ProductList = ({ products }: ProductListProps) => {
   const navigate = useNavigate();
   const goToProductPage = (productId: number) => {
-    navigate(`/product/${productId}`);
+    navigate(paths.product.details(productId));
   };
 
   return (

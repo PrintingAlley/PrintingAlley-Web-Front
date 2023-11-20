@@ -33,6 +33,7 @@ import RHFEditor from 'src/components/hook-form/rhf-editor';
 import FormProvider from 'src/components/hook-form/form-provider';
 import { AdminCreateProduct } from 'src/types/admin.product';
 import { flattenArray } from 'src/utils/flatten-array';
+import { paths } from 'src/routes/path';
 import { FileUploadButton } from '../common/FileUploadButton';
 import { FilesUploadButton } from '../common/FilesUploadButton';
 
@@ -115,7 +116,7 @@ export const AdminCreateProductForm = ({
       .post<AdminCreateProduct>('/admin/product', formDataWithImages)
       .then((response: any) => {
         enqueueSnackbar('상품이 성공적으로 추가되었습니다.', { variant: 'success' });
-        navigate(`/product/${response.data.dataId}`, { replace: true });
+        navigate(paths.product.details(response.data.dataId), { replace: true });
       })
       .catch((error) => {
         enqueueSnackbar(`상품 추가 중 오류가 발생했습니다. ${error.message}`, {

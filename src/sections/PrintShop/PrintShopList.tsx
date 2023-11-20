@@ -9,6 +9,7 @@ import {
 import { useNavigate } from 'react-router';
 import { PrintShopWithTags } from 'src/types/response.dto';
 import { PLACEHOLDER_IMAGE_PATH } from 'src/constants/image-path';
+import { paths } from 'src/routes/path';
 import NoResult from '../common/NoResult';
 
 interface PrintShopListProps {
@@ -19,7 +20,7 @@ export const PrintShopList = ({ printShops }: PrintShopListProps) => {
   const navigate = useNavigate();
 
   const goToPrintShopPage = (shop: PrintShopWithTags) => {
-    navigate(`/print-shop/${shop.id}`);
+    navigate(paths.printShop.details(shop.id));
   };
 
   return (

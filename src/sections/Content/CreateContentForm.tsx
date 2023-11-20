@@ -12,6 +12,7 @@ import { RHFUpload } from 'src/components/hook-form';
 import { CreateContent } from 'src/types/content';
 import { uploadFileAndGetUrl } from 'src/utils/upload';
 import { MAX_FILE_UPLOAD_SIZE } from 'src/config-global';
+import { paths } from 'src/routes/path';
 
 export const CreateContentForm = () => {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ export const CreateContentForm = () => {
       .post<CreateContent>('/content', formDataWithImages)
       .then((response: any) => {
         enqueueSnackbar('콘텐츠가 성공적으로 추가되었습니다.', { variant: 'success' });
-        navigate(`/content/${response.data.dataId}`, { replace: true });
+        navigate(paths.content.details(response.data.dataId), { replace: true });
       })
       .catch((error) => {
         enqueueSnackbar(`콘텐츠 추가 중 오류가 발생했습니다. ${error.message}`, {

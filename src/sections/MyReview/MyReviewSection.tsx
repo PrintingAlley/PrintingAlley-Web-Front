@@ -22,6 +22,7 @@ import {
 import { fToNow } from 'src/utils/format-time';
 import { useNavigate } from 'react-router';
 import { PLACEHOLDER_IMAGE_PATH } from 'src/constants/image-path';
+import { paths } from 'src/routes/path';
 import DeleteReviewButton from '../Review/DeleteReviewButton';
 import ReviewImageLightbox from '../Review/ReviewImageLightbox';
 
@@ -38,7 +39,12 @@ function ReviewItem({
 }) {
   const navigate = useNavigate();
   const navigateToTarget = () => {
-    navigate(`/${type}/${target.id}`);
+    if (type === 'print-shop') {
+      navigate(paths.printShop.details(target.id));
+    }
+    if (type === 'product') {
+      navigate(paths.product.details(target.id));
+    }
   };
   const createdAt = new Date(review.createdAt);
   const timeAgo = fToNow(createdAt);

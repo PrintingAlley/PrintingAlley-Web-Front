@@ -8,6 +8,7 @@ import {
 } from 'src/types/response.dto';
 import { increaseProductViewCount } from 'src/apis/view-count';
 import { useNavigate } from 'react-router';
+import { paths } from 'src/routes/path';
 
 const useProductData = (productId: string | undefined) => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const useProductData = (productId: string | undefined) => {
         return res;
       })
       .catch((err) => {
-        navigate('/404');
+        navigate(paths.page404);
         return err;
       });
 

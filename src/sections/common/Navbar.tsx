@@ -13,6 +13,7 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Iconify from 'src/components/iconify/iconify';
 import Logo from 'src/components/logo';
+import { paths } from 'src/routes/path';
 import ThemeModeToggle from './ThemeModeToggle';
 import LoginModal from '../Login/LoginModal';
 import AccountPopover from './AccountPopover';
@@ -20,15 +21,15 @@ import AccountPopover from './AccountPopover';
 const navbarItems = [
   {
     label: '인쇄골목',
-    path: '/',
+    path: paths.product.root,
   },
   {
     label: '인쇄사 찾기',
-    path: '/print-shop',
+    path: paths.printShop.root,
   },
   {
     label: '콘텐츠',
-    path: '/content',
+    path: paths.content.root,
   },
 ];
 
@@ -36,7 +37,7 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const theme = useTheme();
-  const [position, setPosition] = useState(window.pageYOffset);
+  const [position, setPosition] = useState(window.scrollY);
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const isContentDetailPage =
@@ -57,7 +58,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const moving = window.pageYOffset;
+      const moving = window.scrollY;
       setPosition(moving);
     };
     window.addEventListener('scroll', handleScroll);

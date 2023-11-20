@@ -15,6 +15,7 @@ import { Helmet } from 'react-helmet-async';
 import ProductInfo from 'src/sections/Product/ProductInfo';
 import ProductActions from 'src/sections/Product/ProductActions';
 import useProductData from 'src/hooks/useProductData';
+import { paths } from 'src/routes/path';
 
 export default function ProductDetailPage() {
   const { id } = useParams();
@@ -35,11 +36,11 @@ export default function ProductDetailPage() {
   };
 
   const onDelete = () => {
-    navigate('/', { replace: true });
+    navigate(paths.product.root, { replace: true });
   };
 
   const navigateToAdminUpdateProductPage = () => {
-    navigate(`/admin/product/${product?.printShop.id}/${id}`);
+    navigate(paths.admin.product.update(product?.printShop.id, id));
   };
 
   return (

@@ -4,7 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider as MuiThemeProvider, ThemeOptions } from '@mui/material/styles';
 // system
 import { useRecoilValue } from 'recoil';
-import { themeModeState } from 'src/store/atoms';
+import { themeModeState } from 'src/state/theme-mode';
 import { palette } from './palette';
 import { shadows } from './shadows';
 import { typography } from './typography';

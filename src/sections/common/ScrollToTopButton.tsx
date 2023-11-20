@@ -1,14 +1,10 @@
 import { IconButton } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Iconify from 'src/components/iconify';
 
 export default function ScrollToTopButton() {
   const appearThreshold = 100;
   const [scrollY, setScrollY] = useState(window.scrollY);
-
-  window.addEventListener('scroll', () => {
-    setScrollY(window.scrollY);
-  });
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -18,6 +14,17 @@ export default function ScrollToTopButton() {
   };
 
   const isVisible = scrollY > appearThreshold;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const moving = window.scrollY;
+      setScrollY(moving);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <IconButton

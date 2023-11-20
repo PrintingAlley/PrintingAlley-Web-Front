@@ -10,6 +10,7 @@ import FormProvider from 'src/components/hook-form/form-provider';
 import Iconify from 'src/components/iconify';
 import { MAX_FILE_UPLOAD_SIZE } from 'src/config-global';
 import useAuth from 'src/hooks/useAuth';
+import { paths } from 'src/routes/path';
 import AdminMenu from 'src/sections/Admin/AdminMenu';
 import PolicyLink from 'src/sections/common/PolicyLink';
 import { UserType } from 'src/types/response.dto';
@@ -174,7 +175,7 @@ export default function MyPage() {
             {user.printShops.map((printShop) => (
               <Button
                 key={printShop.id}
-                onClick={() => navigate(`/print-shop/${printShop.id}`)}
+                onClick={() => navigate(paths.printShop.details(printShop.id))}
                 variant="soft"
                 color="info"
                 startIcon={<Iconify icon="ic:baseline-print" />}
@@ -184,7 +185,7 @@ export default function MyPage() {
             ))}
             {user.userType === UserType.ADMIN && (
               <Button
-                onClick={() => navigate('/print-shop/new')}
+                onClick={() => navigate(paths.printShop.new)}
                 variant="soft"
                 color="info"
                 startIcon={<Iconify icon="ic:baseline-add" />}
@@ -205,7 +206,7 @@ export default function MyPage() {
             <Typography variant="h6">인쇄사 사장님이신가요? 인쇄사를 등록해 보세요!</Typography>
 
             <Button
-              onClick={() => navigate('/print-shop/new')}
+              onClick={() => navigate(paths.printShop.new)}
               variant="soft"
               color="info"
               startIcon={<Iconify icon="ic:round-local-printshop" />}

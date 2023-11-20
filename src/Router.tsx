@@ -54,10 +54,11 @@ export default function Router() {
 
   return (
     <Routes>
-      <Route path="/" element={<ProductPage />} />
+      <Route path="/" element={<Navigate to="/product" />} />
       <Route path="/content" element={<ContentPage />} />
       <Route path="/content/:id" element={<ContentDetailPage />} />
       <Route path="/content-webview/:id" element={<ContentWebViewPage />} />
+      <Route path="/product" element={<ProductPage />} />
       <Route path="/product/:id" element={<ProductDetailPage />} />
       <Route path="/print-shop" element={<PrintShopPage />} />
       <Route path="/print-shop/:id" element={<PrintShopDetailPage />} />

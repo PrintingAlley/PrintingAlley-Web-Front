@@ -1,6 +1,7 @@
 import { Grid, Stack, Typography, Divider, Tooltip, Link } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { ProductDetail } from 'src/types/response.dto';
+import { paths } from 'src/routes/path';
 import LightboxForSingleImage from '../common/LightboxForSingleImage';
 
 interface ProductInfoProps {
@@ -34,7 +35,7 @@ const ProductInfo = ({ product, actions }: ProductInfoProps) => (
       <Typography>
         <b>제작 인쇄사</b>{' '}
         <Tooltip title="인쇄사 페이지로 이동">
-          <Link component={NavLink} to={`/print-shop/${product.printShop.id}`}>
+          <Link component={NavLink} to={paths.printShop.details(product.printShop.id)}>
             {product.printShop.name}
           </Link>
         </Tooltip>

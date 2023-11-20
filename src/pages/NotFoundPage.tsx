@@ -1,14 +1,12 @@
 import { Button, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
 import Iconify from 'src/components/iconify';
+import { paths } from 'src/routes/path';
 
 export default function NotFoundPage() {
   const navigate = useNavigate();
-  const goBack = () => {
-    navigate(-1);
-  };
   const goHome = () => {
-    navigate('/');
+    navigate(paths.root);
   };
 
   return (
@@ -16,14 +14,6 @@ export default function NotFoundPage() {
       <Typography variant="h2">404 Not Found</Typography>
       <Typography>요청하신 페이지를 찾을 수 없습니다.</Typography>
       <Stack direction="row" spacing={2}>
-        <Button
-          variant="soft"
-          onClick={goBack}
-          startIcon={<Iconify icon="ic:round-arrow-back" />}
-          color="primary"
-        >
-          뒤로가기
-        </Button>
         <Button
           variant="contained"
           onClick={goHome}

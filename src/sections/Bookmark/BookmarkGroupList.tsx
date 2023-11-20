@@ -23,6 +23,7 @@ import { fDate } from 'src/utils/format-time';
 import { useNavigate } from 'react-router';
 import { useSnackbar } from 'notistack';
 import { PLACEHOLDER_IMAGE_PATH } from 'src/constants/image-path';
+import { paths } from 'src/routes/path';
 import CreateBookmarkDialog from './CreateBookmarkDialog';
 import UpdateBookmarkDialog from './UpdateBookmarkDialog';
 
@@ -94,7 +95,7 @@ export const BookmarkGroupList = ({
   };
 
   const goToProductPage = (productId: number) => {
-    navigate(`/product/${productId}`);
+    navigate(paths.product.details(productId));
   };
 
   const handleSelectGroup = (groupId: number) => {
@@ -305,7 +306,7 @@ export const BookmarkGroupList = ({
           ) : (
             <Typography variant="body1" sx={{ textAlign: 'center', my: 5 }}>
               북마크가 없습니다.{' '}
-              <Link component={RouterLink} to="/" color="primary">
+              <Link component={RouterLink} to={paths.product.root} color="primary">
                 상품 목록으로 이동하기
               </Link>
             </Typography>

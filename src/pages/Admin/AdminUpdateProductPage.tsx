@@ -8,6 +8,7 @@ import { GetProductResponse, ProductDetail } from 'src/types/response.dto';
 import { useNavigate, useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import axios from 'src/utils/axios';
+import { paths } from 'src/routes/path';
 
 export default function AdminUpdateProductPage() {
   const { printShopId, id } = useParams();
@@ -22,7 +23,7 @@ export default function AdminUpdateProductPage() {
   };
 
   const navigateToProductDetail = () => {
-    navigate(`/product/${id}`, { replace: true });
+    navigate(paths.product.details(id), { replace: true });
   };
 
   useEffect(() => {

@@ -14,21 +14,22 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 import useAuth from 'src/hooks/useAuth';
 import { useNavigate } from 'react-router';
 import { Tooltip } from '@mui/material';
+import { paths } from 'src/routes/path';
 
 // ----------------------------------------------------------------------
 
 const OPTIONS = [
   {
     label: '북마크',
-    linkTo: '/bookmark',
+    linkTo: paths.bookmark.root,
   },
   {
     label: '내 리뷰',
-    linkTo: '/my/review',
+    linkTo: paths.my.review,
   },
   {
     label: '프로필 설정',
-    linkTo: '/my',
+    linkTo: paths.my.root,
   },
 ];
 

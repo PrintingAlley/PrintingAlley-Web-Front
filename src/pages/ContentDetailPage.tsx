@@ -10,6 +10,7 @@ import { DeleteContentButton } from 'src/sections/Content/DeleteContentButton';
 import { UpdateContentDialog } from 'src/sections/Content/UpdateContentDialog';
 import { Helmet } from 'react-helmet-async';
 import useAuth from 'src/hooks/useAuth';
+import { paths } from 'src/routes/path';
 
 export default function ContentDetailPage() {
   const { id } = useParams();
@@ -28,7 +29,7 @@ export default function ContentDetailPage() {
   };
 
   const onDelete = () => {
-    navigate('/content', { replace: true });
+    navigate(paths.content.root, { replace: true });
   };
 
   useEffect(() => {

@@ -31,6 +31,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { TagInterface } from 'src/types/response.dto';
 import { printShopTypes } from 'src/constants/print-shop-type';
 import { flattenArray } from 'src/utils/flatten-array';
+import { paths } from 'src/routes/path';
 import { FileUploadButton } from '../common/FileUploadButton';
 import BusinessHoursForm from '../common/BusinessHoursForm';
 
@@ -95,7 +96,7 @@ export const CreatePrintShopForm = ({ topLevelTags, tagHierarchies }: CreatePrin
       .post<CreatePrintShop>('print-shop', formDataWithImages)
       .then((response: any) => {
         enqueueSnackbar('인쇄사가 성공적으로 추가되었습니다.', { variant: 'success' });
-        navigate(`/print-shop/${response.data.dataId}`, { replace: true });
+        navigate(paths.printShop.details(response.data.dataId), { replace: true });
       })
       .catch((error) => {
         enqueueSnackbar(`인쇄사 추가 중 오류가 발생했습니다. ${error.message}`, {

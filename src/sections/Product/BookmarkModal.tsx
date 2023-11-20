@@ -25,6 +25,7 @@ import {
 import axios from 'src/utils/axios';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router';
+import { paths } from 'src/routes/path';
 import CreateBookmarkDialog from '../Bookmark/CreateBookmarkDialog';
 
 interface Props {
@@ -46,7 +47,7 @@ export default function BookmarkModal({ product, fetchProduct }: Props) {
   };
 
   const navigateToBookmark = () => {
-    navigate('/bookmark');
+    navigate(paths.bookmark.root);
   };
 
   const fetchBookmarkGroups = () => {

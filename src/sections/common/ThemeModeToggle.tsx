@@ -1,6 +1,6 @@
 import { Switch, Tooltip } from '@mui/material';
 import { useRecoilState } from 'recoil';
-import { themeModeState } from 'src/store/atoms';
+import { themeModeState } from 'src/state/theme-mode';
 
 function ThemeModeToggle() {
   const [themeMode, setThemeMode] = useRecoilState(themeModeState);

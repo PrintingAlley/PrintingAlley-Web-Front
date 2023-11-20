@@ -16,6 +16,7 @@ import { Helmet } from 'react-helmet-async';
 import LightboxForSingleImage from 'src/sections/common/LightboxForSingleImage';
 import PrintShopActions from 'src/sections/PrintShop/PrintShopActions';
 import usePrintShopData from 'src/hooks/usePrintShopData';
+import { paths } from 'src/routes/path';
 
 export default function PrintShopDetailPage() {
   const { id } = useParams();
@@ -36,15 +37,15 @@ export default function PrintShopDetailPage() {
   };
 
   const onDelete = () => {
-    navigate('/print-shop', { replace: true });
+    navigate(paths.printShop.root, { replace: true });
   };
 
   const goToNewProductPage = () => {
-    navigate('/product/new');
+    navigate(paths.product.new);
   };
 
   const navigateToAdminNewProductPage = () => {
-    navigate(`/admin/product/new/${id}`);
+    navigate(paths.admin.product.new(id));
   };
 
   return (
