@@ -12,6 +12,7 @@ import { MAX_FILE_UPLOAD_SIZE } from 'src/config-global';
 import useAuth from 'src/hooks/useAuth';
 import { paths } from 'src/routes/path';
 import AdminMenu from 'src/sections/Admin/AdminMenu';
+import PageContainer from 'src/sections/common/PageContainer';
 import PolicyLink from 'src/sections/common/PolicyLink';
 import { UserType } from 'src/types/response.dto';
 import { UpdateUser } from 'src/types/user';
@@ -94,7 +95,7 @@ export default function MyPage() {
   }
 
   return (
-    <>
+    <PageContainer>
       <Helmet>
         <title>내 정보 | 인쇄골목</title>
       </Helmet>
@@ -228,6 +229,6 @@ export default function MyPage() {
           </>
         )}
       </Stack>
-    </>
+    </PageContainer>
   );
 }

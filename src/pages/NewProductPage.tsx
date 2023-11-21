@@ -4,12 +4,13 @@ import { CreateProductForm } from 'src/sections/Product/CreateProductForm';
 import Title from 'src/sections/common/Title';
 import NavigateBackButton from 'src/sections/common/NavigateBackButton';
 import { Helmet } from 'react-helmet-async';
+import PageContainer from 'src/sections/common/PageContainer';
 
 export default function NewProductPage() {
   const { topLevelTags, tagHierarchies } = useTag();
 
   return (
-    <div>
+    <PageContainer>
       <Helmet>
         <title>상품 등록 | 인쇄골목</title>
       </Helmet>
@@ -21,6 +22,6 @@ export default function NewProductPage() {
       <Box sx={{ height: 16 }} />
 
       <CreateProductForm topLevelTags={topLevelTags} tagHierarchies={tagHierarchies} />
-    </div>
+    </PageContainer>
   );
 }

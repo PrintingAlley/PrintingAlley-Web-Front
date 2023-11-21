@@ -126,6 +126,8 @@ export function fab(theme: Theme) {
           backgroundColor: 'transparent',
           border: `solid 1px ${theme.palette.action.disabledBackground}`,
         }),
+        color: theme.palette.common.white,
+        backgroundColor: theme.palette.primary.main,
       },
     };
 

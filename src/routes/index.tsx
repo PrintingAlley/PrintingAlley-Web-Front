@@ -1,6 +1,7 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import useAuth from 'src/hooks/useAuth';
+import AboutAppPage from 'src/pages/AboutAppPage';
 import AdminNewProductPage from 'src/pages/Admin/AdminNewProductPage';
 import AdminUpdateProductPage from 'src/pages/Admin/AdminUpdateProductPage';
 import BookmarkPage from 'src/pages/BookmarkPage';
@@ -19,6 +20,8 @@ import ProductDetailPage from 'src/pages/ProductDetailPage';
 import ProductPage from 'src/pages/ProductPage';
 import AdminProtectedRoute from 'src/sections/Auth/AdminProtectedRoute';
 import ProtectedRoute from 'src/sections/Auth/ProtectedRoute';
+import Footer from 'src/sections/common/Footer';
+import Navbar from 'src/sections/common/Navbar';
 import { UserType } from 'src/types/response.dto';
 
 function createProtectedRoute(path: string, Component: React.ComponentType) {
@@ -51,35 +54,44 @@ function createAdminRoute(path: string, Component: React.ComponentType) {
 
 export default function Router() {
   const { isAuthenticated, user } = useAuth();
+  const { pathname } = useLocation();
+  const isLandingPage = pathname === '/about-app';
 
   return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/product" />} />
-      <Route path="/content" element={<ContentPage />} />
-      <Route path="/content/:id" element={<ContentDetailPage />} />
-      <Route path="/content-webview/:id" element={<ContentWebViewPage />} />
-      <Route path="/product" element={<ProductPage />} />
-      <Route path="/product/:id" element={<ProductDetailPage />} />
-      <Route path="/print-shop" element={<PrintShopPage />} />
-      <Route path="/print-shop/:id" element={<PrintShopDetailPage />} />
+    <>
+      <Navbar />
 
-      {isAuthenticated && [
-        createProtectedRoute('/print-shop/new', NewPrintShopPage),
-        createProtectedRoute('/product/new', NewProductPage),
-        createProtectedRoute('/bookmark', BookmarkPage),
-        createProtectedRoute('/my', MyPage),
-        createProtectedRoute('/my/review', MyReviewPage),
-      ]}
+      <Routes>
+        <Route path="/" element={<Navigate to="/product" />} />
+        <Route path="/about-app" element={<AboutAppPage />} />
+        <Route path="/content" element={<ContentPage />} />
+        <Route path="/content/:id" element={<ContentDetailPage />} />
+        <Route path="/content-webview/:id" element={<ContentWebViewPage />} />
+        <Route path="/product" element={<ProductPage />} />
+        <Route path="/product/:id" element={<ProductDetailPage />} />
+        <Route path="/print-shop" element={<PrintShopPage />} />
+        <Route path="/print-shop/:id" element={<PrintShopDetailPage />} />
 
-      {user?.userType === UserType.ADMIN && [
-        createAdminRoute('/admin/product/new/:printShopId', AdminNewProductPage),
-        createAdminRoute('/admin/product/:printShopId/:id', AdminUpdateProductPage),
-        createAdminRoute('/content/new', NewContentPage),
-      ]}
+        {isAuthenticated && [
+          createProtectedRoute('/print-shop/new', NewPrintShopPage),
+          createProtectedRoute('/product/new', NewProductPage),
+          createProtectedRoute('/bookmark', BookmarkPage),
+          createProtectedRoute('/my', MyPage),
+          createProtectedRoute('/my/review', MyReviewPage),
+        ]}
 
-      <Route path="/login" element={<Navigate to="/" />} />
-      <Route path="/404" element={<NotFoundPage />} />
-      <Route path="*" element={<Navigate to="/404" />} />
-    </Routes>
+        {user?.userType === UserType.ADMIN && [
+          createAdminRoute('/admin/product/new/:printShopId', AdminNewProductPage),
+          createAdminRoute('/admin/product/:printShopId/:id', AdminUpdateProductPage),
+          createAdminRoute('/content/new', NewContentPage),
+        ]}
+
+        <Route path="/login" element={<Navigate to="/" />} />
+        <Route path="/404" element={<NotFoundPage />} />
+        <Route path="*" element={<Navigate to="/404" />} />
+      </Routes>
+
+      {!isLandingPage && <Footer />}
+    </>
   );
 }

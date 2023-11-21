@@ -5,6 +5,7 @@ import {
   MyPrintShopReviewSection,
   MyProductReviewSection,
 } from 'src/sections/MyReview/MyReviewSection';
+import PageContainer from 'src/sections/common/PageContainer';
 import Title from 'src/sections/common/Title';
 import {
   GetUserPrintShopReviewsResponse,
@@ -37,7 +38,7 @@ export default function MyReviewPage() {
   }, []);
 
   return (
-    <div>
+    <PageContainer>
       <Helmet>
         <title>내 리뷰 | 인쇄골목</title>
       </Helmet>
@@ -70,6 +71,6 @@ export default function MyReviewPage() {
           )}
         </>
       )}
-    </div>
+    </PageContainer>
   );
 }

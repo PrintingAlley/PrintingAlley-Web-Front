@@ -16,6 +16,7 @@ import ProductInfo from 'src/sections/Product/ProductInfo';
 import ProductActions from 'src/sections/Product/ProductActions';
 import useProductData from 'src/hooks/useProductData';
 import { paths } from 'src/routes/path';
+import PageContainer from 'src/sections/common/PageContainer';
 
 export default function ProductDetailPage() {
   const { id } = useParams();
@@ -44,7 +45,7 @@ export default function ProductDetailPage() {
   };
 
   return (
-    <>
+    <PageContainer>
       {product ? (
         <div>
           <Helmet>
@@ -130,6 +131,6 @@ export default function ProductDetailPage() {
       ) : (
         <SkeletonSection />
       )}
-    </>
+    </PageContainer>
   );
 }

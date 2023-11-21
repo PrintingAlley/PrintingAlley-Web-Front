@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { BookmarkGroupList } from 'src/sections/Bookmark/BookmarkGroupList';
+import PageContainer from 'src/sections/common/PageContainer';
 import Title from 'src/sections/common/Title';
 import { BookmarkGroupWithExtra, GetBookmarkGroupsResponse } from 'src/types/response.dto';
 import axios from 'src/utils/axios';
@@ -19,7 +20,7 @@ export default function BookmarkPage() {
   }, []);
 
   return (
-    <div>
+    <PageContainer>
       <Helmet>
         <title>북마크 | 인쇄골목</title>
       </Helmet>
@@ -32,6 +33,6 @@ export default function BookmarkPage() {
           fetchBookmarkGroups={fetchBookmarkGroups}
         />
       )}
-    </div>
+    </PageContainer>
   );
 }

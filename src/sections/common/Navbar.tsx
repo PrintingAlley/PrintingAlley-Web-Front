@@ -20,6 +20,10 @@ import AccountPopover from './AccountPopover';
 
 const navbarItems = [
   {
+    label: '앱 소개',
+    path: paths.aboutApp,
+  },
+  {
     label: '인쇄골목',
     path: paths.product.root,
   },
@@ -34,14 +38,14 @@ const navbarItems = [
 ];
 
 const Navbar = () => {
-  const location = useLocation();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const theme = useTheme();
   const [position, setPosition] = useState(window.scrollY);
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
-  const isContentDetailPage =
-    location.pathname.includes('/content/') && location.pathname !== '/content/new';
+  const isContentDetailPage = pathname.includes('/content/') && pathname !== '/content/new';
+  const isAboutAppPage = pathname === '/about-app';
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -67,12 +71,22 @@ const Navbar = () => {
     };
   }, []);
 
+  const getColor = () => {
+    if (isContentDetailPage) {
+      return 'common.white';
+    }
+    if (isAboutAppPage) {
+      return 'grey.800';
+    }
+    return 'inherit';
+  };
+
   return (
     <AppBar
       position="fixed"
       sx={{
         '&.transparent': {
-          color: isContentDetailPage ? 'common.white' : 'inherit',
+          color: getColor(),
           backgroundColor: 'transparent',
           boxShadow: 0,
           transition: 'background-color 0.1s ease-out, box-shadow 0.1s ease-out',
@@ -91,7 +105,7 @@ const Navbar = () => {
         <Stack direction="row" alignItems="center">
           <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
             {navbarItems.map((item) => {
-              const isActive = location.pathname === item.path;
+              const isActive = pathname === item.path && !isAboutAppPage;
               return (
                 <Button
                   key={item.label}

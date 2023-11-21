@@ -9,6 +9,7 @@ import { useNavigate, useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import axios from 'src/utils/axios';
 import { paths } from 'src/routes/path';
+import PageContainer from 'src/sections/common/PageContainer';
 
 export default function AdminUpdateProductPage() {
   const { printShopId, id } = useParams();
@@ -32,7 +33,7 @@ export default function AdminUpdateProductPage() {
   }, [id]);
 
   return (
-    <div>
+    <PageContainer>
       <Helmet>
         <title>상품 수정 (관리자) | 인쇄골목</title>
       </Helmet>
@@ -52,6 +53,6 @@ export default function AdminUpdateProductPage() {
           onAddSuccess={navigateToProductDetail}
         />
       )}
-    </div>
+    </PageContainer>
   );
 }

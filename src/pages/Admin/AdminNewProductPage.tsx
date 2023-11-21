@@ -5,13 +5,14 @@ import NavigateBackButton from 'src/sections/common/NavigateBackButton';
 import { Helmet } from 'react-helmet-async';
 import { AdminCreateProductForm } from 'src/sections/Admin/AdminCreateProductForm';
 import { useParams } from 'react-router';
+import PageContainer from 'src/sections/common/PageContainer';
 
 export default function AdminNewProductPage() {
   const { printShopId } = useParams();
   const { topLevelTags, tagHierarchies } = useTag();
 
   return (
-    <div>
+    <PageContainer>
       <Helmet>
         <title>상품 등록 (관리자) | 인쇄골목</title>
       </Helmet>
@@ -29,6 +30,6 @@ export default function AdminNewProductPage() {
           tagHierarchies={tagHierarchies}
         />
       )}
-    </div>
+    </PageContainer>
   );
 }

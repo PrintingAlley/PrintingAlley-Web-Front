@@ -20,6 +20,7 @@ import {
   sortOrderState,
   currentPageState,
 } from 'src/state/printShopState';
+import PageContainer from 'src/sections/common/PageContainer';
 
 export default function PrintShopPage() {
   const { topLevelTags, tagHierarchies } = useTag();
@@ -80,58 +81,60 @@ export default function PrintShopPage() {
   }, [searchText, selectedTags, sortBy, sortOrder]);
 
   return (
-    <Stack spacing={3} flexGrow={1}>
-      <Helmet>
-        <title>인쇄사 찾기 | 인쇄골목</title>
-      </Helmet>
+    <PageContainer>
+      <Stack spacing={3} flexGrow={1}>
+        <Helmet>
+          <title>인쇄사 찾기 | 인쇄골목</title>
+        </Helmet>
 
-      <CenteredTitle
-        title="인쇄사 찾기"
-        sx={{ fontFamily: 'Godo, sans-serif', color: 'primary.main', letterSpacing: 1 }}
-      />
+        <CenteredTitle
+          title="인쇄사 찾기"
+          sx={{ fontFamily: 'Godo, sans-serif', color: 'primary.main', letterSpacing: 1 }}
+        />
 
-      <SearchBar searchText={searchText} onSearch={setSearchText} resetSearch={resetSearch} />
+        <SearchBar searchText={searchText} onSearch={setSearchText} resetSearch={resetSearch} />
 
-      <Stack spacing={2}>
-        <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <TagFilterDrawer
-            type="print-shop"
+        <Stack spacing={2}>
+          <Stack direction="row" alignItems="center" justifyContent="space-between">
+            <TagFilterDrawer
+              type="print-shop"
+              selectedTopLevelTag={selectedTopLevelTag}
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
+              tags={tagHierarchies}
+            />
+
+            <SortBar
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+              sortOrder={sortOrder}
+              setSortOrder={setSortOrder}
+            />
+          </Stack>
+
+          <FilterList
             selectedTopLevelTag={selectedTopLevelTag}
+            setSelectedTopLevelTag={setSelectedTopLevelTag}
             selectedTags={selectedTags}
             setSelectedTags={setSelectedTags}
-            tags={tagHierarchies}
-          />
-
-          <SortBar
-            sortBy={sortBy}
-            setSortBy={setSortBy}
-            sortOrder={sortOrder}
-            setSortOrder={setSortOrder}
           />
         </Stack>
 
-        <FilterList
-          selectedTopLevelTag={selectedTopLevelTag}
-          setSelectedTopLevelTag={setSelectedTopLevelTag}
-          selectedTags={selectedTags}
-          setSelectedTags={setSelectedTags}
+        {printShops && <PrintShopList printShops={printShops} />}
+
+        <Box sx={{ flexGrow: 1 }} />
+
+        <Pagination
+          count={Math.ceil(totalPrintShops / PRINT_SHOP_PAGE_SIZE)}
+          page={currentPage}
+          onChange={(_event, value) => setCurrentPage(value)}
+          variant="outlined"
+          shape="rounded"
+          sx={{ alignSelf: 'center' }}
+          showFirstButton
+          showLastButton
         />
       </Stack>
-
-      {printShops && <PrintShopList printShops={printShops} />}
-
-      <Box sx={{ flexGrow: 1 }} />
-
-      <Pagination
-        count={Math.ceil(totalPrintShops / PRINT_SHOP_PAGE_SIZE)}
-        page={currentPage}
-        onChange={(_event, value) => setCurrentPage(value)}
-        variant="outlined"
-        shape="rounded"
-        sx={{ alignSelf: 'center' }}
-        showFirstButton
-        showLastButton
-      />
-    </Stack>
+    </PageContainer>
   );
 }

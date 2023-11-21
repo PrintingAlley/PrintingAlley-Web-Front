@@ -43,10 +43,6 @@ export default function ScrollToTopButton() {
         right: 24,
         opacity: isVisible ? 1 : 0,
         transition: (theme) => theme.transitions.create('opacity'),
-        ':disabled': {
-          color: 'common.white',
-          backgroundColor: 'primary.main',
-        },
       }}
       disabled={!isVisible}
     >

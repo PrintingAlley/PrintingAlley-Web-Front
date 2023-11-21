@@ -17,6 +17,7 @@ import LightboxForSingleImage from 'src/sections/common/LightboxForSingleImage';
 import PrintShopActions from 'src/sections/PrintShop/PrintShopActions';
 import usePrintShopData from 'src/hooks/usePrintShopData';
 import { paths } from 'src/routes/path';
+import PageContainer from 'src/sections/common/PageContainer';
 
 export default function PrintShopDetailPage() {
   const { id } = useParams();
@@ -49,7 +50,7 @@ export default function PrintShopDetailPage() {
   };
 
   return (
-    <>
+    <PageContainer>
       {printShop ? (
         <div>
           <Helmet>
@@ -139,6 +140,6 @@ export default function PrintShopDetailPage() {
       ) : (
         <SkeletonSection />
       )}
-    </>
+    </PageContainer>
   );
 }

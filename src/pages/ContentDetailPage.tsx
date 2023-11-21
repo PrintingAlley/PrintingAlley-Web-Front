@@ -11,6 +11,7 @@ import { UpdateContentDialog } from 'src/sections/Content/UpdateContentDialog';
 import { Helmet } from 'react-helmet-async';
 import useAuth from 'src/hooks/useAuth';
 import { paths } from 'src/routes/path';
+import PageContainer from 'src/sections/common/PageContainer';
 
 export default function ContentDetailPage() {
   const { id } = useParams();
@@ -38,7 +39,7 @@ export default function ContentDetailPage() {
   }, [id]);
 
   return (
-    <>
+    <PageContainer>
       {content ? (
         <div>
           <Helmet>
@@ -63,6 +64,6 @@ export default function ContentDetailPage() {
       ) : (
         <SkeletonSection />
       )}
-    </>
+    </PageContainer>
   );
 }

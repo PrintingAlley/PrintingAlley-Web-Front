@@ -21,6 +21,7 @@ import {
   sortByState,
   sortOrderState,
 } from 'src/state/productState';
+import PageContainer from 'src/sections/common/PageContainer';
 
 export default function ProductPage() {
   const { topLevelTags, tagHierarchies } = useTag();
@@ -77,67 +78,69 @@ export default function ProductPage() {
   }, [searchText, selectedTags, sortBy, sortOrder]);
 
   return (
-    <Stack spacing={3} flexGrow={1}>
-      <Helmet>
-        <title>인쇄골목</title>
-      </Helmet>
+    <PageContainer>
+      <Stack spacing={3} flexGrow={1}>
+        <Helmet>
+          <title>인쇄골목</title>
+        </Helmet>
 
-      <CenteredTitle
-        title="인쇄골목"
-        sx={{ fontFamily: 'Godo, sans-serif', color: 'primary.main', letterSpacing: 1 }}
-      />
+        <CenteredTitle
+          title="인쇄골목"
+          sx={{ fontFamily: 'Godo, sans-serif', color: 'primary.main', letterSpacing: 1 }}
+        />
 
-      <SearchBar searchText={searchText} onSearch={setSearchText} resetSearch={resetSearch} />
+        <SearchBar searchText={searchText} onSearch={setSearchText} resetSearch={resetSearch} />
 
-      <ProductCategory
-        selectedTopLevelTag={selectedTopLevelTag}
-        setSelectedTopLevelTag={setSelectedTopLevelTag}
-        setSelectedTags={setSelectedTags}
-        topLevelTags={topLevelTags}
-      />
+        <ProductCategory
+          selectedTopLevelTag={selectedTopLevelTag}
+          setSelectedTopLevelTag={setSelectedTopLevelTag}
+          setSelectedTags={setSelectedTags}
+          topLevelTags={topLevelTags}
+        />
 
-      <Stack spacing={2} mb={1}>
-        <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <TagFilterDrawer
-            type="product"
+        <Stack spacing={2} mb={1}>
+          <Stack direction="row" alignItems="center" justifyContent="space-between">
+            <TagFilterDrawer
+              type="product"
+              selectedTopLevelTag={selectedTopLevelTag}
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
+              tags={tagHierarchies}
+              topLevelTags={topLevelTags}
+              setSelectedTopLevelTag={setSelectedTopLevelTag}
+            />
+
+            <SortBar
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+              sortOrder={sortOrder}
+              setSortOrder={setSortOrder}
+            />
+          </Stack>
+
+          <FilterList
             selectedTopLevelTag={selectedTopLevelTag}
+            setSelectedTopLevelTag={setSelectedTopLevelTag}
             selectedTags={selectedTags}
             setSelectedTags={setSelectedTags}
-            tags={tagHierarchies}
-            topLevelTags={topLevelTags}
-            setSelectedTopLevelTag={setSelectedTopLevelTag}
-          />
-
-          <SortBar
-            sortBy={sortBy}
-            setSortBy={setSortBy}
-            sortOrder={sortOrder}
-            setSortOrder={setSortOrder}
           />
         </Stack>
 
-        <FilterList
-          selectedTopLevelTag={selectedTopLevelTag}
-          setSelectedTopLevelTag={setSelectedTopLevelTag}
-          selectedTags={selectedTags}
-          setSelectedTags={setSelectedTags}
+        {products && <ProductList products={products} />}
+
+        <Box sx={{ flexGrow: 1 }} />
+
+        <Pagination
+          count={Math.ceil(totalProducts / PRODUCT_PAGE_SIZE)}
+          page={currentPage}
+          onChange={(_event, value) => setCurrentPage(value)}
+          variant="outlined"
+          shape="rounded"
+          sx={{ alignSelf: 'center' }}
+          showFirstButton
+          showLastButton
         />
       </Stack>
-
-      {products && <ProductList products={products} />}
-
-      <Box sx={{ flexGrow: 1 }} />
-
-      <Pagination
-        count={Math.ceil(totalProducts / PRODUCT_PAGE_SIZE)}
-        page={currentPage}
-        onChange={(_event, value) => setCurrentPage(value)}
-        variant="outlined"
-        shape="rounded"
-        sx={{ alignSelf: 'center' }}
-        showFirstButton
-        showLastButton
-      />
-    </Stack>
+    </PageContainer>
   );
 }

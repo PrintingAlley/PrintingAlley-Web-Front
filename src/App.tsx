@@ -24,10 +24,7 @@ import ThemeProvider from 'src/theme';
 import ProgressBar from 'src/components/progress-bar';
 import SnackbarProvider from 'src/components/snackbar/snackbar-provider';
 import { MotionLazy } from './components/animate/motion-lazy';
-import Navbar from './sections/common/Navbar';
-import PageContainer from './sections/common/PageContainer';
 import Router from './routes';
-import Footer from './sections/common/Footer';
 import ScrollToTopButton from './sections/common/ScrollToTopButton';
 import { LocalizationProvider } from './locales';
 import { useScrollToTop } from './hooks/useScrollToTop';
@@ -43,11 +40,7 @@ export default function App() {
         <MotionLazy>
           <SnackbarProvider>
             <ProgressBar />
-            <Navbar />
-            <PageContainer>
-              <Router />
-            </PageContainer>
-            <Footer />
+            <Router />
             <ScrollToTopButton />
           </SnackbarProvider>
         </MotionLazy>

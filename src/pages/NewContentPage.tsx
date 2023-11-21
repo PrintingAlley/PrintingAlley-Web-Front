@@ -1,12 +1,13 @@
 import { Box } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import NavigateBackButton from 'src/sections/common/NavigateBackButton';
+import PageContainer from 'src/sections/common/PageContainer';
 import Title from 'src/sections/common/Title';
 import { CreateContentForm } from 'src/sections/Content/CreateContentForm';
 
 export default function NewContentPage() {
   return (
-    <div>
+    <PageContainer>
       <Helmet>
         <title>콘텐츠 작성 | 인쇄골목</title>
       </Helmet>
@@ -18,6 +19,6 @@ export default function NewContentPage() {
       <Box sx={{ height: 16 }} />
 
       <CreateContentForm />
-    </div>
+    </PageContainer>
   );
 }
