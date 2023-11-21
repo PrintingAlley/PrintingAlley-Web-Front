@@ -5,6 +5,8 @@ import { HOST_API } from 'src/config-global';
 import { GetUserResponse, Provider, UserInterface } from 'src/types/response.dto';
 import { UpdateUser } from 'src/types/user';
 import axios from 'src/utils/axios';
+import { useNavigate } from 'react-router';
+import { paths } from 'src/routes/path';
 
 export const getProviderName = (provider: Provider) => {
   switch (provider) {
@@ -23,6 +25,7 @@ export const getProviderName = (provider: Provider) => {
 
 const useAuth = () => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const handleLoginRedirect = (provider: Provider) => {
     window.location.href = `${HOST_API}/auth/${provider}`;
@@ -60,7 +63,7 @@ const useAuth = () => {
 
   const verifySocialToken = async (): Promise<boolean> =>
     axios
-      .get('/auth/verify')
+      .get('/auth/verify-social-access-token')
       .then((res) => {
         if (res.data.isValid) return true;
         return false;
@@ -79,6 +82,7 @@ const useAuth = () => {
         .then(() => {
           logout();
           alert('회원탈퇴가 완료되었습니다.');
+          navigate(paths.root);
         })
         .catch((error) => {
           console.error(error);

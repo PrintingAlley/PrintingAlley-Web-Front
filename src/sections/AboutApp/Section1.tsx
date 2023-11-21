@@ -21,46 +21,7 @@ export default function Section1({ fullpage }: { fullpage: fullpageApi }) {
       }}
       spacing={1}
     >
-      <Box
-        sx={{
-          position: 'absolute',
-          height: '100vh',
-        }}
-      >
-        <Box
-          component={m.img}
-          src="/assets/about-app/road.svg"
-          initial={{ y: '-1%' }}
-          animate={{ y: '-101%' }}
-          transition={{ duration: 7, repeat: Infinity, ease: 'linear', delay: 3 }}
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 'calc(50% - 18px)',
-            width: 36,
-            height: '100.5%',
-            objectFit: 'cover',
-            objectPosition: 'center',
-            WebkitUserDrag: 'none',
-          }}
-        />
-        <Box
-          component={m.img}
-          src="/assets/about-app/road.svg"
-          initial={{ y: '99%' }}
-          animate={{ y: '-1%' }}
-          transition={{ duration: 7, repeat: Infinity, ease: 'linear', delay: 3 }}
-          sx={{
-            top: 0,
-            left: 'calc(50% - 18px)',
-            width: 36,
-            height: '100.5%',
-            objectFit: 'cover',
-            objectPosition: 'center',
-            WebkitUserDrag: 'none',
-          }}
-        />
-      </Box>
+      <Box className="road-container" />
 
       <Box
         component={m.div}
