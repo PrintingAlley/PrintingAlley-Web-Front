@@ -98,10 +98,6 @@ export default function CreateBookmarkDialog({ onAdd }: CreateBookmarkDialogProp
             <TextField
               {...register('name', {
                 required: '그룹 이름을 입력해주세요.',
-                minLength: {
-                  value: 2,
-                  message: '그룹 이름은 2글자 이상이어야 합니다.',
-                },
               })}
               fullWidth
               placeholder="그룹 이름을 입력하세요"
