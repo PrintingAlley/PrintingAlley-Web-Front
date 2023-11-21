@@ -41,7 +41,7 @@ export default function AboutAppPage() {
               <Section5 destination={dest} fullpage={fullpageApi} />
             </div>
             <div className="section">
-              <Section6 destination={dest} />
+              <Section6 destination={dest} fullpage={fullpageApi} />
             </div>
           </ReactFullpage.Wrapper>
         )}

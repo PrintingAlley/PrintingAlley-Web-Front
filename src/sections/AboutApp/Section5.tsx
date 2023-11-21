@@ -16,6 +16,8 @@ export default function Section5({
   useEffect(() => {
     if (destination && destination.index === 4) {
       setIsActive(true);
+    } else {
+      setIsActive(false);
     }
   }, [destination]);
 

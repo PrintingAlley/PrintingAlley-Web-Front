@@ -1,19 +1,28 @@
 import { useEffect, useState } from 'react';
-import { Item } from '@fullpage/react-fullpage';
+import { Item, fullpageApi } from '@fullpage/react-fullpage';
 import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import { m } from 'framer-motion';
 import Logo from 'src/components/logo';
 import { varHover } from 'src/components/animate';
 import Iconify from 'src/components/iconify';
+import SectionUpButton from './SectionUpButton';
 
 const TEXT = '인쇄골목';
 
-export default function Section6({ destination }: { destination: Item | null }) {
+export default function Section6({
+  destination,
+  fullpage,
+}: {
+  destination: Item | null;
+  fullpage: fullpageApi;
+}) {
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     if (destination && destination.index === 5) {
       setIsActive(true);
+    } else {
+      setIsActive(false);
     }
   }, [destination]);
 
@@ -113,6 +122,8 @@ export default function Section6({ destination }: { destination: Item | null }) 
           </Grid>
         </Grid>
       </Container>
+
+      <SectionUpButton isActive={isActive} fullpage={fullpage} />
     </Stack>
   );
 }
