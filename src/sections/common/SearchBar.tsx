@@ -6,9 +6,15 @@ interface SearchBarProps {
   searchText: string;
   onSearch: (query: string) => void;
   resetSearch: () => void;
+  placeholder?: string;
 }
 
-export const SearchBar = ({ searchText, onSearch, resetSearch }: SearchBarProps) => {
+export const SearchBar = ({
+  searchText,
+  onSearch,
+  resetSearch,
+  placeholder = '검색어를 입력하세요',
+}: SearchBarProps) => {
   const [searchQuery, setSearchQuery] = useState(searchText);
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -33,7 +39,7 @@ export const SearchBar = ({ searchText, onSearch, resetSearch }: SearchBarProps)
     >
       <TextField
         value={searchQuery}
-        placeholder="검색어를 입력하세요"
+        placeholder={placeholder}
         variant="outlined"
         fullWidth
         onChange={(e) => setSearchQuery(e.target.value)}

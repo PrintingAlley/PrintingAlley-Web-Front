@@ -92,7 +92,12 @@ export default function PrintShopPage() {
           sx={{ fontFamily: 'Godo, sans-serif', color: 'primary.main', letterSpacing: 1 }}
         />
 
-        <SearchBar searchText={searchText} onSearch={setSearchText} resetSearch={resetSearch} />
+        <SearchBar
+          searchText={searchText}
+          onSearch={setSearchText}
+          resetSearch={resetSearch}
+          placeholder="인쇄사명, 인쇄 방식, 후가공 등을 검색해보세요"
+        />
 
         <Stack spacing={2}>
           <Stack direction="row" alignItems="center" justifyContent="space-between">

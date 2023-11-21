@@ -89,7 +89,12 @@ export default function ProductPage() {
           sx={{ fontFamily: 'Godo, sans-serif', color: 'primary.main', letterSpacing: 1 }}
         />
 
-        <SearchBar searchText={searchText} onSearch={setSearchText} resetSearch={resetSearch} />
+        <SearchBar
+          searchText={searchText}
+          onSearch={setSearchText}
+          resetSearch={resetSearch}
+          placeholder="작품명, 인쇄 방식, 후가공 등을 검색해보세요"
+        />
 
         <ProductCategory
           selectedTopLevelTag={selectedTopLevelTag}
