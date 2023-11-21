@@ -27,8 +27,6 @@ export default function Section3({
       alignItems="center"
       sx={{
         height: '100vh',
-        color: 'grey.800',
-        backgroundColor: 'common.white',
         overflow: 'hidden',
       }}
     >
@@ -49,7 +47,7 @@ export default function Section3({
               component={m.div}
               initial={{ y: -100, opacity: 0 }}
               animate={isActive ? { y: 0, opacity: 1 } : {}}
-              transition={{ duration: 2 }}
+              transition={{ duration: 2, ease: 'easeInOut' }}
             >
               <Typography variant="h4" color="primary.main" sx={{ fontWeight: 'bold' }}>
                 종이부터 후가공까지
@@ -82,7 +80,7 @@ export default function Section3({
               src="/assets/about-app/section3-iphone.png"
               initial={{ y: 100, opacity: 0 }}
               animate={isActive ? { y: 0, opacity: 1 } : {}}
-              transition={{ duration: 2 }}
+              transition={{ duration: 2, ease: 'easeInOut' }}
             />
           </Grid>
         </Grid>

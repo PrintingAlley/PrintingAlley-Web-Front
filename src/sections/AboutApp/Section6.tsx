@@ -37,9 +37,8 @@ export default function Section6({
       alignItems="center"
       sx={{
         height: '100vh',
-        color: 'grey.800',
-        backgroundColor: 'grey.50',
         overflow: 'hidden',
+        backgroundColor: 'grey.50',
       }}
     >
       <Container>
@@ -88,7 +87,7 @@ export default function Section6({
                     key={index}
                     initial={{ opacity: 0 }}
                     animate={isActive ? { opacity: 1 } : {}}
-                    transition={{ duration: 2, delay: index * 0.1 }}
+                    transition={{ duration: 2, delay: 1 + index * 0.5 }}
                   >
                     {letter}
                   </m.span>
@@ -98,7 +97,7 @@ export default function Section6({
                 component={m.div}
                 initial={{ opacity: 0, y: 50 }}
                 animate={isActive ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 1, delay: 1, type: 'spring', bounce: 0.5 }}
+                transition={{ duration: 1, delay: 3.5, type: 'spring', bounce: 0.5 }}
               >
                 <Button
                   onClick={onClickAppStore}

@@ -15,7 +15,7 @@ export default function SectionUpButton({ isActive, fullpage }: SectionUpButtonP
       component={m.div}
       initial={{ opacity: 0 }}
       animate={isActive ? { opacity: 1 } : {}}
-      transition={{ duration: 1, delay: 2 }}
+      transition={{ duration: 1, delay: 4.5 }}
       sx={{
         position: 'absolute',
         bottom: 0,

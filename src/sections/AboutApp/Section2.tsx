@@ -27,8 +27,6 @@ export default function Section2({
       alignItems="center"
       sx={{
         height: '100vh',
-        color: 'grey.800',
-        backgroundColor: 'common.white',
         overflow: 'hidden',
       }}
     >
@@ -50,7 +48,7 @@ export default function Section2({
               component={m.div}
               initial={{ x: 100, opacity: 0 }}
               animate={isActive ? { x: 0, opacity: 1 } : {}}
-              transition={{ duration: 2 }}
+              transition={{ duration: 2, ease: 'easeInOut' }}
             >
               <Typography variant="h4" color="primary.main" sx={{ fontWeight: 'bold' }}>
                 내가 하고 싶은 바로 그 인쇄
@@ -84,7 +82,7 @@ export default function Section2({
               src="/assets/about-app/section2-iphone.png"
               initial={{ y: 100, opacity: 0 }}
               animate={isActive ? { y: 0, opacity: 1 } : {}}
-              transition={{ duration: 2 }}
+              transition={{ duration: 2, ease: 'easeInOut' }}
             />
           </Grid>
         </Grid>

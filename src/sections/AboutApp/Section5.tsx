@@ -27,8 +27,6 @@ export default function Section5({
       alignItems="center"
       sx={{
         height: '100vh',
-        color: 'grey.800',
-        backgroundColor: 'common.white',
         overflow: 'hidden',
       }}
     >
@@ -75,7 +73,7 @@ export default function Section5({
                 src="/assets/about-app/section5-1-iphone.png"
                 initial={{ x: -100, opacity: 0 }}
                 animate={isActive ? { x: 0, opacity: 1 } : {}}
-                transition={{ duration: 2 }}
+                transition={{ duration: 2, ease: 'easeInOut' }}
                 maxHeight={1}
               />
             </Stack>
@@ -96,7 +94,7 @@ export default function Section5({
               src="/assets/about-app/section5-2-iphone.png"
               initial={{ x: 100, opacity: 0 }}
               animate={isActive ? { x: 0, opacity: 1 } : {}}
-              transition={{ duration: 2 }}
+              transition={{ duration: 2, ease: 'easeInOut' }}
               maxHeight={1}
             />
           </Grid>

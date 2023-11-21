@@ -16,8 +16,8 @@ export default function Section1({ fullpage }: { fullpage: fullpageApi }) {
       alignItems="center"
       sx={{
         height: '100vh',
-        backgroundColor: 'primary.main',
         overflow: 'hidden',
+        backgroundColor: 'primary.main',
       }}
       spacing={1}
     >

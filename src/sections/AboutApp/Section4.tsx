@@ -27,8 +27,6 @@ export default function Section4({
       alignItems="center"
       sx={{
         height: '100vh',
-        color: 'grey.800',
-        backgroundColor: 'common.white',
         overflow: 'hidden',
       }}
     >
@@ -51,7 +49,7 @@ export default function Section4({
                 src="/assets/about-app/section4-2-iphone.png"
                 initial={{ y: -100, opacity: 0 }}
                 animate={isActive ? { y: 0, opacity: 1 } : {}}
-                transition={{ duration: 2 }}
+                transition={{ duration: 2, ease: 'easeInOut' }}
                 maxHeight={1}
               />
             </Stack>
@@ -61,7 +59,7 @@ export default function Section4({
               component={m.div}
               initial={{ y: 100, opacity: 0 }}
               animate={isActive ? { y: 0, opacity: 1 } : {}}
-              transition={{ duration: 2 }}
+              transition={{ duration: 2, ease: 'easeInOut' }}
               sx={{ height: 0.4 }}
             >
               <Typography variant="h4" color="primary.main" sx={{ fontWeight: 'bold' }}>
@@ -96,7 +94,7 @@ export default function Section4({
               src="/assets/about-app/section4-1-iphone.png"
               initial={{ y: 100, opacity: 0 }}
               animate={isActive ? { y: 0, opacity: 1 } : {}}
-              transition={{ duration: 2 }}
+              transition={{ duration: 2, ease: 'easeInOut' }}
               maxHeight={1}
             />
           </Grid>
