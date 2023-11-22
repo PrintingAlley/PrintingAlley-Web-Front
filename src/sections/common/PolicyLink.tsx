@@ -1,8 +1,6 @@
 import { Divider, Link, Stack } from '@mui/material';
+import { SERVICE_URL, PRIVACY_URL, COPYRIGHT_URL } from 'src/constants/commons';
 import WithdrawModal from './WithdrawModal';
-
-const SERVICE_URL = 'https://web.printingstreets.com/policy/service.html';
-const PRIVACY_URL = 'https://web.printingstreets.com/policy/privacy.html';
 
 interface Props {
   withWithDraw?: boolean;
@@ -17,6 +15,10 @@ export default function PolicyLink({ withWithDraw = false }: Props) {
       <Divider orientation="vertical" flexItem sx={{ height: 12, my: 'auto' }} />
       <Link href={PRIVACY_URL} color="text.secondary" target="_blank" variant="overline">
         개인정보처리방침
+      </Link>
+      <Divider orientation="vertical" flexItem sx={{ height: 12, my: 'auto' }} />
+      <Link href={COPYRIGHT_URL} color="text.secondary" target="_blank" variant="caption">
+        저작권보호방침
       </Link>
       {withWithDraw && (
         <>

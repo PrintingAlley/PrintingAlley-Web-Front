@@ -154,13 +154,13 @@ export default function TagFilterDrawer({
                       <Box
                         sx={{
                           display: 'flex',
-                          flexWrap: 'wrap',
-                          gap: 1,
+                          flexDirection: 'column',
+                          gap: 2,
                           mb: 2,
                           ml: 1,
                         }}
                       >
-                        {tag.children.map((child, idx) =>
+                        {tag.children.map((child) =>
                           child.children.length > 0 ? (
                             <Box key={child.id}>
                               <Typography variant="subtitle2" gutterBottom>
@@ -171,7 +171,6 @@ export default function TagFilterDrawer({
                                   display: 'flex',
                                   flexWrap: 'wrap',
                                   gap: 1,
-                                  mb: idx !== tag.children.length - 1 ? 1 : 0,
                                   ml: 0.5,
                                 }}
                               >
