@@ -18,6 +18,10 @@ export function fDateTime(date: InputValue, newFormat?: string) {
   return date ? format(new Date(date), fm, { locale: ko }) : '';
 }
 
+export function fShortDate(date: InputValue) {
+  return date ? format(new Date(date), 'yyyy.MM.dd') : '';
+}
+
 export function fTimestamp(date: InputValue) {
   return date ? getTime(new Date(date)) : '';
 }

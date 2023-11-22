@@ -48,7 +48,7 @@ export default function ContentDetailPage() {
 
           <ContentDetailHero content={content} />
 
-          <Box sx={{ height: 40 }} />
+          <Box sx={{ height: { xs: 16, md: 40 } }} />
 
           <Markdown>{content.content}</Markdown>
 

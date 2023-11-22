@@ -1,11 +1,11 @@
-import { Box, Container, Dialog } from '@mui/material';
+import { Box, Dialog, Typography } from '@mui/material';
 import axios from 'src/utils/axios';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import SkeletonSection from 'src/sections/common/SkeletonSection';
 import { ContentInterface, GetContentResponse } from 'src/types/response.dto';
 import Markdown from 'src/components/markdown';
-import ContentDetailHero from 'src/sections/Content/ContentDetailHero';
+import ContentWebViewHero from 'src/sections/Content/ContentWebViewHero';
 
 export default function ContentWebViewPage() {
   const { id } = useParams();
@@ -25,12 +25,16 @@ export default function ContentWebViewPage() {
   return (
     <div>
       <Dialog open fullScreen>
-        <Container maxWidth="sm">
+        <Box>
           {content ? (
             <>
-              <ContentDetailHero content={content} isWebView />
+              <ContentWebViewHero content={content} />
 
-              <Box sx={{ height: 40 }} />
+              <Box sx={{ padding: '12px 15px' }}>
+                <Typography variant="h3" component="h1">
+                  {content.title}
+                </Typography>
+              </Box>
 
               <Markdown>{content.content}</Markdown>
 
@@ -39,7 +43,7 @@ export default function ContentWebViewPage() {
           ) : (
             <SkeletonSection />
           )}
-        </Container>
+        </Box>
       </Dialog>
     </div>
   );
