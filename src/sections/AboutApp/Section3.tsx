@@ -30,7 +30,7 @@ export default function Section3({
         overflow: 'hidden',
       }}
     >
-      <Container sx={{ height: 1 }}>
+      <Container sx={{ height: 1, maxHeight: 960 }}>
         <Grid container sx={{ height: 1 }}>
           <Grid
             item
@@ -81,6 +81,15 @@ export default function Section3({
               initial={{ y: 100, opacity: 0 }}
               animate={isActive ? { y: 0, opacity: 1 } : {}}
               transition={{ duration: 2, ease: 'easeInOut' }}
+              sx={{ display: { xs: 'none', md: 'block' } }}
+            />
+            <Box
+              component={m.img}
+              src="/assets/about-app/section3-iphone-mobile.png"
+              initial={{ y: 100, opacity: 0 }}
+              animate={isActive ? { y: 0, opacity: 1 } : {}}
+              transition={{ duration: 2, ease: 'easeInOut' }}
+              sx={{ display: { xs: 'block', md: 'none' } }}
             />
           </Grid>
         </Grid>

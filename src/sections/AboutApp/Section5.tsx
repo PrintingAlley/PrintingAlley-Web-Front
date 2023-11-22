@@ -30,14 +30,13 @@ export default function Section5({
         overflow: 'hidden',
       }}
     >
-      <Container sx={{ height: 1 }}>
+      <Container sx={{ height: 1, maxHeight: 960 }}>
         <Grid container sx={{ height: 1 }} columnSpacing={3} rowSpacing={2}>
           <Grid
             item
             xs={12}
             md={6}
             sx={{
-              height: { xs: 0.6, md: 1 },
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -83,8 +82,7 @@ export default function Section5({
             xs={12}
             md={6}
             sx={{
-              height: { xs: 0.4, md: 1 },
-              display: 'flex',
+              display: { xs: 'none', md: 'flex' },
               justifyContent: 'center',
               alignItems: 'center',
             }}

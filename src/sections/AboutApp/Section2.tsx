@@ -30,7 +30,7 @@ export default function Section2({
         overflow: 'hidden',
       }}
     >
-      <Container sx={{ height: 1 }}>
+      <Container sx={{ height: 1, maxHeight: 960 }}>
         <Grid container direction="row-reverse" sx={{ height: 1 }}>
           <Grid
             item

@@ -3,11 +3,11 @@ import { Box, ButtonBase, IconButton, Stack, Typography } from '@mui/material';
 import { m } from 'framer-motion';
 import { varHover } from 'src/components/animate';
 import Iconify from 'src/components/iconify';
+import { APPLE_APP_STORE_URL } from 'src/constants/commons';
 
 export default function Section1({ fullpage }: { fullpage: fullpageApi }) {
   const onClickAppStore = () => {
-    // window.open('https://apps.apple.com/kr/app/%EC%9D%B8%EC%87%84%EA%B3%A8%EB%AA%A9/id1584964144');
-    alert('11월 말 출시 예정!');
+    window.open(APPLE_APP_STORE_URL);
   };
 
   return (

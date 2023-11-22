@@ -22,7 +22,6 @@ export default function AboutAppPage() {
         sx={{
           color: 'grey.800',
           backgroundColor: 'common.white',
-          // background: `url('/assets/background/overlay_2.jpg') center center / cover no-repeat fixed`,
         }}
       >
         <ReactFullpage
