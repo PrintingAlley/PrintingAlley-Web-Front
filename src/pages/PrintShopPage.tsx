@@ -89,7 +89,7 @@ export default function PrintShopPage() {
 
         <CenteredTitle
           title="인쇄사 찾기"
-          sx={{ fontFamily: 'Godo, sans-serif', color: 'primary.main', letterSpacing: 1 }}
+          sx={{ fontFamily: 'Godo, sans-serif', color: 'primary.main' }}
         />
 
         <SearchBar

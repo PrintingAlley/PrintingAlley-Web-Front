@@ -86,7 +86,7 @@ export default function ProductPage() {
 
         <CenteredTitle
           title="인쇄골목"
-          sx={{ fontFamily: 'Godo, sans-serif', color: 'primary.main', letterSpacing: 1 }}
+          sx={{ fontFamily: 'Godo, sans-serif', color: 'primary.main' }}
         />
 
         <SearchBar
