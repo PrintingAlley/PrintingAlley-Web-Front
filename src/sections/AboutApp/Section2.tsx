@@ -16,13 +16,13 @@ export default function Section2() {
   return (
     <Container
       component={MotionViewport}
-      sx={{ height: 720, justifyContent: 'center', alignItems: 'center' }}
+      sx={{ height: 720, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
     >
       <Grid container direction="row-reverse" spacing={5}>
         <Grid
           item
           xs={12}
-          md={6}
+          sm={6}
           sx={{
             display: 'flex',
             justifyContent: 'center',
@@ -49,7 +49,7 @@ export default function Section2() {
         <Grid
           item
           xs={12}
-          md={6}
+          sm={6}
           sx={{
             display: 'flex',
             justifyContent: 'center',

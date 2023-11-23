@@ -35,7 +35,6 @@ export default function Section1() {
           </Typography>
           <Typography
             fontSize={84}
-            fontWeight="bold"
             color="common.white"
             fontFamily="Godo, sans-serif"
             textAlign="center"

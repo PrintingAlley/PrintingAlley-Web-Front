@@ -16,13 +16,13 @@ export default function Section5() {
   return (
     <Container
       component={MotionViewport}
-      sx={{ height: 720, justifyContent: 'center', alignItems: 'center' }}
+      sx={{ height: 720, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
     >
       <Grid container spacing={5}>
         <Grid
           item
           xs={12}
-          md={6}
+          sm={6}
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -63,9 +63,9 @@ export default function Section5() {
         <Grid
           item
           xs={12}
-          md={6}
+          sm={6}
           sx={{
-            display: { xs: 'none', md: 'flex' },
+            display: { xs: 'none', sm: 'flex' },
             justifyContent: 'center',
             alignItems: 'center',
           }}

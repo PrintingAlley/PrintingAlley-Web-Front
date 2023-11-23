@@ -16,13 +16,13 @@ export default function Section4() {
   return (
     <Container
       component={MotionViewport}
-      sx={{ height: 720, justifyContent: 'center', alignItems: 'center' }}
+      sx={{ height: 720, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
     >
       <Grid container direction="row-reverse" spacing={5}>
         <Grid
           item
           xs={12}
-          md={6}
+          sm={6}
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -30,7 +30,7 @@ export default function Section4() {
             gap: 5,
           }}
         >
-          <Stack sx={{ display: { xs: 'none', md: 'block' } }}>
+          <Stack sx={{ display: { xs: 'none', sm: 'block' } }}>
             <m.div variants={varFade().inUp}>
               <Image
                 src="/assets/about-app/section4-2-iphone.png"
@@ -63,7 +63,7 @@ export default function Section4() {
         <Grid
           item
           xs={12}
-          md={6}
+          sm={6}
           sx={{
             display: 'flex',
             justifyContent: 'center',

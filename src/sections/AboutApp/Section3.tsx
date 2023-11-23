@@ -7,7 +7,7 @@ import { useResponsive } from 'src/hooks/useResponsive';
 export default function Section3() {
   const theme = useTheme();
 
-  const mdUp = useResponsive('up', 'md');
+  const smUp = useResponsive('up', 'sm');
 
   const lightMode = theme.palette.mode === 'light';
 
@@ -19,7 +19,7 @@ export default function Section3() {
   return (
     <Container
       component={MotionViewport}
-      sx={{ height: 720, justifyContent: 'center', alignItems: 'center' }}
+      sx={{ height: 720, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
     >
       <Grid container spacing={5}>
         <Grid
@@ -57,7 +57,7 @@ export default function Section3() {
             alignItems: 'flex-end',
           }}
         >
-          {mdUp ? (
+          {smUp ? (
             <m.div variants={varFade().inUp}>
               <Image
                 src="/assets/about-app/section3-iphone.png"
