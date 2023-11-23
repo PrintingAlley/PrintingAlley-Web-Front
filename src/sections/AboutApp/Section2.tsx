@@ -1,7 +1,6 @@
-import { Container, Grid, Stack, Typography, alpha, useTheme } from '@mui/material';
+import { Box, Container, Grid, Stack, Typography, alpha, useTheme } from '@mui/material';
 import { m } from 'framer-motion';
 import { MotionViewport, varFade } from 'src/components/animate';
-import Image from 'src/components/image';
 
 export default function Section2() {
   const theme = useTheme();
@@ -57,7 +56,8 @@ export default function Section2() {
           }}
         >
           <m.div variants={varFade().inUp}>
-            <Image
+            <Box
+              component="img"
               src="/assets/about-app/section2-iphone.png"
               sx={{ borderRadius: 3, boxShadow: shadow }}
             />
