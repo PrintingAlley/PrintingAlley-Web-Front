@@ -76,7 +76,7 @@ const Navbar = () => {
       return 'common.white';
     }
     if (isAboutAppPage) {
-      return 'grey.800';
+      return 'common.white';
     }
     return 'inherit';
   };

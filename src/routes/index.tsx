@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import useAuth from 'src/hooks/useAuth';
 import AboutAppPage from 'src/pages/AboutAppPage';
 import AdminNewProductPage from 'src/pages/Admin/AdminNewProductPage';
@@ -54,8 +54,6 @@ function createAdminRoute(path: string, Component: React.ComponentType) {
 
 export default function Router() {
   const { isAuthenticated, user } = useAuth();
-  const { pathname } = useLocation();
-  const isLandingPage = pathname === '/about-app';
 
   return (
     <>
@@ -91,7 +89,7 @@ export default function Router() {
         <Route path="*" element={<Navigate to="/404" />} />
       </Routes>
 
-      {!isLandingPage && <Footer />}
+      <Footer />
     </>
   );
 }
