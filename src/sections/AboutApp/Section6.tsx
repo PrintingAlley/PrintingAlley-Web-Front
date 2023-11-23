@@ -33,13 +33,15 @@ export default function Section6() {
               alignItems: 'center',
             }}
           >
-            <Logo
-              sx={{
-                width: { xs: 200, md: 400 },
-                height: { xs: 200, md: 400 },
-                borderRadius: { xs: 4, md: 8 },
-              }}
-            />
+            <m.div variants={varFade().inUp}>
+              <Logo
+                sx={{
+                  width: { xs: 200, md: 400 },
+                  height: { xs: 200, md: 400 },
+                  borderRadius: { xs: 4, md: 8 },
+                }}
+              />
+            </m.div>
           </Grid>
           <Grid
             item
@@ -52,7 +54,7 @@ export default function Section6() {
             }}
           >
             <Stack sx={{ userSelect: 'none' }}>
-              <Typography variant="h5" color="grey.500">
+              <Typography component={m.h5} variants={varFade().in} variant="h5" color="grey.500">
                 어렵고 복잡한 인쇄, 이젠
               </Typography>
               <Typography
