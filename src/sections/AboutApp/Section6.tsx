@@ -1,16 +1,12 @@
-import { Box, ButtonBase, Container, Grid, Stack, Typography } from '@mui/material';
+import { Box, Container, Grid, Stack, Typography } from '@mui/material';
 import { m } from 'framer-motion';
 import Logo from 'src/components/logo';
-import { MotionViewport, varBounce, varFade, varHover } from 'src/components/animate';
-import { APPLE_APP_STORE_URL } from 'src/constants/commons';
+import { MotionViewport, varFade } from 'src/components/animate';
+import AppStoreLinkButton from './AppStoreLinkButton';
 
 const TEXT = '인쇄골목';
 
 export default function Section6() {
-  const onClickAppStore = () => {
-    window.open(APPLE_APP_STORE_URL);
-  };
-
   return (
     <Box
       sx={{
@@ -70,21 +66,7 @@ export default function Section6() {
                   </m.span>
                 ))}
               </Typography>
-              <m.div variants={varBounce().inUp}>
-                <ButtonBase
-                  onClick={onClickAppStore}
-                  component={m.button}
-                  whileTap="tap"
-                  whileHover="hover"
-                  variants={varHover()}
-                >
-                  <Box
-                    component="img"
-                    src="/assets/about-app/download-black.svg"
-                    sx={{ height: 64 }}
-                  />
-                </ButtonBase>
-              </m.div>
+              <AppStoreLinkButton />
             </Stack>
           </Grid>
         </Grid>

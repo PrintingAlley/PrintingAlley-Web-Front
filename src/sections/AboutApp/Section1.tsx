@@ -1,13 +1,9 @@
-import { Box, ButtonBase, Container, Stack, Typography } from '@mui/material';
+import { Box, Container, Stack, Typography } from '@mui/material';
 import { m } from 'framer-motion';
-import { MotionViewport, varBounce, varFade, varHover } from 'src/components/animate';
-import { APPLE_APP_STORE_URL } from 'src/constants/commons';
+import { MotionViewport, varFade } from 'src/components/animate';
+import AppStoreLinkButton from './AppStoreLinkButton';
 
 export default function Section1() {
-  const onClickAppStore = () => {
-    window.open(APPLE_APP_STORE_URL);
-  };
-
   return (
     <Box sx={{ backgroundColor: 'primary.main' }}>
       <Container
@@ -42,17 +38,7 @@ export default function Section1() {
             인쇄골목
           </Typography>
         </Stack>
-        <m.div variants={varBounce().inUp}>
-          <ButtonBase
-            onClick={onClickAppStore}
-            component={m.button}
-            whileTap="tap"
-            whileHover="hover"
-            variants={varHover()}
-          >
-            <Box component="img" src="/assets/about-app/download-white.svg" sx={{ height: 64 }} />
-          </ButtonBase>
-        </m.div>
+        <AppStoreLinkButton mode="light" />
       </Container>
     </Box>
   );
