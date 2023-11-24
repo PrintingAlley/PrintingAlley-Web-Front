@@ -25,7 +25,6 @@ const Logo = forwardRef<HTMLDivElement, LogoProps>(
           borderRadius: 1.5,
           cursor: 'pointer',
           WebkitUserDrag: 'none',
-          padding: white ? 1 : 0,
           ...sx,
         }}
       />
