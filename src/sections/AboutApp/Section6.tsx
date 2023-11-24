@@ -15,7 +15,7 @@ export default function Section6() {
     >
       <Container
         sx={{
-          height: 720,
+          minHeight: 720,
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',

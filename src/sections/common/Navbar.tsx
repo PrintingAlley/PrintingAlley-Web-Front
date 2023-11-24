@@ -78,7 +78,7 @@ const Navbar = () => {
     if (isAboutAppPageTop || isContentPageDetailTop) {
       return 'common.white';
     }
-    return 'primary.darker';
+    return theme.palette.mode === 'light' ? 'primary.darker' : 'inherit';
   };
 
   return (

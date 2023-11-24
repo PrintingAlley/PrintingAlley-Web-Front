@@ -14,7 +14,13 @@ export default function Section4() {
 
   return (
     <Container
-      sx={{ height: 960, display: 'flex', justifyContent: 'center', alignItems: 'center', py: 10 }}
+      sx={{
+        minHeight: 720,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        py: 10,
+      }}
     >
       <Grid container direction="row-reverse" spacing={5} component={MotionViewport}>
         <Grid

@@ -17,7 +17,13 @@ export default function Section3() {
 
   return (
     <Container
-      sx={{ height: 960, display: 'flex', justifyContent: 'center', alignItems: 'center', py: 10 }}
+      sx={{
+        minHeight: 720,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        py: 10,
+      }}
     >
       <Grid container spacing={8} component={MotionViewport}>
         <Grid

@@ -23,6 +23,7 @@ export default function Section1() {
         backgroundImage:
           'url(/assets/about-app/section1-overlay.svg), url(/assets/about-app/section1-background.png)',
       }}
+      mb={10}
     >
       <Container
         component={MotionViewport}
