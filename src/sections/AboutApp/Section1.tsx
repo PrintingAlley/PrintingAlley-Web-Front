@@ -29,12 +29,7 @@ export default function Section1() {
           <Typography variant="h4" color="primary.lighter">
             인쇄로 가는 지름길
           </Typography>
-          <Typography
-            fontSize={84}
-            color="common.white"
-            fontFamily="Godo, sans-serif"
-            textAlign="center"
-          >
+          <Typography fontSize={84} color="common.white" fontFamily="Godo, sans-serif">
             인쇄골목
           </Typography>
         </Stack>
