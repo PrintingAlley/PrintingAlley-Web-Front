@@ -14,7 +14,6 @@ export default function Section6() {
       }}
     >
       <Container
-        component={MotionViewport}
         sx={{
           height: 720,
           display: 'flex',
@@ -23,7 +22,7 @@ export default function Section6() {
           py: 10,
         }}
       >
-        <Grid container rowSpacing={8}>
+        <Grid container rowSpacing={8} component={MotionViewport}>
           <Grid
             item
             xs={12}
@@ -50,25 +49,24 @@ export default function Section6() {
             md={6}
             sx={{
               display: 'flex',
+              flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
             }}
           >
-            <MotionViewport>
-              <Stack sx={{ userSelect: 'none' }}>
-                <Typography
-                  component={m.h4}
-                  variant="h4"
-                  color="primary"
-                  variants={varFade().inUp}
-                  gutterBottom
-                >
-                  인쇄 장인들의 작품을 한 곳에
-                </Typography>
-                <TitleAnimate text="인쇄골목" fontSize={64} sx={{ mb: { xs: 5, md: 10 } }} />
-              </Stack>
+            <Stack sx={{ userSelect: 'none' }}>
+              <Typography
+                component={m.h4}
+                variant="h4"
+                color="primary"
+                variants={varFade().inUp}
+                gutterBottom
+              >
+                인쇄 장인들의 작품을 한 곳에
+              </Typography>
+              <TitleAnimate text="인쇄골목" fontSize={64} sx={{ mb: { xs: 5, md: 10 } }} />
               <AppStoreLinkButton />
-            </MotionViewport>
+            </Stack>
           </Grid>
         </Grid>
       </Container>
