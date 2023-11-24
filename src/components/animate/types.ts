@@ -20,6 +20,7 @@ export type VariantsType = {
   durationOut?: number;
   easeIn?: EaseType;
   easeOut?: EaseType;
+  delay?: number;
 };
 
 export type TranHoverType = {

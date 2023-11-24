@@ -17,10 +17,9 @@ export default function Section3() {
 
   return (
     <Container
-      component={MotionViewport}
-      sx={{ height: 720, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+      sx={{ height: 960, display: 'flex', justifyContent: 'center', alignItems: 'center', py: 10 }}
     >
-      <Grid container spacing={5}>
+      <Grid container spacing={8} component={MotionViewport}>
         <Grid
           item
           xs={12}

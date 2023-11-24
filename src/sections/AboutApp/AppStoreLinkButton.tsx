@@ -9,7 +9,7 @@ export default function AppStoreLinkButton({ mode = 'dark' }: { mode?: 'light' |
   };
 
   return (
-    <m.div variants={varBounce().inUp}>
+    <m.div variants={varBounce({ delay: 0.8 }).inUp}>
       <ButtonBase
         onClick={onClickAppStore}
         component={m.button}

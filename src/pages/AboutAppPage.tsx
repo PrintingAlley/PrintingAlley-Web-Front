@@ -14,7 +14,7 @@ export default function AboutAppPage() {
         <title>앱 소개 | 인쇄골목</title>
       </Helmet>
 
-      <Stack spacing={{ xs: 10, sm: 0, md: 10, lg: 20, xl: 25 }}>
+      <Stack>
         <Section1 />
 
         <Section2 />

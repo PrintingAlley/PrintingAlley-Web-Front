@@ -1,6 +1,6 @@
 import { Box, Container, Grid, Stack, Typography, alpha, useTheme } from '@mui/material';
 import { m } from 'framer-motion';
-import { MotionViewport, varFade } from 'src/components/animate';
+import { MotionViewport, varFade, varFlip } from 'src/components/animate';
 
 export default function Section2() {
   const theme = useTheme();
@@ -14,10 +14,10 @@ export default function Section2() {
 
   return (
     <Container
-      component={MotionViewport}
-      sx={{ height: 720, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+      id="section2"
+      sx={{ height: 960, display: 'flex', justifyContent: 'center', alignItems: 'center', py: 10 }}
     >
-      <Grid container direction="row-reverse" spacing={5}>
+      <Grid container direction="row-reverse" spacing={5} component={MotionViewport}>
         <Grid
           item
           xs={12}
@@ -29,6 +29,13 @@ export default function Section2() {
           }}
         >
           <Stack alignItems="center" component={m.div} variants={varFade().inRight}>
+            <Box
+              component={m.img}
+              variants={varFlip().inY}
+              src="/assets/about-app/section2-marker.png"
+              width={48}
+              mb={2.5}
+            />
             <Typography variant="h4" color="primary.main" sx={{ fontWeight: 'bold' }}>
               내가 하고 싶은 바로 그 인쇄
             </Typography>

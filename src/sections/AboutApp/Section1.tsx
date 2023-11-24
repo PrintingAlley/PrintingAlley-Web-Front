@@ -3,13 +3,14 @@ import { m } from 'framer-motion';
 import { MotionViewport, varFade, varFlip, varHover, varScale } from 'src/components/animate';
 import Iconify from 'src/components/iconify';
 import AppStoreLinkButton from './AppStoreLinkButton';
+import { TitleAnimate } from './TitleAnimate';
 
 export default function Section1() {
   const goDown = () => {
-    window.scrollTo({
-      top: window.innerHeight,
-      behavior: 'smooth',
-    });
+    const nextSection = document.getElementById('section2');
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -39,23 +40,20 @@ export default function Section1() {
           <Box
             component={m.img}
             variants={varFlip().inY}
-            src="/assets/about-app/section1-marker.svg"
+            src="/assets/about-app/section1-marker.png"
             width={80}
             sx={{ position: 'absolute', top: 'calc(50% - 264px)' }}
           />
-          <Typography component={m.h4} variants={varFade().in} variant="h4" color="primary.lighter">
+          <Typography
+            component={m.h4}
+            variants={varFade().in}
+            variant="h4"
+            color="primary.lighter"
+            gutterBottom
+          >
             인쇄로 가는 지름길
           </Typography>
-          <Typography
-            component={m.h1}
-            variants={varFade().in}
-            fontSize={84}
-            color="common.white"
-            fontFamily="Godo, sans-serif"
-            mb={5}
-          >
-            인쇄골목
-          </Typography>
+          <TitleAnimate text="인쇄골목" color="common.white" mb={6} />
           <AppStoreLinkButton mode="light" />
         </Stack>
 

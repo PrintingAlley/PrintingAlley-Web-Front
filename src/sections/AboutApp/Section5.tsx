@@ -14,10 +14,9 @@ export default function Section5() {
 
   return (
     <Container
-      component={MotionViewport}
-      sx={{ height: 720, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+      sx={{ height: 960, display: 'flex', justifyContent: 'center', alignItems: 'center', py: 10 }}
     >
-      <Grid container spacing={5}>
+      <Grid container spacing={5} component={MotionViewport}>
         <Grid
           item
           xs={12}
@@ -70,11 +69,11 @@ export default function Section5() {
             alignItems: 'center',
           }}
         >
-          <m.div variants={varFade().inUp}>
+          <m.div variants={varFade().inRight}>
             <Box
               component="img"
               src="/assets/about-app/section5-2-iphone.png"
-              sx={{ borderRadius: 3, boxShadow: shadow }}
+              sx={{ maxHeight: 720 }}
             />
           </m.div>
         </Grid>

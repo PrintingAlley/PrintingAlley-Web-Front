@@ -8,6 +8,7 @@ export const varBounce = (props?: VariantsType) => {
   const durationOut = props?.durationOut;
   const easeIn = props?.easeIn;
   const easeOut = props?.easeOut;
+  const delay = props?.delay;
 
   return {
     // IN
@@ -29,7 +30,7 @@ export const varBounce = (props?: VariantsType) => {
         y: [720, -24, 12, -4, 0],
         scaleY: [4, 0.9, 0.95, 0.985, 1],
         opacity: [0, 1, 1, 1, 1],
-        transition: { ...varTranEnter({ durationIn, easeIn }) },
+        transition: { ...varTranEnter({ durationIn, easeIn }), delay },
       },
       exit: {
         y: [12, -24, 720],
