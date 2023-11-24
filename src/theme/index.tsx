@@ -5,7 +5,6 @@ import { createTheme, ThemeProvider as MuiThemeProvider, ThemeOptions } from '@m
 // system
 import { useRecoilValue } from 'recoil';
 import { themeModeState } from 'src/state/theme-mode';
-import { GlobalStyles } from '@mui/material';
 import { palette } from './palette';
 import { shadows } from './shadows';
 import { typography } from './typography';
@@ -38,24 +37,6 @@ export default function ThemeProvider({ children }: Props) {
 
   return (
     <MuiThemeProvider theme={theme}>
-      <GlobalStyles
-        styles={{
-          '.road-container': {
-            position: 'absolute',
-            top: 0,
-            left: 'calc(50% - 22px)',
-            width: '43px',
-            height: '100vh',
-            backgroundImage: 'url("/assets/about-app/road.svg")',
-            backgroundRepeat: 'repeat-y',
-            animation: 'moveRoad 48s linear infinite',
-          },
-          '@keyframes moveRoad': {
-            from: { backgroundPosition: '0 0' },
-            to: { backgroundPosition: '0 100%' },
-          },
-        }}
-      />
       <CssBaseline />
       {children}
     </MuiThemeProvider>

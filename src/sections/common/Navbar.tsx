@@ -71,14 +71,14 @@ const Navbar = () => {
     };
   }, []);
 
+  const isAboutAppPageTop = isAboutAppPage && transparent;
+  const isContentPageDetailTop = isContentDetailPage && transparent;
+
   const getColor = () => {
-    if (isContentDetailPage) {
+    if (isAboutAppPageTop || isContentPageDetailTop) {
       return 'common.white';
     }
-    if (isAboutAppPage) {
-      return 'common.white';
-    }
-    return 'inherit';
+    return 'primary.darker';
   };
 
   return (
@@ -92,6 +92,7 @@ const Navbar = () => {
           transition: 'background-color 0.1s ease-out, box-shadow 0.1s ease-out',
         },
         '&.paper': {
+          color: getColor(),
           backgroundColor: 'background.paper',
           boxShadow: 'rgb(0 0 0 / 8%) 0px 0px 8px',
           transition: 'background-color 0.1s ease-out, box-shadow 0.1s ease-out',
@@ -100,12 +101,13 @@ const Navbar = () => {
       className={`${transparent ? 'transparent' : 'paper'}`}
     >
       <Toolbar>
-        <Logo />
+        <Logo white={isAboutAppPageTop} />
         <Box sx={{ flexGrow: 1 }} />
         <Stack direction="row" alignItems="center">
           <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
             {navbarItems.map((item) => {
-              const isActive = pathname === item.path && !isAboutAppPage;
+              const isActive =
+                pathname.includes(item.path) && !isAboutAppPageTop && !isContentPageDetailTop;
               return (
                 <Button
                   key={item.label}

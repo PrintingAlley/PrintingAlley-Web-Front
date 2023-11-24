@@ -50,12 +50,12 @@ export default function Section6() {
             }}
           >
             <Stack sx={{ userSelect: 'none' }}>
-              <Typography component={m.h5} variants={varFade().in} variant="h5" color="grey.500">
-                어렵고 복잡한 인쇄, 이젠
+              <Typography component={m.h5} variants={varFade().in} variant="h4" color="primary">
+                인쇄 장인들의 작품을 한 곳에
               </Typography>
               <Typography
                 component={m.h1}
-                fontSize={72}
+                fontSize={64}
                 fontWeight="bold"
                 fontFamily="Godo, sans-serif"
                 sx={{ mb: { xs: 5, md: 10 } }}
