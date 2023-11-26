@@ -25,7 +25,7 @@ export default function Section3() {
         py: 10,
       }}
     >
-      <Grid container spacing={8} component={MotionViewport}>
+      <Grid container spacing={{ xs: 5, sm: 8 }} component={MotionViewport}>
         <Grid
           item
           xs={12}

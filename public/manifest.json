@@ -1,9 +1,9 @@
 {
-  "name": "Minimal UI",
-  "short_name": "Minimal UI",
+  "name": "인쇄골목",
+  "short_name": "인쇄골목",
   "display": "standalone",
   "start_url": "/",
-  "theme_color": "#000000",
+  "theme_color": "#2F54F9",
   "background_color": "#ffffff",
   "icons": [
     {
