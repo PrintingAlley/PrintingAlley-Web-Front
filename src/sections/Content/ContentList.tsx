@@ -25,7 +25,7 @@ export const ContentList = ({ contents }: ContentListProps) => {
             <Box
               key={content.id}
               onClick={() => goToContentPage(content)}
-              sx={{ display: 'flex', flexDirection: 'column', cursor: 'pointer', gap: 1 }}
+              sx={{ display: 'flex', flexDirection: 'column', cursor: 'pointer', gap: 0.5 }}
             >
               <Image
                 src={content.thumbnail}
@@ -33,9 +33,7 @@ export const ContentList = ({ contents }: ContentListProps) => {
                 sx={{ borderRadius: 1 }}
                 ratio="4/3"
               />
-              <Typography variant="subtitle1" noWrap>
-                {content.title}
-              </Typography>
+              <Typography variant="subtitle2">{content.title}</Typography>
             </Box>
           ))}
         </Masonry>

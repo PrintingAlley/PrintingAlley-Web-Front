@@ -25,7 +25,7 @@ export default function ContentPage() {
         <title>콘텐츠 | 인쇄골목</title>
       </Helmet>
 
-      <Title title="인쇄가 어려운 당신에게" />
+      <Title title="인쇄 콘텐츠 둘러보기" />
 
       {contents && <ContentList contents={contents} />}
     </PageContainer>
