@@ -43,6 +43,7 @@ const useAuth = () => {
   const logout = async () => {
     localStorage.removeItem('token');
     queryClient.invalidateQueries('user');
+    navigate(paths.root);
   };
 
   useEffect(() => {
@@ -82,7 +83,6 @@ const useAuth = () => {
         .then(() => {
           logout();
           alert('회원탈퇴가 완료되었습니다.');
-          navigate(paths.root);
         })
         .catch((error) => {
           console.error(error);
