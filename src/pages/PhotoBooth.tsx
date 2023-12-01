@@ -44,6 +44,7 @@ export default function PhotoBooth() {
 
   const captureFull = useCallback(() => {
     if (countdown === 0 && paperRef.current) {
+      playSound();
       setLoading(true);
       setUploadUrl(null);
       html2canvas(paperRef.current, { scale: 4 }).then(async (canvas) => {
@@ -77,6 +78,11 @@ export default function PhotoBooth() {
       document.exitFullscreen();
       setFullscreen(false);
     }
+  };
+
+  const playSound = () => {
+    const audio = new Audio('/assets/sounds/camera-shutter-click.mp3');
+    audio.play();
   };
 
   return (
