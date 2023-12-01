@@ -93,7 +93,11 @@ export default function PhotoBooth() {
           }}
         >
           {loading && (
-            <Typography variant="h3" fontFamily="Moirai One, sans-serif" textAlign="right">
+            <Typography
+              variant="h3"
+              fontFamily="Moirai One, sans-serif"
+              sx={{ position: 'absolute', top: 0, right: 0 }}
+            >
               업로드 중...
             </Typography>
           )}
