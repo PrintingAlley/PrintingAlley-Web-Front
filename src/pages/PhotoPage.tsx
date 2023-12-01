@@ -14,22 +14,8 @@ export default function PhotoPage() {
   const copyImageUrlToClipboard = async () => {
     if (imageUrl) {
       await navigator.clipboard.writeText(imageUrl);
-      alert('이미지 URL이 클립보드에 복사되었습니다. 인스타그램에서 공유해보세요!');
+      alert('이미지 URL이 클립보드에 복사되었습니다.');
     }
-  };
-
-  const downloadImage = () => {
-    if (!imageUrl) return;
-
-    const link = document.createElement('a');
-    link.href = imageUrl;
-
-    link.download = 'print-street-photo-booth.jpg';
-
-    document.body.appendChild(link);
-    link.click();
-
-    document.body.removeChild(link);
   };
 
   return (
@@ -60,21 +46,11 @@ export default function PhotoPage() {
             onClick={copyImageUrlToClipboard}
             sx={{
               '&:hover': {
-                bgcolor: alpha('#E02D69', 0.08),
+                bgcolor: (theme) => alpha(theme.palette.warning.main, 0.08),
               },
             }}
           >
-            <Iconify icon="ant-design:instagram-filled" color="#E02D69" />
-          </IconButton>
-          <IconButton
-            onClick={downloadImage}
-            sx={{
-              '&:hover': {
-                bgcolor: (theme) => alpha(theme.palette.text.primary, 0.08),
-              },
-            }}
-          >
-            <Iconify icon="ant-design:download-outlined" color="text.primary" />
+            <Iconify icon="ant-design:copy-filled" color="warning.main" />
           </IconButton>
         </Stack>
       </Container>

@@ -3,6 +3,7 @@ import {
   Container,
   Dialog,
   FormHelperText,
+  IconButton,
   Paper,
   Stack,
   TextField,
@@ -13,6 +14,7 @@ import html2canvas from 'html2canvas';
 import QRCode from 'qrcode.react';
 import { useRef, useState, useCallback, useEffect } from 'react';
 import Webcam from 'react-webcam';
+import Iconify from 'src/components/iconify';
 import Image from 'src/components/image';
 import { CLIENT_URL } from 'src/config-global';
 import { uploadFileAndGetUrl } from 'src/utils/upload';
@@ -25,6 +27,7 @@ export default function PhotoBooth() {
   const [message, setMessage] = useState<string>('');
   const [uploadUrl, setUploadUrl] = useState<string | null>(null);
   const qrUrl = `${CLIENT_URL}/photo?url=${uploadUrl}`;
+  const isError = message.length > 30;
 
   const startCountdown = useCallback(() => {
     setCountdown(3);
@@ -63,6 +66,18 @@ export default function PhotoBooth() {
       captureFull();
     }
   }, [countdown, captureFull]);
+
+  const [fullscreen, setFullscreen] = useState(false);
+
+  const onToggleFullScreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+      setFullscreen(true);
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+      setFullscreen(false);
+    }
+  };
 
   return (
     <Dialog open fullScreen>
@@ -115,6 +130,13 @@ export default function PhotoBooth() {
           </AnimatePresence>
         </Stack>
       )}
+      <Stack sx={{ position: 'absolute', bottom: 16, right: 16, flexDirection: 'row', gap: 0.5 }}>
+        <IconButton onClick={onToggleFullScreen}>
+          <Iconify
+            icon={fullscreen ? 'icon-park-outline:off-screen' : 'icon-park-outline:full-screen'}
+          />
+        </IconButton>
+      </Stack>
       <Container
         maxWidth="sm"
         sx={{
@@ -153,6 +175,8 @@ export default function PhotoBooth() {
                 fullWidth
                 multiline
                 rows={2}
+                error={isError}
+                helperText={isError && '30자 이내로 입력해주세요.'}
               />
             ) : (
               <Typography
