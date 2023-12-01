@@ -14,6 +14,8 @@ import NewContentPage from 'src/pages/NewContentPage';
 import NewPrintShopPage from 'src/pages/NewPrintShopPage';
 import NewProductPage from 'src/pages/NewProductPage';
 import NotFoundPage from 'src/pages/NotFoundPage';
+import PhotoBooth from 'src/pages/PhotoBooth';
+import PhotoPage from 'src/pages/PhotoPage';
 import PrintShopDetailPage from 'src/pages/PrintShopDetailPage';
 import PrintShopPage from 'src/pages/PrintShopPage';
 import ProductDetailPage from 'src/pages/ProductDetailPage';
@@ -76,6 +78,7 @@ export default function Router() {
           createProtectedRoute('/bookmark', BookmarkPage),
           createProtectedRoute('/my', MyPage),
           createProtectedRoute('/my/review', MyReviewPage),
+          createProtectedRoute('/photo-booth', PhotoBooth),
         ]}
 
         {user?.userType === UserType.ADMIN && [
@@ -85,6 +88,7 @@ export default function Router() {
         ]}
 
         <Route path="/login" element={<Navigate to="/" />} />
+        <Route path="/photo" element={<PhotoPage />} />
         <Route path="/404" element={<NotFoundPage />} />
         <Route path="*" element={<Navigate to="/404" />} />
       </Routes>
