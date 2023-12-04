@@ -170,7 +170,7 @@ export default function PhotoBooth() {
           spacing={3}
         >
           <Typography variant="h1" fontFamily="Moirai One, sans-serif">
-            정다운 남매들
+            인쇄골목
           </Typography>
 
           <Webcam width="100%" screenshotFormat="image/jpeg" style={{ borderRadius: 8 }} />
