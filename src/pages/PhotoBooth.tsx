@@ -57,6 +57,7 @@ export default function PhotoBooth() {
 
         const url = await uploadFileAndGetUrl(file);
         setUploadUrl(url);
+        setMessage('');
         setLoading(false);
       });
     }
